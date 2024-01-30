@@ -1,13 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.css';
-
-import NxWelcome from './nx-welcome';
+import { NextUIProvider } from '@nextui-org/react';
+import { Button } from '@nextui-org/button';
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="hoqs" />
-    </div>
+    <NextUIProvider>
+      <Button>Hello NextUI</Button>
+    </NextUIProvider>
   );
 }
 
