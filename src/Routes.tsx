@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Index from './routes';
+import Index from './routes/index';
 import NotFound from './routes/not-found';
 import Cabinets from './routes/cabinets/cabinets';
 import Drivers from './routes/drivers/drivers';
