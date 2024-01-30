@@ -11,7 +11,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <Providers>
-      <Router />
+      <main className="min-w-screen min-h-screen flex items-center flex-col dark text-foreground bg-background">
+        <Router />
+      </main>
     </Providers>
   </StrictMode>
 );
