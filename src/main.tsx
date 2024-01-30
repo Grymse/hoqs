@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 
 import Providers from './Providers';
-import Router from './Router';
+import App from './App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,10 +10,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <Providers>
-      <main className="min-w-screen min-h-screen flex items-center flex-col dark text-foreground bg-background">
-        <Router />
-      </main>
-    </Providers>
+    <App />
   </StrictMode>
 );

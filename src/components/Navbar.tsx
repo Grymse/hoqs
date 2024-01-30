@@ -10,6 +10,7 @@ import {
   NavbarMenuItem,
 } from '@nextui-org/react';
 import { useState } from 'react';
+import DarkModeToggle from './DarkModeToggle';
 
 const routes = [
   {
@@ -67,6 +68,7 @@ export default function Navbar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
+        <DarkModeToggle />
         <NavbarItem>
           <Link to="/login">
             <Button color="primary" href="#" variant="flat">
