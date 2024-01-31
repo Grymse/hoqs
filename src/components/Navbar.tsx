@@ -12,6 +12,8 @@ import {
 import { useState } from 'react';
 import DarkModeToggle from './DarkModeToggle';
 import HoqsLogo from './HoqsLogo';
+import Header from './ui/Header';
+import Text from './ui/Text';
 
 const routes = [
   {
@@ -51,13 +53,26 @@ export default function Navbar() {
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand className="gap-2">
           <HoqsLogo size={48} />
-          <p className="text-xl font-medium">HOQS</p>
+          <Header variant="subtitle" className="my-0">
+            HOQS
+          </Header>
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarBrand className="hidden sm:flex gap-2">
         <HoqsLogo size={48} />
-        <p className="text-xl font-medium">HOQS</p>
+        <div>
+          <Header variant="subtitle" className="my-0">
+            HOQS
+          </Header>
+          <Text
+            variant="extra-small"
+            color="muted"
+            className="my-0 hidden md:block"
+          >
+            High Order Quarterwave Society
+          </Text>
+        </div>
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -71,11 +86,9 @@ export default function Navbar() {
       <NavbarContent justify="end">
         <DarkModeToggle />
         <NavbarItem>
-          <Link to="/login">
-            <Button color="primary" href="#" variant="flat">
-              Login
-            </Button>
-          </Link>
+          <Button as={Link} to="/login" color="primary" variant="flat">
+            Login
+          </Button>
         </NavbarItem>
       </NavbarContent>
 

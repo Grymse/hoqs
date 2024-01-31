@@ -6,7 +6,7 @@ export default function DarkModeToggle() {
   const { toggle, isDarkMode } = useDarkMode();
 
   return (
-    <Button isIconOnly variant="ghost" onClick={toggle}>
+    <Button isIconOnly variant="light" onClick={toggle}>
       {isDarkMode ? <Sun /> : <Moon />}
     </Button>
   );

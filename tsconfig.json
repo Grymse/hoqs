@@ -11,9 +11,11 @@
     "module": "esnext",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {},
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "skipDefaultLibCheck": true,
     "jsx": "react-jsx",
     "allowJs": false,
     "esModuleInterop": false,
