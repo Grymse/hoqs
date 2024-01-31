@@ -15,7 +15,7 @@ one below your own
 
 - [x] As a user I want to be able to log out
 - [ ] As a user I want to be redirected to the original page when logging in
-- [ ] As a user I want to be able to login
+- [x] As a user I want to be able to login
 - [ ] As a user I want to be able to see my profile
 - [ ] As a user I want to be able to edit my profile
 - [ ] As a user I want to be able to upload a profile picture
