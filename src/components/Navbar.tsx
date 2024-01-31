@@ -11,6 +11,7 @@ import {
 } from '@nextui-org/react';
 import { useState } from 'react';
 import DarkModeToggle from './DarkModeToggle';
+import HoqsLogo from './HoqsLogo';
 
 const routes = [
   {
@@ -48,15 +49,15 @@ export default function Navbar() {
       </NavbarContent>
 
       <NavbarContent className="sm:hidden pr-3" justify="center">
-        <NavbarBrand>
-          {/* <AcmeLogo /> */}
-          <p className="font-bold text-inherit">HOQS</p>
+        <NavbarBrand className="gap-2">
+          <HoqsLogo size={48} />
+          <p className="text-xl font-medium">HOQS</p>
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarBrand className="hidden sm:flex">
-        {/* <AcmeLogo /> */}
-        <p className="font-bold text-inherit">HOQS</p>
+      <NavbarBrand className="hidden sm:flex gap-2">
+        <HoqsLogo size={48} />
+        <p className="text-xl font-medium">HOQS</p>
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
