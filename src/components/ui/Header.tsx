@@ -22,7 +22,11 @@ export default function Header({
   ...props
 }: HeaderProps) {
   const textColorClass =
-    color === 'muted' ? 'text-default-500' : 'text-' + color;
+    color === 'muted'
+      ? 'text-default-500'
+      : color === 'default'
+      ? 'text-default-foreground'
+      : 'text-' + color;
 
   if (variant === 'title')
     return (

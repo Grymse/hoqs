@@ -1,32 +1,6 @@
-import { AuthOtpResponse, createClient } from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 
 export const supabase = createClient(
-  'https://<project>.supabase.co',
-  '<your-anon-key>'
+  'https://vgtljajaxrfrybokahvz.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZndGxqYWpheHJmcnlib2thaHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY3MTU4MTgsImV4cCI6MjAyMjI5MTgxOH0.slXBTlpcNh3XfVAjmiREdR5YvUAdq_Q9aeAapMHkaZg'
 );
-
-/**
- * @param email login email
- * @param redirect redirect url
- */
-export async function signInWithEmail(
-  email: string,
-  redirect: string
-): Promise<AuthOtpResponse> {
-  return await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      shouldCreateUser: true,
-      emailRedirectTo: redirect,
-    },
-  });
-}
-
-/**
- * @param email login email
- * @param password login password
- * @returns
- */
-export async function signOut() {
-  return await supabase.auth.signOut();
-}

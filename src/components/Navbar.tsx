@@ -14,6 +14,7 @@ import DarkModeToggle from './DarkModeToggle';
 import HoqsLogo from './HoqsLogo';
 import Header from './ui/Header';
 import Text from './ui/Text';
+import { signOut, useAuth } from '@/lib/auth';
 
 const routes = [
   {
@@ -86,17 +87,19 @@ export default function Navbar() {
       <NavbarContent justify="end">
         <DarkModeToggle />
         <NavbarItem>
-          <Button as={Link} to="/login" color="primary" variant="flat">
-            Login
-          </Button>
+          <UserSection />
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarMenu>
+      <NavbarMenu className="dark">
         {routes.map((route, index) => (
           <NavbarMenuItem key={route.path}>
             <Link
-              className={index === activeRouteIndex ? 'text-primary' : ''}
+              className={
+                index === activeRouteIndex
+                  ? 'text-primary'
+                  : 'text-default-foreground'
+              }
               onClick={() => setIsMenuOpen(false)}
               to={route.path}
             >
@@ -106,5 +109,39 @@ export default function Navbar() {
         ))}
       </NavbarMenu>
     </NavbarUI>
+  );
+}
+
+function UserSection() {
+  const auth = useAuth();
+  const [isLoading, setLoading] = useState(false);
+
+  async function logout() {
+    setLoading(true);
+    try {
+      await signOut();
+    } catch (e) {
+      console.error(e);
+    }
+    setLoading(false);
+  }
+
+  if (auth) {
+    return (
+      <Button
+        isLoading={isLoading}
+        onClick={logout}
+        color="primary"
+        variant="flat"
+      >
+        Log out
+      </Button>
+    );
+  }
+
+  return (
+    <Button as={Link} to="/login" color="primary" variant="flat">
+      Login
+    </Button>
   );
 }
