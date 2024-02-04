@@ -1,11 +1,11 @@
 {
   "name": "hoqs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "https://grymse.github.io/hoqs/",
   "license": "MIT",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "dev": "nx serve",
     "build": "nx build",
     "test": "nx test"
