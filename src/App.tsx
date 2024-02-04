@@ -5,22 +5,26 @@ import { NextUIProvider } from '@nextui-org/react';
 import { BrowserRouter } from 'react-router-dom';
 import { DefaultToastOptions, Toaster } from 'react-hot-toast';
 import { DarkModeProvider } from './lib/darkmode';
+import { IntlProvider } from 'react-intl';
 import BackgroundEffect from './components/BackgroundEffect';
+import { messages } from './lib/text';
 
 export default function App() {
   return (
     <AuthProvider>
       <DarkModeProvider>
-        <NextUIProvider>
-          <BrowserRouter>
-            <div className="min-w-screen min-h-screen flex relative items-center flex-col">
-              <Toaster toastOptions={toastOptions} />
-              <Navbar />
-              <Routes />
-              <BackgroundEffect />
-            </div>
-          </BrowserRouter>
-        </NextUIProvider>
+        <IntlProvider defaultLocale="en" locale="en" messages={messages}>
+          <NextUIProvider>
+            <BrowserRouter>
+              <div className="min-w-screen min-h-screen flex relative items-center flex-col">
+                <Toaster toastOptions={toastOptions} />
+                <Navbar />
+                <Routes />
+                <BackgroundEffect />
+              </div>
+            </BrowserRouter>
+          </NextUIProvider>
+        </IntlProvider>
       </DarkModeProvider>
     </AuthProvider>
   );

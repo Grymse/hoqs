@@ -16,6 +16,7 @@ import Header from './ui/Header';
 import Text from './ui/Text';
 import { signOut, useAuth } from '@/lib/auth';
 import FacebookIcon from './icons/FacebookIcon';
+import { FormattedMessage } from 'react-intl';
 
 const routes = [
   {
@@ -55,25 +56,20 @@ export default function Navbar() {
       <NavbarContent className="sm:hidden pr-3" justify="center">
         <NavbarBrand className="gap-2">
           <HoqsLogo size={48} />
-          <Header variant="subtitle" className="my-0">
-            HOQS
-          </Header>
+          <Header variant="subtitle" className="my-0" id="brand.hoqs" />
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarBrand className="hidden sm:flex gap-2">
         <HoqsLogo size={48} />
         <div>
-          <Header variant="subtitle" className="my-0">
-            HOQS
-          </Header>
+          <Header variant="subtitle" className="my-0" id="brand.hoqs" />
           <Text
             variant="extra-small"
             color="muted"
             className="my-0 hidden md:block"
-          >
-            High Order Quarterwave Society
-          </Text>
+            id="brand.hoqs-full"
+          />
         </div>
       </NavbarBrand>
 
@@ -146,14 +142,14 @@ function UserSection() {
         color="primary"
         variant="flat"
       >
-        Log out
+        <FormattedMessage id="navbar.logout" />
       </Button>
     );
   }
 
   return (
     <Button as={Link} to="/login" color="primary" variant="flat">
-      Login
+      <FormattedMessage id="navbar.login" />
     </Button>
   );
 }
