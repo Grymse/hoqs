@@ -20,24 +20,30 @@ import { FormattedMessage } from 'react-intl';
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-  },
-  {
     path: '/cabinets',
     name: 'Cabinets',
   },
   {
     path: '/drivers',
     name: 'Drivers',
+    disabled: true,
+  },
+  {
+    path: '/guides',
+    name: 'Guides',
+    disabled: true,
+  },
+  {
+    path: '/about',
+    name: 'About Us',
   },
 ];
 
 export default function Navbar() {
   const location = useLocation();
-  const activeRouteIndex = routes.findIndex((route) =>
-    route.path.startsWith(location.pathname)
-  );
+  const activeRouteIndex =
+    location.pathname !== '/' &&
+    routes.findIndex((route) => route.path.startsWith(location.pathname));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -52,31 +58,40 @@ export default function Navbar() {
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
         />
       </NavbarContent>
-
       <NavbarContent className="sm:hidden pr-3" justify="center">
-        <NavbarBrand className="gap-2">
-          <HoqsLogo size={48} />
-          <Header variant="subtitle" className="my-0" id="brand.hoqs" />
-        </NavbarBrand>
+        <Link to="/">
+          <NavbarBrand className="gap-2">
+            <HoqsLogo size={48} />
+            <Header variant="subtitle" className="my-0" id="brand.hoqs" />
+          </NavbarBrand>
+        </Link>
       </NavbarContent>
 
-      <NavbarBrand className="hidden sm:flex gap-2">
-        <HoqsLogo size={48} />
-        <div>
-          <Header variant="subtitle" className="my-0" id="brand.hoqs" />
-          <Text
-            variant="extra-small"
-            color="muted"
-            className="my-0 hidden md:block"
-            id="brand.hoqs-full"
-          />
-        </div>
+      <NavbarBrand className="hidden sm:block">
+        <Link to="/" className="gap-2 flex">
+          <HoqsLogo size={48} />
+          <div className="flex justify-center flex-col">
+            <Header variant="subtitle" className="my-0" id="brand.hoqs" />
+            <Text
+              variant="extra-small"
+              color="muted"
+              className="my-0 hidden md:block"
+              id="brand.hoqs-full"
+            />
+          </div>
+        </Link>
       </NavbarBrand>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         {routes.map((route, i) => (
           <NavbarItem key={route.path} isActive={i === activeRouteIndex}>
-            <Link to={route.path}>{route.name}</Link>
+            {route.disabled ? (
+              <Text color="muted" aria-disabled>
+                {route.name}
+              </Text>
+            ) : (
+              <Link to={route.path}>{route.name}</Link>
+            )}
           </NavbarItem>
         ))}
       </NavbarContent>
@@ -102,17 +117,23 @@ export default function Navbar() {
       <NavbarMenu>
         {routes.map((route, index) => (
           <NavbarMenuItem key={route.path}>
-            <Link
-              className={
-                index === activeRouteIndex
-                  ? 'text-primary'
-                  : 'text-default-foreground'
-              }
-              onClick={() => setIsMenuOpen(false)}
-              to={route.path}
-            >
-              {route.name}
-            </Link>
+            {route.disabled ? (
+              <Text color="muted" aria-disabled className="my-0">
+                {route.name}
+              </Text>
+            ) : (
+              <Link
+                className={
+                  index === activeRouteIndex
+                    ? 'text-primary'
+                    : 'text-default-foreground'
+                }
+                onClick={() => setIsMenuOpen(false)}
+                to={route.path}
+              >
+                {route.name}
+              </Link>
+            )}
           </NavbarMenuItem>
         ))}
       </NavbarMenu>

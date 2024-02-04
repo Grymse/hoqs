@@ -8,6 +8,7 @@ import { DarkModeProvider } from './lib/darkmode';
 import { IntlProvider } from 'react-intl';
 import BackgroundEffect from './components/BackgroundEffect';
 import { messages } from './lib/text';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
                 <Toaster toastOptions={toastOptions} />
                 <Navbar />
                 <Routes />
+                <Footer />
                 <BackgroundEffect />
               </div>
             </BrowserRouter>
