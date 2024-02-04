@@ -1,8 +1,19 @@
+import PageContainer from '@/components/ui/PageContainer';
+import { TableBody, TableColumn, TableHeader } from '@nextui-org/react';
+import { Table } from 'lucide-react';
+
 export function Cabinets() {
   return (
-    <div className="w-96 h-96 flex justify-center items-center">
-      <p>Cabinets page!</p>
-    </div>
+    <PageContainer>
+      <Table aria-label="Example empty table">
+        <TableHeader>
+          <TableColumn>Cabinet</TableColumn>
+          <TableColumn>ROLE</TableColumn>
+          <TableColumn>STATUS</TableColumn>
+        </TableHeader>
+        <TableBody emptyContent={'No rows to display.'}>{[]}</TableBody>
+      </Table>
+    </PageContainer>
   );
 }
 

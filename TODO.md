@@ -16,6 +16,7 @@ one below your own
 - [x] As a user I want to be able to log out
 - [ ] As a user I want to be redirected to the original page when logging in
 - [x] As a user I want to be able to login
+- [ ] As a user I must insert full name to use page
 - [ ] As a user I want to be able to see my profile
 - [ ] As a user I want to be able to edit my profile
 - [ ] As a user I want to be able to upload a profile picture
@@ -50,3 +51,35 @@ one below your own
 - [ ] As a visitor I want to be able to see cabinets in an Photo Gallery
 
 # List of drivers
+
+- [ ] As a visitor I want to be able to see a list of all drivers
+- [ ] As a visitor I want to be able to sort drivers by it's attributes
+
+# Specific driver
+
+- [ ] Data-scrape drivers from other vendors
+- [ ] As an admin I want to be able to add drivers
+- [ ] ???
+
+# Document-based views
+
+- [ ] Add MDX support
+- [ ] Add support for features as seen on NextUI (E.g. Steps, Images etc.)
+- [ ] Add editor for MDX based documents
+- [ ] Define structure to add blogs / how-tos etc? (e.g. with Matthew & Plippie)
+  - [ ] What do we need
+  - [ ] Who can contribute etc.
+- [ ] Add saving to blob-storage + postgres
+
+# General
+
+- [x] Add Facebook Page hotlink
+- [ ] Add Donation Button
+- [ ] Add Analytics? (Only maybe)
+- [ ] Add Download Form
+  - [ ] Suggest donation
+  - [ ] Accept that we save IP to keep stats?
+
+# Comment section system?
+
+# Rating system?

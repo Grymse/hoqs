@@ -1,6 +1,7 @@
 import Header from '@/components/ui/Header';
 import PageContainer from '@/components/ui/PageContainer';
 import Text from '@/components/ui/Text';
+import { Link } from '@nextui-org/react';
 
 export function Drivers() {
   return (
@@ -25,7 +26,8 @@ export function Drivers() {
       <Text color="muted">
         By default, links perform native browser navigation when they are
         interacted with. However, many apps and frameworks use client side
-        routers to avoid a full page reload when navigating between pages. The
+        routers to avoid a full page reload when navigating between pages.{' '}
+        <Link showAnchorIcon>The NextUIProvider component</Link>
         NextUIProvider component configures all NextUI components within it to
         navigate using the client side router you provide. Set this up once in
         the root of your app, and any NextUI component with the href prop will

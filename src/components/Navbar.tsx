@@ -15,6 +15,7 @@ import HoqsLogo from './HoqsLogo';
 import Header from './ui/Header';
 import Text from './ui/Text';
 import { signOut, useAuth } from '@/lib/auth';
+import FacebookIcon from './icons/FacebookIcon';
 
 const routes = [
   {
@@ -85,13 +86,24 @@ export default function Navbar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <DarkModeToggle />
+        <div className="flex justify-center">
+          <Button
+            as={Link}
+            isIconOnly
+            variant="light"
+            target="_blank"
+            to="https://www.facebook.com/groups/bassaz"
+          >
+            <FacebookIcon />
+          </Button>
+          <DarkModeToggle />
+        </div>
         <NavbarItem>
           <UserSection />
         </NavbarItem>
       </NavbarContent>
 
-      <NavbarMenu className="dark">
+      <NavbarMenu>
         {routes.map((route, index) => (
           <NavbarMenuItem key={route.path}>
             <Link
