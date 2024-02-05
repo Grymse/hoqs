@@ -3,6 +3,7 @@ import { TextColor } from './Text';
 import { FormattedMessage } from 'react-intl';
 import React from 'react';
 import { PropsWithChildren } from 'react';
+import { messages } from 'service';
 
 type HeaderVariant = 'title' | 'subtitle' | 'sub-subtitle';
 
@@ -10,8 +11,9 @@ type HeaderProps = PropsWithChildren<{
   variant?: HeaderVariant;
   color?: TextColor;
 }> &
-  Omit<React.ComponentProps<typeof FormattedMessage>, 'children'> &
-  React.HTMLAttributes<HTMLHeadingElement>;
+  Omit<React.ComponentProps<typeof FormattedMessage>, 'children' | 'id'> & {
+    id?: keyof typeof messages; // Remove id from FormattedMessage and add type-safe id
+  } & React.HTMLAttributes<HTMLHeadingElement>;
 
 export function Header({
   variant = 'title',

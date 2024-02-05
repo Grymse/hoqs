@@ -1,4 +1,5 @@
 export const messages = {
+  // Brand
   'brand.hoqs': 'HOQS',
   'brand.hoqs-full': 'High Order Quarterwave Society',
 
@@ -23,6 +24,8 @@ export const messages = {
     'This website was created by Lewis Cafaro & Nicolai Grymer',
   'footer.license-intro': 'All content of this website falls under our',
   'footer.license': 'license agreement',
+
+  // Not Found
   'notfound.title': 'Page not found :(',
   'notfound.description':
     "We can't seem to find the page you're looking for. Try going back to the previous page or go to the homepage.",

@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { cn } from './util';
 import { FormattedMessage } from 'react-intl';
+import { messages } from 'service';
 
 export type TextVariant = 'regular' | 'thick' | 'small' | 'extra-small';
 export type TextColor =
@@ -16,8 +17,9 @@ type TextProps = PropsWithChildren<{
   variant?: TextVariant;
   color?: TextColor;
 }> &
-  Omit<React.ComponentProps<typeof FormattedMessage>, 'children'> &
-  React.HTMLAttributes<HTMLParagraphElement>;
+  Omit<React.ComponentProps<typeof FormattedMessage>, 'children' | 'id'> & {
+    id?: keyof typeof messages; // Remove id from FormattedMessage and add type-safe id
+  } & React.HTMLAttributes<HTMLParagraphElement>;
 
 export function Text({
   variant = 'regular',
