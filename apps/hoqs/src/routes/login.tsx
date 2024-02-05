@@ -16,7 +16,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
-import { signInWithEmail, useAuth, validate } from 'service';
+import { signInWithEmail, useAuth, use } from 'service';
+import { FormattedMessage } from 'react-intl';
+import { Text, Header } from 'core-components';
 
 export default function Login() {
   const { onOpen, isOpen, onOpenChange } = useDisclosure();
@@ -29,7 +31,7 @@ export default function Login() {
   if (user) navigate('/');
 
   async function signIn() {
-    const { error } = validate(z.string().email())(email);
+    const { error } = use(z.string().email()).toValidate(email);
 
     if (error) {
       setZodError(error.issues[0].message);
@@ -53,16 +55,19 @@ export default function Login() {
     <form className="flex grow justify-center items-center">
       <Card className="<sm:w-full sm:w-96">
         <CardHeader className="flex flex-col gap-3">
-          <h2 className="text-md text-lg">Sign in</h2>
-          <p className="text-small text-center text-default-500">
-            Write in your email, and we will send you a magic link to sign in!
-          </p>
+          <Header variant="sub-subtitle" id="login.signIn" />
+          <Text
+            variant="small"
+            color="muted"
+            id="login.signInDescription"
+            className="my-0"
+          />
         </CardHeader>
         <CardBody>
           <Input
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            label="Email"
+            label={<FormattedMessage id="login.emailLabel" />}
             errorMessage={zodError}
           />
         </CardBody>
@@ -73,7 +78,7 @@ export default function Login() {
             color="primary"
             fullWidth
           >
-            Sign In!
+            <FormattedMessage id="login.signInButton" />
           </Button>
         </CardFooter>
       </Card>
@@ -106,17 +111,17 @@ function EmailSentModal({
         {(onClose) => (
           <>
             <ModalHeader className="flex text-default-foreground flex-col gap-1">
-              We've sent a magic link to your email!
+              <FormattedMessage id="login.magicLinkSent" />
             </ModalHeader>
             <ModalBody>
-              <Text className="my-0 text-default-foreground">
-                Check your inbox. If you don't see our email in your inbox
-                within a few minutes, please check your spam or junk folder
-              </Text>
+              <Text
+                className="my-0 text-default-foreground"
+                id="login.magicLinkSentDescription"
+              />
             </ModalBody>
             <ModalFooter>
               <Button color="primary" onPress={onClose}>
-                Close
+                <FormattedMessage id="login.close" />
               </Button>
             </ModalFooter>
           </>

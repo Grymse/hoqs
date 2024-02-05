@@ -1,26 +1,54 @@
 import { PropsWithChildren } from 'react';
 import { cn } from './util';
+import { FormattedMessage } from 'react-intl';
 
-type HeaderProps = PropsWithChildren<{
-  variant?: 'regular' | 'thick' | 'small' | 'extra-small';
-  color?:
-    | 'danger'
-    | 'default'
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'warning'
-    | 'muted';
+export type TextVariant = 'regular' | 'thick' | 'small' | 'extra-small';
+export type TextColor =
+  | 'danger'
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'muted';
+
+type TextProps = PropsWithChildren<{
+  variant?: TextVariant;
+  color?: TextColor;
 }> &
+  Omit<React.ComponentProps<typeof FormattedMessage>, 'children'> &
   React.HTMLAttributes<HTMLParagraphElement>;
 
-export default function Text({
+export function Text({
   variant = 'regular',
   color = 'default',
   children,
   className,
+  id,
+  values,
+  defaultMessage,
   ...props
-}: HeaderProps) {
+}: TextProps) {
+  return (
+    <p id={id} className={getClasses(variant, color, className)} {...props}>
+      {children ? (
+        children
+      ) : (
+        <FormattedMessage
+          id={id}
+          values={values}
+          defaultMessage={defaultMessage}
+        />
+      )}
+    </p>
+  );
+}
+
+function getClasses(
+  variant: TextVariant,
+  color: TextColor,
+  className: string | undefined
+) {
   const textColorClass =
     color === 'muted'
       ? 'text-default-500'
@@ -28,42 +56,14 @@ export default function Text({
       ? 'text-default-foreground'
       : 'text-' + color;
 
-  if (variant === 'regular')
-    return (
-      <p
-        className={cn('my-3 leading-7 font-light', textColorClass, className)}
-        {...props}
-      >
-        {children}
-      </p>
-    );
+  const textVariantClass =
+    variant === 'regular'
+      ? 'my-3 leading-7 font-light'
+      : variant === 'thick'
+      ? 'my-3 leading-7 font-medium'
+      : variant === 'small'
+      ? 'my-3 leading-5 text-sm'
+      : 'my-2 leading-5 text-xs';
 
-  if (variant === 'thick')
-    return (
-      <p
-        className={cn('my-3 leading-7 font-medium', textColorClass, className)}
-        {...props}
-      >
-        {children}
-      </p>
-    );
-
-  if (variant === 'small')
-    return (
-      <p
-        className={cn('my-3 leading-5 text-sm', textColorClass, className)}
-        {...props}
-      >
-        {children}
-      </p>
-    );
-
-  return (
-    <p
-      className={cn('my-2 leading-5 text-xs', textColorClass, className)}
-      {...props}
-    >
-      {children}
-    </p>
-  );
+  return cn(textColorClass, textVariantClass, className);
 }

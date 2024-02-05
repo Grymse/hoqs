@@ -1,5 +1,5 @@
 import { TableBody, TableColumn, TableHeader } from '@nextui-org/react';
-import PageContainer from 'libs/core-components/src/ui/PageContainer';
+import { PageContainer } from 'core-components';
 import { Table } from 'lucide-react';
 
 export function Cabinets() {

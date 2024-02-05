@@ -1,26 +1,34 @@
-import Navbar from './components/Navbar';
+import {
+  Navbar,
+  DarkModeProvider,
+  BackgroundEffect,
+  Footer,
+} from 'core-components';
+import { AuthProvider } from 'service';
 import Routes from './Routes';
-import { AuthProvider } from './lib/auth';
 import { NextUIProvider } from '@nextui-org/react';
 import { BrowserRouter } from 'react-router-dom';
 import { DefaultToastOptions, Toaster } from 'react-hot-toast';
-import { DarkModeProvider } from './lib/darkmode';
-import BackgroundEffect from './components/BackgroundEffect';
+import { IntlProvider } from 'react-intl';
+import { messages } from 'service';
 
 export default function App() {
   return (
     <AuthProvider>
       <DarkModeProvider>
-        <NextUIProvider>
-          <BrowserRouter>
-            <div className="min-w-screen min-h-screen flex relative items-center flex-col">
-              <Toaster toastOptions={toastOptions} />
-              <Navbar />
-              <Routes />
-              <BackgroundEffect />
-            </div>
-          </BrowserRouter>
-        </NextUIProvider>
+        <IntlProvider defaultLocale="en" locale="en" messages={messages}>
+          <NextUIProvider>
+            <BrowserRouter>
+              <div className="min-w-screen min-h-screen flex relative items-center flex-col">
+                <Toaster toastOptions={toastOptions} />
+                <Navbar />
+                <Routes />
+                <Footer />
+                <BackgroundEffect />
+              </div>
+            </BrowserRouter>
+          </NextUIProvider>
+        </IntlProvider>
       </DarkModeProvider>
     </AuthProvider>
   );

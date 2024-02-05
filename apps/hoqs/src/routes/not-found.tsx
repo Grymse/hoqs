@@ -1,3 +1,15 @@
+import { Text, Header } from 'core-components';
+
 export default function NotFound() {
-  return <p>Page not found! :(</p>;
+  return (
+    <main className="grow justify-center items-center text-center max-w-96 flex flex-col gap-2">
+      <Header id="notfound.title" />
+      <Text id="notfound.description" />
+      <img
+        src="./blown.jpg"
+        alt="A blown speaker driver"
+        className="rounded-xl shadow-lg object-cover"
+      />
+    </main>
+  );
 }

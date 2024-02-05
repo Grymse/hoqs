@@ -1,9 +1,9 @@
 import { ZodError, ZodTypeDef, z } from 'zod';
 
-export function validate<T, T2 extends ZodTypeDef>(
+export function use<T, T2 extends ZodTypeDef>(
   objectValidator: z.ZodType<T, T2>
 ) {
-  return (data: unknown): ValidatedReturnType<T> => {
+  const validateFunction = (data: unknown): ValidatedReturnType<T> => {
     try {
       return {
         parsed: objectValidator.parse(data),
@@ -17,6 +17,10 @@ export function validate<T, T2 extends ZodTypeDef>(
         };
       throw error;
     }
+  };
+
+  return {
+    toValidate: validateFunction,
   };
 }
 
