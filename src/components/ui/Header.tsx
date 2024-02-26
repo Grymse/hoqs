@@ -25,7 +25,7 @@ export default function Header({
 }: HeaderProps) {
   return (
     <h1 id={id} className={getClasses(variant, color, className)} {...props}>
-      {children ? (
+      {children !== undefined ? (
         children
       ) : (
         <FormattedMessage

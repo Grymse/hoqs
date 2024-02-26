@@ -35,8 +35,7 @@ export default function App() {
 const toastOptions: DefaultToastOptions = {
   duration: 5000,
   style: {
-    background:
-      'hsl(var(--nextui-content1) / var(--nextui-content1-opacity, var(--tw-bg-opacity)))',
+    background: 'hsl(var(--nextui-content1))',
     color:
       'color: hsl(var(--nextui-default) / var(--nextui-default-opacity, var(--tw-text-opacity)))',
     borderRadius: 'var(--nextui-radius-medium)',

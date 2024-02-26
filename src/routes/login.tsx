@@ -46,7 +46,7 @@ export default function Login() {
     const result = await signInWithEmail(email, location.href);
     setLoading(false);
 
-    if (result.data.session) {
+    if (result.error === null) {
       onOpen();
     } else {
       toast.error(result.error?.message || 'Something went wrong');
@@ -54,43 +54,46 @@ export default function Login() {
   }
 
   return (
-    <form className="flex grow justify-center items-center">
-      <Card className="<sm:w-full sm:w-96">
-        <CardHeader className="flex flex-col gap-3">
-          <Header variant="sub-subtitle" id="login.signIn" />
-          <Text
-            variant="small"
-            color="muted"
-            id="login.signInDescription"
-            className="my-0"
-          />
-        </CardHeader>
-        <CardBody>
-          <Input
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            label={<FormattedMessage id="login.emailLabel" />}
-            errorMessage={zodError}
-          />
-        </CardBody>
-        <CardFooter>
-          <Button
-            isLoading={isLoading}
-            onClick={signIn}
-            color="primary"
-            fullWidth
-          >
-            <FormattedMessage id="login.signInButton" />
-          </Button>
-        </CardFooter>
-      </Card>
+    <>
+      <form className="flex grow justify-center items-center">
+        <Card className="<sm:w-full sm:w-96">
+          <CardHeader className="flex flex-col gap-3">
+            <Header variant="sub-subtitle" id="login.signIn" />
+            <Text
+              variant="small"
+              color="muted"
+              id="login.signInDescription"
+              className="my-0"
+            />
+          </CardHeader>
+          <CardBody>
+            <Input
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              label={<FormattedMessage id="login.emailLabel" />}
+              errorMessage={zodError}
+            />
+          </CardBody>
+          <CardFooter>
+            <Button
+              type="submit"
+              isLoading={isLoading}
+              color="primary"
+              fullWidth
+              onClick={signIn}
+            >
+              <FormattedMessage id="login.signInButton" />
+            </Button>
+          </CardFooter>
+        </Card>
+      </form>
       <EmailSentModal
         error="error"
         email={email}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-      ></EmailSentModal>
-    </form>
+      />
+    </>
   );
 }
 

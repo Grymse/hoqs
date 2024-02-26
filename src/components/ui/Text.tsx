@@ -31,7 +31,7 @@ export default function Text({
 }: TextProps) {
   return (
     <p id={id} className={getClasses(variant, color, className)} {...props}>
-      {children ? (
+      {children !== undefined ? (
         children
       ) : (
         <FormattedMessage
