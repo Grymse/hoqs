@@ -7,36 +7,61 @@ import { StorageImage } from '@/types/types';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { useDisclosure } from '@nextui-org/react';
+import ImageFullscreen from './ImageFullscreen';
+import { useState } from 'react';
 
 // import required modules
 
 interface Props {
   images: StorageImage[];
+  disableFullscreen?: boolean;
+  initialSlide?: number;
 }
 
-export default function ImageCaroussel({ images }: Props) {
+export default function ImageCaroussel({
+  images,
+  disableFullscreen = false,
+  initialSlide = 0,
+}: Props) {
+  const { onOpen, isOpen, onOpenChange } = useDisclosure();
+  const [slideIndex, setSlideIndex] = useState(initialSlide);
+
   return (
-    <Swiper
-      modules={[Navigation, Pagination]}
-      loop={true}
-      pagination={{
-        clickable: true,
-      }}
-      navigation={true}
-      className="w-full h-full rounded-lg"
-    >
-      {images.map((image) => (
-        <SwiperSlide
-          key={image.url}
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <img src={image.url} alt={'image of ' + image.title} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <>
+      <Swiper
+        modules={[Navigation, Pagination]}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        initialSlide={initialSlide}
+        onSlideChange={(swiper) => setSlideIndex(swiper.activeIndex)}
+        className="w-full h-full rounded-lg"
+        onClick={onOpen}
+      >
+        {images.map((image) => (
+          <SwiperSlide
+            key={image.url}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              objectFit: 'contain',
+            }}
+          >
+            <img src={image.url} alt={'image of ' + image.title} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {!disableFullscreen && (
+        <ImageFullscreen
+          images={images}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          initialSlide={slideIndex}
+        />
+      )}
+    </>
   );
 }
