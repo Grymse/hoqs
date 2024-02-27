@@ -19,6 +19,17 @@ export function useSupabaseRequest<T>(
       if (out.error) {
         setError(out.error);
       } else {
+        // @ts-expect-error data is not null
+        if (out.data?.[0] === undefined) {
+          setData(null);
+          setError({
+            message: 'Could not find ressource',
+            details:
+              'The ressource you are looking for could not be found. Please check the URL and try again.',
+            hint: 'Check the URL and try again. If the problem persists, contact the administrator.',
+            code: '404',
+          });
+        }
         setData(out.data);
       }
     });

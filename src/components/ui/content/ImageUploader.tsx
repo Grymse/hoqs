@@ -1,22 +1,25 @@
 import { StorageImage } from '@/types/types';
-import React from 'react';
 import ImageCaroussel from './ImageCaroussel';
 import Uploader from './Uploader';
 
 interface Props {
-  images: StorageImage[];
+  images: StorageImage[] | null;
+  updateImages: (fn: (images: StorageImage[] | null) => StorageImage[]) => void;
   bucket: string;
   path: string;
 }
+
 export default function ImageUploader({
-  images: inputImages,
+  images,
+  updateImages,
   path,
   bucket,
 }: Props) {
-  const [images, setImages] = React.useState(inputImages);
-
   function addImage(url: string, title: string) {
-    setImages((images) => [...images, { url, title }]);
+    updateImages((images) => {
+      if (!Array.isArray(images)) return [{ url, title }];
+      return [...images, { url, title }];
+    });
   }
 
   return (

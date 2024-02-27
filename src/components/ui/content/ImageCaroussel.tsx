@@ -14,7 +14,7 @@ import { useState } from 'react';
 // import required modules
 
 interface Props {
-  images: StorageImage[];
+  images: StorageImage[] | null;
   disableFullscreen?: boolean;
   initialSlide?: number;
 }
@@ -41,7 +41,7 @@ export default function ImageCaroussel({
         className="w-full h-full rounded-lg"
         onClick={onOpen}
       >
-        {images.map((image) => (
+        {images?.map((image) => (
           <SwiperSlide
             key={image.url}
             style={{
@@ -54,7 +54,7 @@ export default function ImageCaroussel({
           </SwiperSlide>
         ))}
       </Swiper>
-      {!disableFullscreen && (
+      {images && !disableFullscreen && (
         <ImageFullscreen
           images={images}
           isOpen={isOpen}
