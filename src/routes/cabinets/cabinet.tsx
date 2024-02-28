@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { Tables } from '../../types/supabase';
-import ImageCaroussel from '@/components/ui/content/ImageCaroussel';
+import ImageCaroussel from '@/components/content/ImageCaroussel';
 import { WithImages } from '@/types/types';
 import Header from '@/components/ui/Header';
 import Text from '@/components/ui/Text';

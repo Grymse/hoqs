@@ -1,38 +1,78 @@
 import PageContainer from '@/components/ui/PageContainer';
-import { Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
 import Header from '../../components/ui/Header';
 import { useRef, useState } from 'react';
-import ImageUploader from '@/components/ui/content/ImageUploader';
+import ImageUploader from '@/components/content/ImageUploader';
 import Text from '../../components/ui/Text';
-import { Tables } from '@/types/supabase';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useParams } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
-import { StorageImage, WithImages } from '@/types/types';
-import { kgsToPounds, mmToInches } from '@/lib/translations';
-
-const cabinetTypes = ['Kick', 'Top', 'Kick/Top', 'Subwoofer'];
-const MaxSPLCount = ['1 cab', '2 cabs', '4 cabs', '8 cabs', '16 cabs'];
+import { supabase, toPromise } from '@/lib/supabase';
+import { SpeakerCabinet, StorageImage } from '@/types/types';
+import {
+  kgsToPounds,
+  mmToInches,
+  woodThicknessToInches,
+} from '@/lib/translations';
+import toast from 'react-hot-toast';
+import ContinueModal from '@/components/modals/ContinueModal';
+import {
+  CABINET_TYPES,
+  DRIVER_SIZES,
+  MAX_SPL_COUNT,
+  WOOD_THICKNESS,
+} from '@/lib/variables';
 
 export function EditCabinet() {
   const { id } = useParams();
   const cabReq = useRef(supabase.from('cabinets').select('*').eq('id', id));
   const { StatusComponent, data } = useSupabaseRequest(cabReq.current);
-  const cabinet = data?.[0] as WithImages<Tables<'cabinets'>>;
+  const cabinet = data?.[0] as SpeakerCabinet;
+
+  function saveCabinet(cabinet: SpeakerCabinet) {
+    const uploader = toPromise(
+      supabase.from('cabinets').update(cabinet).eq('id', cabinet.id)
+    );
+    toast.promise(uploader, {
+      loading: 'Saving cabinet to database',
+      success: (c) =>
+        `Successfully saved cabinet ${cabinet.brand} - ${cabinet.model}`,
+      error: (e) => `Error saving cabinet ${e.message}`,
+    });
+  }
+
+  function deleteCabinet(cabinet: SpeakerCabinet) {
+    const deleter = toPromise(
+      supabase.from('cabinets').delete().eq('id', cabinet.id)
+    );
+    toast.promise(deleter, {
+      loading: 'Deleting cabinet from database',
+      success: (c) =>
+        `Successfully deleted cabinet ${cabinet.brand} - ${cabinet.model}`,
+      error: (e) => `Error deleting cabinet ${e.message}`,
+    });
+  }
 
   return (
     <PageContainer className="flex flex-col gap-4">
       <StatusComponent />
-      {cabinet && <EditForm initialCabinet={cabinet} />}
+      {cabinet && (
+        <EditForm
+          initialCabinet={cabinet}
+          onSave={saveCabinet}
+          onDelete={deleteCabinet}
+        />
+      )}
     </PageContainer>
   );
 }
 
 interface EditFormProps {
-  initialCabinet: WithImages<Tables<'cabinets'>>;
+  initialCabinet: SpeakerCabinet;
+  onSave: (cabinet: SpeakerCabinet) => void;
+  onDelete?: (cabinet: SpeakerCabinet) => void;
 }
 
-function EditForm({ initialCabinet }: EditFormProps) {
+function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
   const [cabinet, setCabinet] = useState(initialCabinet);
 
   function updateImages(fn: (images: StorageImage[] | null) => StorageImage[]) {
@@ -40,13 +80,12 @@ function EditForm({ initialCabinet }: EditFormProps) {
       return { ...cabinet, images: fn(cabinet.images) };
     });
   }
+
   return (
     <>
-      <Header variant="subtitle">Description</Header>
-      <Text variant="small">
-        Here you can edit the details of the cabinet. Please make sure to fill
-        out all the fields.
-      </Text>
+      <Header variant="subtitle">
+        {cabinet.brand} - {cabinet.model}
+      </Header>
       <Header variant="sub-subtitle">Details</Header>
       <div className="grid grid-cols-3 gap-4">
         <Input
@@ -68,43 +107,36 @@ function EditForm({ initialCabinet }: EditFormProps) {
           onChange={(e) => setCabinet({ ...cabinet, model: e.target.value })}
         />
         <Select
-          items={cabinetTypes}
+          items={CABINET_TYPES}
           label="Type"
           placeholder="Select cabinet type"
+          selectedKeys={[cabinet.type || '']}
           variant="bordered"
-          value={cabinet.type || cabinetTypes[0]}
           onChange={(e) => setCabinet({ ...cabinet, type: e.target.value })}
         >
-          {cabinetTypes.map((cabinet) => (
-            <SelectItem key={cabinet}>{cabinet}</SelectItem>
+          {CABINET_TYPES.map((type) => (
+            <SelectItem key={type}>{type}</SelectItem>
           ))}
         </Select>
-        <Input
-          type="number"
+
+        <Select
+          items={DRIVER_SIZES}
+          label="Driver Size"
+          selectionMode="multiple"
+          placeholder="Select cabinet size"
           variant="bordered"
-          label="Driver size"
-          endContent="inches"
-          value={String(cabinet.driver_size ?? 0)}
+          selectedKeys={cabinet.driver_size}
           onChange={(e) =>
-            setCabinet({
+            setCabinet((cabinet) => ({
               ...cabinet,
-              driver_size: parseInt(e.target.value) || null,
-            })
+              driver_size: e.target.value.split(','),
+            }))
           }
-        />
-        <Input
-          type="number"
-          variant="bordered"
-          label="Alt driver"
-          endContent="inches"
-          value={String(cabinet.alternative_driver_size ?? 0)}
-          onChange={(e) =>
-            setCabinet({
-              ...cabinet,
-              alternative_driver_size: parseInt(e.target.value) || null,
-            })
-          }
-        />
+        >
+          {DRIVER_SIZES.map((driverSize) => (
+            <SelectItem key={driverSize}>{driverSize}</SelectItem>
+          ))}
+        </Select>
       </div>
       <Header variant="sub-subtitle">Descriptions</Header>
       <Textarea
@@ -143,29 +175,32 @@ function EditForm({ initialCabinet }: EditFormProps) {
       <Header variant="sub-subtitle">Response</Header>
       <div className="grid grid-cols-3 gap-4">
         <Select
-          items={MaxSPLCount}
+          items={MAX_SPL_COUNT}
           label="Type"
           placeholder="Max SPL counts"
           variant="bordered"
-          value={MaxSPLCount[cabinet.max_spl.length - 1]}
+          value={MAX_SPL_COUNT[cabinet.max_spl.length - 1]}
+          defaultSelectedKeys={String(cabinet.max_spl.length - 1)}
           onChange={(e) => {
-            cabinet.max_spl.length = parseInt(e.target.value);
+            cabinet.max_spl.length = parseInt(e.target.value) + 1;
+            setCabinet({ ...cabinet });
           }}
         >
-          {MaxSPLCount.map((cabinet, index) => (
+          {MAX_SPL_COUNT.map((cabinet, index) => (
             <SelectItem key={index}>{cabinet}</SelectItem>
           ))}
         </Select>
-        {MaxSPLCount.filter((_, i) => i < cabinet.max_spl.length).map(
+        {MAX_SPL_COUNT.filter((_, i) => i < cabinet.max_spl.length).map(
           (_, i) => (
             <Input
               key={i}
               type="number"
               variant="bordered"
-              label={`Max SPL (${MaxSPLCount[i]})`}
+              label={`Max SPL (${MAX_SPL_COUNT[i]})`}
               value={String(cabinet.max_spl[i])}
               onChange={(e) => {
                 cabinet.max_spl[i] = parseInt(e.target.value);
+                setCabinet({ ...cabinet });
               }}
               endContent="SPL"
             />
@@ -178,11 +213,11 @@ function EditForm({ initialCabinet }: EditFormProps) {
           variant="bordered"
           label="Frequency Start"
           endContent="Hz"
-          value={String(cabinet.frequency_start)}
+          value={String(cabinet.frequency_start ?? '')}
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              frequency_start: parseInt(e.target.value) || null,
+              frequency_start: e.target.value ? parseInt(e.target.value) : null,
             })
           }
         />
@@ -191,11 +226,11 @@ function EditForm({ initialCabinet }: EditFormProps) {
           variant="bordered"
           label="Frequency End"
           endContent="Hz"
-          value={String(cabinet.frequency_end)}
+          value={String(cabinet.frequency_end ?? '')}
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              frequency_end: parseInt(e.target.value) || null,
+              frequency_end: e.target.value ? parseInt(e.target.value) : null,
             })
           }
         />
@@ -204,16 +239,17 @@ function EditForm({ initialCabinet }: EditFormProps) {
           variant="bordered"
           label="Sensitivity"
           endContent="dB"
-          value={String(cabinet.sensitivity[0])}
+          value={String(cabinet.sensitivity[0] ?? '')}
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              sensitivity: [parseInt(e.target.value)] || [0],
+              sensitivity: e.target.value ? [parseInt(e.target.value)] : [0],
             })
           }
         />
       </div>
       <Header variant="sub-subtitle">Directivity</Header>
+
       <div className="grid grid-cols-3 gap-4">
         <Input
           type="number"
@@ -224,7 +260,9 @@ function EditForm({ initialCabinet }: EditFormProps) {
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              directivity_horizontal: parseInt(e.target.value) || null,
+              directivity_horizontal: e.target.value
+                ? parseInt(e.target.value)
+                : null,
             })
           }
         />
@@ -237,7 +275,9 @@ function EditForm({ initialCabinet }: EditFormProps) {
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              directivity_vertical: parseInt(e.target.value) || null,
+              directivity_vertical: e.target.value
+                ? parseInt(e.target.value)
+                : null,
             })
           }
         />
@@ -252,11 +292,11 @@ function EditForm({ initialCabinet }: EditFormProps) {
           variant="bordered"
           label="Height"
           endContent="mm"
-          value={String(cabinet.height_mm)}
+          value={String(cabinet.height_mm ?? '')}
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              height_mm: parseInt(e.target.value) || null,
+              height_mm: e.target.value ? parseInt(e.target.value) : null,
             })
           }
         />
@@ -265,11 +305,11 @@ function EditForm({ initialCabinet }: EditFormProps) {
           variant="bordered"
           label="Width"
           endContent="mm"
-          value={String(cabinet.width_mm)}
+          value={String(cabinet.width_mm ?? '')}
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              width_mm: parseInt(e.target.value) || null,
+              width_mm: e.target.value ? parseInt(e.target.value) : null,
             })
           }
         />
@@ -278,11 +318,11 @@ function EditForm({ initialCabinet }: EditFormProps) {
           variant="bordered"
           label="Depth"
           endContent="mm"
-          value={String(cabinet.depth_mm)}
+          value={String(cabinet.depth_mm ?? '')}
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              depth_mm: parseInt(e.target.value) || null,
+              depth_mm: e.target.value ? parseInt(e.target.value) : null,
             })
           }
         />
@@ -291,34 +331,59 @@ function EditForm({ initialCabinet }: EditFormProps) {
           variant="bordered"
           label="Weight (Unloaded)"
           endContent="kg"
-          value={String(cabinet.weight_kg)}
+          value={String(cabinet.weight_kg ?? '')}
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              weight_kg: parseInt(e.target.value) || null,
+              weight_kg: e.target.value ? parseInt(e.target.value) : null,
             })
           }
         />
-        <Input
-          type="number"
-          variant="bordered"
+
+        <Select
+          items={WOOD_THICKNESS}
           label="Wood Thickness"
-          endContent="mm"
-          value={String(cabinet.wood_thickness_mm)}
+          placeholder="Select wood Thickness"
+          variant="bordered"
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              wood_thickness_mm: parseInt(e.target.value) || null,
+              wood_thickness_mm: e.target.value,
             })
           }
-        />
+          selectedKeys={[cabinet.wood_thickness_mm || '']}
+        >
+          {WOOD_THICKNESS.map((thickness) => (
+            <SelectItem key={thickness}>{thickness}</SelectItem>
+          ))}
+        </Select>
+        <Text variant="small" color="muted">
+          Leave fields empty, if measures aren't known
+        </Text>
       </div>
       <Text variant="small" color="muted">
         Size: {mmToInches(cabinet.width_mm)} x {mmToInches(cabinet.height_mm)} x{' '}
         {mmToInches(cabinet.depth_mm)} inches (Width, height, depth)
-        <br /> Thickness: {mmToInches(cabinet.wood_thickness_mm)} inch
+        <br /> Thickness:{' '}
+        {woodThicknessToInches(cabinet.wood_thickness_mm ?? '')} inch
         <br /> Weight: {kgsToPounds(cabinet.weight_kg)} pounds
       </Text>
+      <div className="flex justify-between flex-row-reverse">
+        <Button color="primary" onClick={() => onSave(cabinet)}>
+          Save Cabinet
+        </Button>
+        {onDelete && (
+          <ContinueModal
+            title="Are you sure?"
+            description="Do you want to delete this precious cabinet?"
+            cancelText="Cancel"
+            color="danger"
+            onContinue={() => onDelete(cabinet)}
+          >
+            Delete Cabinet
+          </ContinueModal>
+        )}
+      </div>
     </>
   );
 }

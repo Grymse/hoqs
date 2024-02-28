@@ -15,3 +15,24 @@ export function kgsToPounds(kgs: number | null): string {
 export function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function woodThicknessToInches(woodThickness: string): string {
+  switch (woodThickness) {
+    case '6mm':
+      return '1/4"';
+    case '9mm':
+      return '3/8"';
+    case '12mm':
+      return '1/2"';
+    case '15mm':
+      return '5/8"';
+    case '18mm':
+      return '3/4"';
+    case '21mm':
+      return '7/8"';
+    case '24mm':
+      return '1"';
+    default:
+      return '0';
+  }
+}

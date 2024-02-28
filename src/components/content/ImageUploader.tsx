@@ -22,6 +22,13 @@ export default function ImageUploader({
     });
   }
 
+  function deleteImage(index: number) {
+    updateImages((images) => {
+      if (!Array.isArray(images)) return [];
+      return images.filter((_, i) => i !== index);
+    });
+  }
+
   return (
     <div className="grid grid-cols-2 gap-4">
       <Uploader
@@ -31,7 +38,7 @@ export default function ImageUploader({
         suggestedFiles="PNG, JPG or SVG"
         allowedTypes={allowedFileTypes}
       />
-      <ImageCaroussel images={images} />
+      <ImageCaroussel images={images} onDelete={deleteImage} />
     </div>
   );
 }
