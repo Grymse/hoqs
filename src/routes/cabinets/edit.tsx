@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import ImageUploader from '@/components/content/ImageUploader';
 import Text from '../../components/ui/Text';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { supabase, toPromise } from '@/lib/supabase';
 import { SpeakerCabinet, StorageImage } from '@/types/types';
 import {
@@ -14,7 +14,7 @@ import {
   woodThicknessToInches,
 } from '@/lib/translations';
 import toast from 'react-hot-toast';
-import ContinueModal from '@/components/modals/ContinueModal';
+import ConfirmModal from '@/components/modals/ConfirmModal';
 import {
   CABINET_TYPES,
   DRIVER_SIZES,
@@ -24,6 +24,7 @@ import {
 
 export function EditCabinet() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const cabReq = useRef(supabase.from('cabinets').select('*').eq('id', id));
   const { StatusComponent, data } = useSupabaseRequest(cabReq.current);
   const cabinet = data?.[0] as SpeakerCabinet;
@@ -44,10 +45,13 @@ export function EditCabinet() {
     const deleter = toPromise(
       supabase.from('cabinets').delete().eq('id', cabinet.id)
     );
+
     toast.promise(deleter, {
       loading: 'Deleting cabinet from database',
-      success: (c) =>
-        `Successfully deleted cabinet ${cabinet.brand} - ${cabinet.model}`,
+      success: (c) => {
+        navigate('/cabinets');
+        return `Successfully deleted cabinet ${cabinet.brand} - ${cabinet.model}`;
+      },
       error: (e) => `Error deleting cabinet ${e.message}`,
     });
   }
@@ -373,15 +377,15 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           Save Cabinet
         </Button>
         {onDelete && (
-          <ContinueModal
+          <ConfirmModal
             title="Are you sure?"
             description="Do you want to delete this precious cabinet?"
             cancelText="Cancel"
             color="danger"
-            onContinue={() => onDelete(cabinet)}
+            onConfirm={() => onDelete(cabinet)}
           >
             Delete Cabinet
-          </ContinueModal>
+          </ConfirmModal>
         )}
       </div>
     </>

@@ -27,8 +27,13 @@ export interface AttachedFile {
   contributors: Contributor[];
 }
 
-export type WithImages<T> = Omit<T, 'images'> & {
-  images: StorageImage[] | null;
-};
+export type WithImages<T> = MergeWithOverwrite<
+  T,
+  {
+    images: StorageImage[] | null;
+  }
+>;
 
 export type SpeakerCabinet = WithImages<Tables<'cabinets'>>;
+
+export type MergeWithOverwrite<T, U> = Omit<T, keyof U> & U;

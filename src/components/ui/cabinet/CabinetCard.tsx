@@ -30,7 +30,7 @@ export default function CabinetCard({ cabinet }: Props) {
           removeWrapper
           alt={'Image of ' + cabinet.model}
           className="z-0 w-full h-full object-cover"
-          src={cabinet.images?.[0].url}
+          src={cabinet.images?.[0]?.url}
         />
       </Card>
     </Link>

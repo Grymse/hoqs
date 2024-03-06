@@ -3,7 +3,9 @@ import { atom, useAtom } from 'jotai';
 import { supabase } from './supabase';
 import { AuthOtpResponse, User } from '@supabase/supabase-js';
 
-const userAtom = atom<User | null>(null);
+type UserWithRole = User & { api_role?: string };
+
+const userAtom = atom<UserWithRole | null>(null);
 
 export const useAuth = () => {
   return useAtom(userAtom)[0];
@@ -18,7 +20,21 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
 
   useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
-      setUser(session?.user ?? null);
+      const newUser = session?.user as UserWithRole | null;
+      setUser(newUser ?? null);
+
+      // Fetch role of user elsewhere
+      if (newUser !== null) {
+        supabase
+          .from('users')
+          .select('role')
+          .eq('id', newUser?.id)
+          .then(({ data }) => {
+            if (data) {
+              setUser({ ...newUser, api_role: data[0].role });
+            }
+          });
+      }
     });
 
     return () => {

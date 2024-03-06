@@ -11,15 +11,15 @@ import {
 } from '@nextui-org/react';
 
 type WarningModalProps = {
-  onContinue: () => void;
+  onConfirm: () => void;
   onClose?: () => void;
   cancelText: string;
   title: string;
   description?: string;
 } & React.ComponentProps<typeof Button>;
 
-export default function ContinueModal({
-  onContinue,
+export default function ConfirmModal({
+  onConfirm,
   onClose: outerOnClose,
   children,
   cancelText,
@@ -58,7 +58,7 @@ export default function ContinueModal({
                   <Button
                     {...props}
                     onPress={() => {
-                      onContinue();
+                      onConfirm();
                       onClose();
                       outerOnClose?.();
                     }}
