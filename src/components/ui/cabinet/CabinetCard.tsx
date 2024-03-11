@@ -17,7 +17,7 @@ interface Props {
 
 export default function CabinetCard({ cabinet }: Props) {
   return (
-    <Link to={'/cabinets/' + cabinet.id}>
+    <Link to={'/cabinets/' + cabinet.id} className="w-fit flex">
       <Card className="col-span-12 sm:col-span-4 h-64 w-64 cursor-pointer outline-1 hover:outline-primary-500">
         <CardHeader className="absolute pointer-events-none z-10 top-1 flex-col !items-start">
           <p className="text-tiny text-white/60 uppercase font-bold">

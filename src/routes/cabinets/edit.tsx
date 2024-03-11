@@ -1,9 +1,9 @@
 import PageContainer from '@/components/ui/PageContainer';
 import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
-import Header from '../../components/ui/Header';
+import Header from '@/components/ui/Header';
 import { useRef, useState } from 'react';
 import ImageUploader from '@/components/content/ImageUploader';
-import Text from '../../components/ui/Text';
+import Text from '@/components/ui/Text';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase, toPromise } from '@/lib/supabase';
@@ -21,6 +21,7 @@ import {
   MAX_SPL_COUNT,
   WOOD_THICKNESS,
 } from '@/lib/variables';
+import RequireRole from '@/components/auth/RequireRole';
 
 export function EditCabinet() {
   const { id } = useParams();
@@ -35,8 +36,10 @@ export function EditCabinet() {
     );
     toast.promise(uploader, {
       loading: 'Saving cabinet to database',
-      success: (c) =>
-        `Successfully saved cabinet ${cabinet.brand} - ${cabinet.model}`,
+      success: (c) => {
+        navigate(`/cabinets/${cabinet.id}`);
+        return `Successfully saved cabinet ${cabinet.brand} - ${cabinet.model}`;
+      },
       error: (e) => `Error saving cabinet ${e.message}`,
     });
   }
@@ -57,16 +60,18 @@ export function EditCabinet() {
   }
 
   return (
-    <PageContainer className="flex flex-col gap-4">
-      <StatusComponent />
-      {cabinet && (
-        <EditForm
-          initialCabinet={cabinet}
-          onSave={saveCabinet}
-          onDelete={deleteCabinet}
-        />
-      )}
-    </PageContainer>
+    <RequireRole roles={['admin']}>
+      <PageContainer className="flex flex-col gap-4">
+        <StatusComponent />
+        {cabinet && (
+          <EditForm
+            initialCabinet={cabinet}
+            onSave={saveCabinet}
+            onDelete={deleteCabinet}
+          />
+        )}
+      </PageContainer>
+    </RequireRole>
   );
 }
 
@@ -186,7 +191,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           value={MAX_SPL_COUNT[cabinet.max_spl.length - 1]}
           defaultSelectedKeys={String(cabinet.max_spl.length - 1)}
           onChange={(e) => {
-            cabinet.max_spl.length = parseInt(e.target.value) + 1;
+            cabinet.max_spl.length = parseFloat(e.target.value) + 1;
             setCabinet({ ...cabinet });
           }}
         >
@@ -203,7 +208,8 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
               label={`Max SPL (${MAX_SPL_COUNT[i]})`}
               value={String(cabinet.max_spl[i])}
               onChange={(e) => {
-                cabinet.max_spl[i] = parseInt(e.target.value);
+                cabinet.max_spl[i] = parseFloat(e.target.value);
+                console.log(cabinet.max_spl[i]);
                 setCabinet({ ...cabinet });
               }}
               endContent="SPL"
@@ -247,7 +253,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              sensitivity: e.target.value ? [parseInt(e.target.value)] : [0],
+              sensitivity: e.target.value ? [parseFloat(e.target.value)] : [0],
             })
           }
         />
@@ -265,7 +271,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
             setCabinet({
               ...cabinet,
               directivity_horizontal: e.target.value
-                ? parseInt(e.target.value)
+                ? parseFloat(e.target.value)
                 : null,
             })
           }
@@ -280,7 +286,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
             setCabinet({
               ...cabinet,
               directivity_vertical: e.target.value
-                ? parseInt(e.target.value)
+                ? parseFloat(e.target.value)
                 : null,
             })
           }
@@ -300,7 +306,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              height_mm: e.target.value ? parseInt(e.target.value) : null,
+              height_mm: e.target.value ? parseFloat(e.target.value) : null,
             })
           }
         />
@@ -313,7 +319,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              width_mm: e.target.value ? parseInt(e.target.value) : null,
+              width_mm: e.target.value ? parseFloat(e.target.value) : null,
             })
           }
         />
@@ -326,7 +332,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              depth_mm: e.target.value ? parseInt(e.target.value) : null,
+              depth_mm: e.target.value ? parseFloat(e.target.value) : null,
             })
           }
         />
@@ -339,7 +345,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              weight_kg: e.target.value ? parseInt(e.target.value) : null,
+              weight_kg: e.target.value ? parseFloat(e.target.value) : null,
             })
           }
         />

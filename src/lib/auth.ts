@@ -24,7 +24,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
       setUser(newUser ?? null);
 
       // Fetch role of user elsewhere
-      if (newUser !== null) {
+      if (newUser?.id) {
         supabase
           .from('users')
           .select('role')

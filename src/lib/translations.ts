@@ -36,3 +36,14 @@ export function woodThicknessToInches(woodThickness: string): string {
       return '0';
   }
 }
+
+export function formatFrequency(frequency: number | null): string {
+  if (frequency === null) {
+    return '';
+  }
+  if (frequency > 1000) {
+    return `${(frequency / 1000).toFixed(1)}kHz`;
+  } else {
+    return `${frequency}Hz`;
+  }
+}
