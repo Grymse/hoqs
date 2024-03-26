@@ -249,11 +249,11 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           variant="bordered"
           label="Sensitivity"
           endContent="dB"
-          value={String(cabinet.sensitivity[0] ?? '')}
+          value={String(cabinet.sensitivity ?? '')}
           onChange={(e) =>
             setCabinet({
               ...cabinet,
-              sensitivity: e.target.value ? [parseFloat(e.target.value)] : [0],
+              sensitivity: e.target.value ? parseFloat(e.target.value) : null,
             })
           }
         />

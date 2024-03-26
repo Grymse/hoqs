@@ -13,9 +13,11 @@ import {
   TableColumn,
   TableRow,
   TableCell,
+  Tooltip,
 } from '@nextui-org/react';
 import React from 'react';
 import { MAX_SPL_COUNT } from '@/lib/variables';
+import { HelpCircleIcon } from 'lucide-react';
 
 interface Props {
   cabinet: WithImages<Tables<'cabinets'>>;
@@ -25,6 +27,7 @@ interface Attribute {
   name: string;
   value: string | null;
   active: boolean;
+  help?: string;
 }
 
 export default function Specifications({ cabinet }: Props) {
@@ -51,19 +54,20 @@ export default function Specifications({ cabinet }: Props) {
       name: 'Frequency range',
       value: `${formatFrequency(cabinet.frequency_start)} - ${formatFrequency(
         cabinet.frequency_end
-      )}`,
+      )} (-3dB)`,
       active:
         cabinet.frequency_end !== null && cabinet.frequency_start !== null,
     },
     {
-      name: 'Sensitivity',
-      value: `${cabinet.sensitivity[0]}db`,
-      active: cabinet.sensitivity.length !== 0,
+      name: 'Sensitivity (1W/1m)',
+      value: `${cabinet.sensitivity}dB`,
+      active: cabinet.sensitivity !== null,
+      help: '8ohm @ 2.83V/1m. 4ohm @ 2V/1m.',
     },
     {
       name: 'Max SPL',
       value: cabinet.max_spl
-        .map((max_spl, i) => `${max_spl}db (${MAX_SPL_COUNT[i]})`)
+        .map((max_spl, i) => `${max_spl}dB (${MAX_SPL_COUNT[i]})`)
         .join(` \n`),
       active: cabinet.max_spl.length !== 0,
     },
@@ -108,7 +112,18 @@ export default function Specifications({ cabinet }: Props) {
           .filter((attribute) => attribute.active)
           .map((attribute, index) => (
             <TableRow key={index}>
-              <TableCell>{attribute.name}</TableCell>
+              <TableCell className="flex gap-2">
+                {attribute.name}{' '}
+                {attribute.help && (
+                  <Tooltip
+                    color="primary"
+                    content={attribute.help}
+                    closeDelay={300}
+                  >
+                    <HelpCircleIcon className="text-default-500" size={20} />
+                  </Tooltip>
+                )}
+              </TableCell>
               <TableCell>
                 {attribute.value?.split('\n').map((line, index) => (
                   <React.Fragment key={index}>
