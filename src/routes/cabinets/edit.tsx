@@ -1,5 +1,12 @@
 import PageContainer from '@/components/ui/PageContainer';
-import { Button, Input, Select, SelectItem, Textarea } from '@nextui-org/react';
+import {
+  Button,
+  Checkbox,
+  Input,
+  Select,
+  SelectItem,
+  Textarea,
+} from '@nextui-org/react';
 import Header from '@/components/ui/Header';
 import { useRef, useState } from 'react';
 import ImageUploader from '@/components/content/ImageUploader';
@@ -7,7 +14,7 @@ import Text from '@/components/ui/Text';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase, toPromise } from '@/lib/supabase';
-import { SpeakerCabinet, StorageImage } from '@/types/types';
+import { SpeakerCabinet, StorageFile, StorageImage } from '@/types/types';
 import {
   kgsToPounds,
   mmToInches,
@@ -22,6 +29,7 @@ import {
   WOOD_THICKNESS,
 } from '@/lib/variables';
 import RequireRole from '@/components/auth/RequireRole';
+import FileUploader from '../../components/content/FileUploader';
 
 export function EditCabinet() {
   const { id } = useParams();
@@ -90,11 +98,33 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
     });
   }
 
+  function updateFiles(fn: (files: StorageFile[] | null) => StorageFile[]) {
+    setCabinet((cabinet) => {
+      return { ...cabinet, files: fn(cabinet.files) };
+    });
+  }
+
   return (
     <>
-      <Header variant="subtitle">
-        {cabinet.brand} - {cabinet.model}
-      </Header>
+      {!initialCabinet.active && (
+        <div className="w-full flex justify-center bg-red-500">
+          <Text className="my-0">NOT PUBLISHED</Text>
+        </div>
+      )}
+      <div className="flex justify-between">
+        <Header variant="subtitle">
+          {cabinet.brand} - {cabinet.model}
+        </Header>
+
+        <Checkbox
+          defaultSelected={cabinet.active}
+          onChange={(e) => {
+            setCabinet({ ...cabinet, active: e.target.checked });
+          }}
+        >
+          Active
+        </Checkbox>
+      </div>
       <Header variant="sub-subtitle">Details</Header>
       <div className="grid grid-cols-3 gap-4">
         <Input
@@ -119,7 +149,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           items={CABINET_TYPES}
           label="Type"
           placeholder="Select cabinet type"
-          selectedKeys={[cabinet.type || '']}
+          selectedKeys={cabinet.type ? [cabinet.type] : []}
           variant="bordered"
           onChange={(e) => setCabinet({ ...cabinet, type: e.target.value })}
         >
@@ -189,7 +219,11 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           placeholder="Max SPL counts"
           variant="bordered"
           value={MAX_SPL_COUNT[cabinet.max_spl.length - 1]}
-          defaultSelectedKeys={String(cabinet.max_spl.length - 1)}
+          defaultSelectedKeys={
+            cabinet.max_spl.length !== 0
+              ? String(cabinet.max_spl.length - 1)
+              : undefined
+          }
           onChange={(e) => {
             cabinet.max_spl.length = parseFloat(e.target.value) + 1;
             setCabinet({ ...cabinet });
@@ -361,7 +395,9 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
               wood_thickness_mm: e.target.value,
             })
           }
-          selectedKeys={[cabinet.wood_thickness_mm || '']}
+          selectedKeys={
+            cabinet.wood_thickness_mm ? [cabinet.wood_thickness_mm] : []
+          }
         >
           {WOOD_THICKNESS.map((thickness) => (
             <SelectItem key={thickness}>{thickness}</SelectItem>
@@ -378,6 +414,16 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
         {woodThicknessToInches(cabinet.wood_thickness_mm ?? '')} inch
         <br /> Weight: {kgsToPounds(cabinet.weight_kg)} pounds
       </Text>
+
+      <Header variant="sub-subtitle">Files</Header>
+      <FileUploader
+        files={cabinet.files}
+        updateFiles={updateFiles}
+        bucket="cabinets"
+        path={cabinet.id}
+      />
+
+      {/* FOOTER */}
       <div className="flex justify-between flex-row-reverse">
         <Button color="primary" onClick={() => onSave(cabinet)}>
           Save Cabinet

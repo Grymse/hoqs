@@ -15,10 +15,15 @@ export default function ImageUploader({
   path,
   bucket,
 }: Props) {
-  function addImage(url: string, title: string) {
+  function addImage(url: string, file: File) {
     updateImages((images) => {
-      if (!Array.isArray(images)) return [{ url, title }];
-      return [...images, { url, title }];
+      const newImage = {
+        url,
+        title: file.name,
+      };
+
+      if (!Array.isArray(images)) return [newImage];
+      return [...images, newImage];
     });
   }
 

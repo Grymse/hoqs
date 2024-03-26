@@ -6,8 +6,8 @@ interface Props {
   bucket: string;
   path: string;
   suggestedFiles: string;
-  allowedTypes: string[];
-  onFileUploaded: (url: string, title: string) => void;
+  allowedTypes?: string[];
+  onFileUploaded: (url: string, file: File) => void;
 }
 export default function Uploader({
   path,
@@ -33,6 +33,8 @@ export default function Uploader({
   }
 
   function assertFileType(file: File) {
+    if (allowedTypes === undefined) return true;
+
     if (!allowedTypes.includes(file.type)) {
       toast.error(`File type ${file.type} is not allowed`);
       return false;
@@ -47,7 +49,7 @@ export default function Uploader({
     if (error) throw error.message;
 
     const url = supabase.storage.from(bucket).getPublicUrl(data.path);
-    onFileUploaded(url.data.publicUrl, file.name);
+    onFileUploaded(url.data.publicUrl, file);
   }
 
   return (

@@ -5,6 +5,14 @@ export interface StorageImage {
   url: string;
 }
 
+export interface StorageFile {
+  title: string;
+  url: string;
+  size: number;
+  description: string;
+  mimetype: string;
+}
+
 export interface Contributor {
   user: string;
   desc: string;
@@ -20,17 +28,11 @@ export interface Measurements {
   calibrated?: boolean;
 }
 
-export interface AttachedFile {
-  title: string;
-  file: string;
-  description: string;
-  contributors: Contributor[];
-}
-
 export type WithImages<T> = MergeWithOverwrite<
   T,
   {
     images: StorageImage[] | null;
+    files: StorageFile[] | null;
   }
 >;
 

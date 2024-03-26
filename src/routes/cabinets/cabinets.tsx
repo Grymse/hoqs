@@ -5,6 +5,8 @@ import CabinetCard from '../../components/ui/cabinet/CabinetCard';
 import { supabase } from '@/lib/supabase';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useState } from 'react';
+import AdminOnly from '@/components/AdminOnly';
+import AddCabinetButton from '../../components/content/cabinet/AddCabinet';
 
 /* export function Cabinets() {
   return (
@@ -23,7 +25,10 @@ import { useState } from 'react';
 
 export function Cabinets() {
   const [cabFetch] = useState(
-    supabase.from('cabinets').select('id, brand, model, images, type')
+    supabase
+      .from('cabinets')
+      .select('id, brand, model, images, type')
+      .eq('active', true)
   );
 
   const { data: cabinets, StatusComponent } = useSupabaseRequest(cabFetch);
@@ -31,6 +36,11 @@ export function Cabinets() {
   return (
     <PageContainer>
       <StatusComponent />
+      <div className="w-full mb-4 flex justify-end">
+        <AdminOnly>
+          <AddCabinetButton />
+        </AdminOnly>
+      </div>
       {cabinets?.map((cabinet) => (
         <CabinetCard key={cabinet.id} cabinet={cabinet} />
       ))}
