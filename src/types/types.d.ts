@@ -2,11 +2,8 @@ import { Tables } from './supabase';
 
 export type StorageImage = {
   description?: string;
-  where?: string;
-  microphone?: string;
+  location?: string;
   driver?: string;
-  calibrated?: boolean;
-  dataUrl?: string;
   contributors?: Contributor[];
 } & AbstractStorageFile;
 
