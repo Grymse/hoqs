@@ -1,4 +1,6 @@
 import { supabase } from '@/lib/supabase';
+import { removeFileExtension } from '@/lib/translations';
+import { AbstractStorageFile } from '@/types/types';
 import Dropzone from 'react-dropzone';
 import toast from 'react-hot-toast';
 
@@ -7,7 +9,7 @@ interface Props {
   path: string;
   suggestedFiles: string;
   allowedTypes?: string[];
-  onFileUploaded: (url: string, file: File) => void;
+  onFileUploaded: (file: AbstractStorageFile) => void;
 }
 export default function Uploader({
   path,
@@ -43,13 +45,32 @@ export default function Uploader({
   }
 
   async function uploadToSupabase(file: File) {
+    const uploadPath = path + '/' + file.name;
     const { data, error } = await supabase.storage
       .from(bucket)
-      .upload(path + '/' + file.name, file);
-    if (error) throw error.message;
+      .upload(uploadPath, file);
 
-    const url = supabase.storage.from(bucket).getPublicUrl(data.path);
-    onFileUploaded(url.data.publicUrl, file);
+    // @ts-expect-error error.error is not defined in the Supabase error type
+    if (error && error.error !== 'Duplicate') throw error;
+
+    const url = supabase.storage
+      .from(bucket)
+      .getPublicUrl(data?.path || uploadPath);
+    onFileUploaded({
+      title: removeFileExtension(file.name),
+      size: file.size,
+      mimetype: file.type,
+      url: url.data.publicUrl,
+      uploadedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
+    });
+
+    // If the file already exists, we throw an error to let the user know that the file was not uploaded,
+    // but we still return the file, so that the user can use the existing file.
+    if (error)
+      throw new Error(
+        'File already exists. Opted to use existing file in cloud storage. If the current file is deprecated or wrong, please rename the file to be uploaded and try again.'
+      );
   }
 
   return (

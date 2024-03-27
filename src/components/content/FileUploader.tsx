@@ -1,6 +1,5 @@
-import { StorageFile } from '@/types/types';
+import { AbstractStorageFile, StorageFile } from '@/types/types';
 import Uploader from './Uploader';
-import { removeFileExtension } from '@/lib/translations';
 import FileList from './FileList';
 
 interface Props {
@@ -16,13 +15,10 @@ export default function FileUploader({
   path,
   bucket,
 }: Props) {
-  function addFile(url: string, file: File) {
+  function addFile(file: AbstractStorageFile) {
     const newFile = {
-      url,
-      title: removeFileExtension(file.name),
-      size: file.size,
       description: '',
-      mimetype: file.type,
+      ...file,
     };
 
     if (!Array.isArray(files)) {

@@ -1,4 +1,4 @@
-import { StorageImage } from '@/types/types';
+import { AbstractStorageFile, StorageImage } from '@/types/types';
 import ImageCaroussel from './ImageCaroussel';
 import Uploader from './Uploader';
 
@@ -15,12 +15,9 @@ export default function ImageUploader({
   path,
   bucket,
 }: Props) {
-  function addImage(url: string, file: File) {
+  function addImage(file: AbstractStorageFile) {
     updateImages((images) => {
-      const newImage = {
-        url,
-        title: file.name,
-      };
+      const newImage = file;
 
       if (!Array.isArray(images)) return [newImage];
       return [...images, newImage];

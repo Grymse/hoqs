@@ -6,7 +6,6 @@ import {
   TableRow,
   Table,
   TableCell,
-  Button,
 } from '@nextui-org/react';
 import FileIcon from './FileIcon';
 import { formatBytes } from '@/lib/translations';

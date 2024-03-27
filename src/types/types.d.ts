@@ -1,15 +1,17 @@
 import { Tables } from './supabase';
 
-export interface StorageImage {
-  title: string;
-  url: string;
-}
+export type StorageImage = StorageItem;
 
-export interface StorageFile {
+export type StorageFile = {
+  description: string;
+} & StorageItem;
+
+export interface AbstractStorageFile {
   title: string;
   url: string;
+  uploadedAt: string;
+  createdAt: string;
   size: number;
-  description: string;
   mimetype: string;
 }
 
