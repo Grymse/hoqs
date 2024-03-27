@@ -3,6 +3,7 @@ import { Card, CardFooter, CardHeader, Image } from '@nextui-org/react';
 import { StorageImage } from '@/types/types';
 import { Link } from 'react-router-dom';
 import { CabinetBadgeList } from '../../content/cabinet/CabinetBadge';
+import { formatFrequency } from '@/lib/translations';
 
 interface Cabinet {
   id: string;
@@ -11,6 +12,9 @@ interface Cabinet {
   images: StorageImage[];
   type: string;
   badges: string[];
+  frequency_start: number;
+  frequency_end: number;
+  sensitivity: number;
 }
 
 interface Props {
@@ -26,6 +30,10 @@ export default function CabinetCard({ cabinet }: Props) {
             {cabinet.brand}
           </p>
           <h4 className="text-white font-medium text-large">{cabinet.model}</h4>
+          <p className="text-tiny text-white/60">
+            {cabinet.type} |{formatFrequency(cabinet.frequency_start)}-
+            {formatFrequency(cabinet.frequency_end)} | {cabinet.sensitivity}dB
+          </p>
         </CardHeader>
         <Image
           isZoomed

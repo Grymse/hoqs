@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import Index from './routes/index';
 import NotFound from './routes/not-found';
 import Cabinets from './routes/cabinets/cabinets';
 import About from './routes/about';
@@ -10,7 +9,7 @@ import { EditCabinet } from './routes/cabinets/edit';
 
 export default () => (
   <Routes>
-    <Route path="/" element={<Index />} />
+    <Route path="/" element={<Cabinets />} />
     <Route path="/cabinets" element={<Cabinets />} />
     <Route path="/cabinets/:id" element={<Cabinet />} />
     <Route path="/cabinets/:id/edit" element={<EditCabinet />} />

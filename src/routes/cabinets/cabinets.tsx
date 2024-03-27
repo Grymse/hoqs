@@ -7,31 +7,36 @@ import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useState } from 'react';
 import AdminOnly from '@/components/AdminOnly';
 import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton';
-
-/* export function Cabinets() {
-  return (
-    <PageContainer>
-      <Table aria-label="Example empty table">
-        <TableHeader>
-          <TableColumn>Cabinet</TableColumn>
-          <TableColumn>ROLE</TableColumn>
-          <TableColumn>STATUS</TableColumn>
-        </TableHeader>
-        <TableBody emptyContent={'No rows to display.'}>{[]}</TableBody>
-      </Table>
-    </PageContainer>
-  );
-} */
+import { CabinetBadgeList } from '../../components/content/cabinet/CabinetBadge';
+import {
+  Tab,
+  TableHeader,
+  Tabs,
+  Table,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from '@nextui-org/react';
+import { formatFrequency } from '@/lib/translations';
+import { useNavigate } from 'react-router-dom';
 
 export function Cabinets() {
+  const navigate = useNavigate();
   const [cabFetch] = useState(
     supabase
       .from('cabinets')
-      .select('id, brand, model, images, type, badges')
+      .select(
+        'id, brand, model, images, type, badges, frequency_start, frequency_end, sensitivity'
+      )
       .eq('active', true)
   );
 
   const { data: cabinets, StatusComponent } = useSupabaseRequest(cabFetch);
+
+  function goToCabinet(id: string) {
+    navigate(`/cabinets/${id}`);
+  }
 
   return (
     <PageContainer>
@@ -41,9 +46,46 @@ export function Cabinets() {
           <AddCabinetButton />
         </AdminOnly>
       </div>
-      {cabinets?.map((cabinet) => (
-        <CabinetCard key={cabinet.id} cabinet={cabinet} />
-      ))}
+      <div className="flex w-full flex-col">
+        <Tabs aria-label="Views">
+          <Tab key="gallary" title="Gallery">
+            {cabinets?.map((cabinet) => (
+              <CabinetCard key={cabinet.id} cabinet={cabinet} />
+            ))}
+          </Tab>
+          <Tab key="table" title="Table">
+            <Table aria-label="Example empty table" selectionMode="single">
+              <TableHeader>
+                <TableColumn>Cabinet</TableColumn>
+                <TableColumn>Type</TableColumn>
+                <TableColumn>Range</TableColumn>
+                <TableColumn>Sensitivity</TableColumn>
+              </TableHeader>
+              <TableBody emptyContent={'No rows to display.'}>
+                {cabinets
+                  ? cabinets.map((cabinet) => (
+                      <TableRow
+                        key={cabinet.id}
+                        onClick={() => goToCabinet(cabinet.id)}
+                      >
+                        <TableCell>
+                          {cabinet.brand + ' ' + cabinet.model}{' '}
+                          <CabinetBadgeList size="sm" badges={cabinet.badges} />
+                        </TableCell>
+                        <TableCell>{cabinet.type}</TableCell>
+                        <TableCell>
+                          {formatFrequency(cabinet.frequency_start)}-
+                          {formatFrequency(cabinet.frequency_end)}
+                        </TableCell>
+                        <TableCell>{cabinet.sensitivity}dB</TableCell>
+                      </TableRow>
+                    ))
+                  : []}
+              </TableBody>
+            </Table>
+          </Tab>
+        </Tabs>
+      </div>
     </PageContainer>
   );
 }
