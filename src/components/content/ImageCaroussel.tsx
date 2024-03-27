@@ -47,13 +47,15 @@ export default function ImageCaroussel({
       {isFullscreen && <ImageDescription image={currentImage} />}
       <Swiper
         modules={[Navigation, Pagination]}
-        loop={true}
         pagination={{
           clickable: true,
         }}
         navigation={true}
         initialSlide={initialSlide}
-        onSlideChange={(swiper) => setSlideIndex(swiper.activeIndex)}
+        onSlideChange={(swiper) => {
+          setSlideIndex(swiper.activeIndex);
+          console.log(swiper);
+        }}
         className="w-full h-full rounded-lg"
         onClick={onOpen}
       >
