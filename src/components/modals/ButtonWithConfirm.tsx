@@ -13,16 +13,16 @@ import {
 type WarningModalProps = {
   onConfirm: () => void;
   onClose?: () => void;
-  cancelText: string;
+  cancelText?: string;
   title: string;
   description?: string;
 } & React.ComponentProps<typeof Button>;
 
-export default function ConfirmModal({
+export default function ButtonWithConfirm({
   onConfirm,
   onClose: outerOnClose,
   children,
-  cancelText,
+  cancelText = 'Cancel',
   title,
   description,
   ...props

@@ -19,8 +19,7 @@ export const messages = {
   'login.close': 'Close',
 
   // Footer
-  'footer.creators':
-    'This website was created by Lewis Cafaro & Nicolai Grymer',
+  'footer.creators': 'This website was created by Nicolai Grymer',
   'footer.license-intro': 'All content of this website falls under our',
   'footer.license': 'license agreement',
   'notfound.title': 'Page not found :(',

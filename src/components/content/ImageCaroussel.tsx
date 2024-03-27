@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 import { useDisclosure } from '@nextui-org/react';
 import ImageFullscreen from './ImageFullscreen';
 import { useState } from 'react';
-import ConfirmModal from '../modals/ConfirmModal';
+import ButtonWithConfirm from '../modals/ButtonWithConfirm';
 
 // import required modules
 
@@ -62,7 +62,7 @@ export default function ImageCaroussel({
         ))}
         {onDelete && (
           <div className="absolute top-2 right-2 z-10">
-            <ConfirmModal
+            <ButtonWithConfirm
               title="Are you sure?"
               description="Are you sure you want to delete this image? This action cannot be undone."
               cancelText="Cancel"
@@ -71,7 +71,7 @@ export default function ImageCaroussel({
               isIconOnly
             >
               <Trash2 />
-            </ConfirmModal>
+            </ButtonWithConfirm>
           </div>
         )}
       </Swiper>

@@ -21,7 +21,7 @@ import {
   woodThicknessToInches,
 } from '@/lib/translations';
 import toast from 'react-hot-toast';
-import ConfirmModal from '@/components/modals/ConfirmModal';
+import ButtonWithConfirm from '@/components/modals/ButtonWithConfirm';
 import {
   CABINET_TYPES,
   DRIVER_SIZES,
@@ -98,9 +98,9 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
     });
   }
 
-  function updateFiles(fn: (files: StorageFile[] | null) => StorageFile[]) {
+  function updateFiles(files: StorageFile[] | null) {
     setCabinet((cabinet) => {
-      return { ...cabinet, files: fn(cabinet.files) };
+      return { ...cabinet, files };
     });
   }
 
@@ -429,7 +429,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           Save Cabinet
         </Button>
         {onDelete && (
-          <ConfirmModal
+          <ButtonWithConfirm
             title="Are you sure?"
             description="Do you want to delete this precious cabinet?"
             cancelText="Cancel"
@@ -437,7 +437,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
             onConfirm={() => onDelete(cabinet)}
           >
             Delete Cabinet
-          </ConfirmModal>
+          </ButtonWithConfirm>
         )}
       </div>
     </>

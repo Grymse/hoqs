@@ -5,7 +5,7 @@ import FileList from './FileList';
 
 interface Props {
   files: StorageFile[] | null;
-  updateFiles: (fn: (files: StorageFile[] | null) => StorageFile[]) => void;
+  updateFiles: (files: StorageFile[] | null) => void;
   bucket: string;
   path: string;
 }
@@ -17,25 +17,20 @@ export default function FileUploader({
   bucket,
 }: Props) {
   function addFile(url: string, file: File) {
-    updateFiles((files) => {
-      const newFile = {
-        url,
-        title: removeFileExtension(file.name),
-        size: file.size,
-        description: '',
-        mimetype: file.type,
-      };
-      if (!Array.isArray(files)) return [newFile];
-      return [...files, newFile];
-    });
-  }
+    const newFile = {
+      url,
+      title: removeFileExtension(file.name),
+      size: file.size,
+      description: '',
+      mimetype: file.type,
+    };
 
-  /*  function deleteFiles(index: number) {
-    updateFiles((files) => {
-      if (!Array.isArray(files)) return [];
-      return files.filter((_, i) => i !== index);
-    });
-  } */
+    if (!Array.isArray(files)) {
+      updateFiles([newFile]);
+    } else {
+      updateFiles([...files, newFile]);
+    }
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -45,7 +40,7 @@ export default function FileUploader({
         onFileUploaded={addFile}
         suggestedFiles="PDF, DOCS, XLSX, etc. Max 25mb"
       />
-      <FileList files={files} />
+      <FileList files={files} onChange={updateFiles} />
     </div>
   );
 }

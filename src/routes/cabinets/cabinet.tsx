@@ -11,6 +11,7 @@ import Text from '@/components/ui/Text';
 import { Button } from '@nextui-org/react';
 import Specifications from '@/components/content/cabinet/Specifications';
 import AdminOnly from '../../components/AdminOnly';
+import FileList from '@/components/content/FileList';
 
 export function Cabinet() {
   const { id } = useParams();
@@ -35,6 +36,8 @@ export function Cabinet() {
           <Text variant="thick">{cabinet.short_description}</Text>
           <Text>{cabinet.description}</Text>
           <Specifications cabinet={cabinet} />
+          <Header variant="subtitle">Files</Header>
+          <FileList files={cabinet.files} />
         </div>
       )}
     </PageContainer>
