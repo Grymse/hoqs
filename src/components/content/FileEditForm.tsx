@@ -12,7 +12,7 @@ import {
 } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import Text from '../ui/Text';
-import { formatBytes } from '../../lib/translations';
+import { formatBytes, formatDate } from '../../lib/translations';
 import UploaderReplacerButton from './UploadReplacerButton';
 
 type FileEditFormProps = {
@@ -82,6 +82,10 @@ export default function FileEditForm({
                     Replace file
                   </UploaderReplacerButton>
                 </div>
+                <Text variant="small" color="muted">
+                  Created at {formatDate(file.createdAt)}
+                  <br /> Updated at {formatDate(file.updatedAt)}
+                </Text>
               </ModalBody>
               <ModalFooter>
                 <Button color="default" variant="flat" onPress={onClose}>

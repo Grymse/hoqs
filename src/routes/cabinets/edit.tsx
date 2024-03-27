@@ -30,6 +30,8 @@ import {
 } from '@/lib/variables';
 import RequireRole from '@/components/auth/RequireRole';
 import FileUploader from '../../components/content/FileUploader';
+import { CABINET_BADGES } from '../../lib/variables';
+import CabinetBadge from '@/components/content/cabinet/CabinetBadge';
 
 export function EditCabinet() {
   const { id } = useParams();
@@ -176,7 +178,54 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
             <SelectItem key={driverSize}>{driverSize}</SelectItem>
           ))}
         </Select>
+
+        <Select
+          items={DRIVER_SIZES}
+          label="Driver Size"
+          selectionMode="multiple"
+          placeholder="Select cabinet size"
+          variant="bordered"
+          selectedKeys={cabinet.driver_size}
+          onChange={(e) =>
+            setCabinet((cabinet) => ({
+              ...cabinet,
+              driver_size: e.target.value.split(','),
+            }))
+          }
+        >
+          {DRIVER_SIZES.map((driverSize) => (
+            <SelectItem key={driverSize}>{driverSize}</SelectItem>
+          ))}
+        </Select>
       </div>
+      <Select
+        items={CABINET_BADGES.map((badge) => badge.title)}
+        label="Cabinet Badges"
+        selectionMode="multiple"
+        placeholder="Select cabinet badges"
+        variant="bordered"
+        selectedKeys={cabinet.badges}
+        isMultiline
+        onChange={(e) =>
+          setCabinet((cabinet) => ({
+            ...cabinet,
+            badges: e.target.value.split(','),
+          }))
+        }
+        renderValue={(badges) => {
+          return (
+            <div className="flex flex-wrap gap-2">
+              {badges.map((badge) => (
+                <CabinetBadge badgeTitle={badge.textValue} key={badge.key} />
+              ))}
+            </div>
+          );
+        }}
+      >
+        {CABINET_BADGES.map((badge) => (
+          <SelectItem key={badge.title}>{badge.title}</SelectItem>
+        ))}
+      </Select>
       <Header variant="sub-subtitle">Descriptions</Header>
       <Textarea
         label="Short Entry Description"

@@ -12,6 +12,7 @@ import { Button } from '@nextui-org/react';
 import Specifications from '@/components/content/cabinet/Specifications';
 import AdminOnly from '../../components/AdminOnly';
 import FileList from '@/components/content/FileList';
+import { CabinetBadgeList } from '@/components/content/cabinet/CabinetBadge';
 
 export function Cabinet() {
   const { id } = useParams();
@@ -38,6 +39,7 @@ export function Cabinet() {
               </Button>
             </AdminOnly>
           </div>
+          <CabinetBadgeList badges={cabinet.badges} />
           <Text variant="thick">{cabinet.short_description}</Text>
           <Text>{cabinet.description}</Text>
           <Specifications cabinet={cabinet} />

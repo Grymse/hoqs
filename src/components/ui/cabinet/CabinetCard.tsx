@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, CardHeader, Image } from '@nextui-org/react';
+import { Card, CardFooter, CardHeader, Image } from '@nextui-org/react';
 import { StorageImage } from '@/types/types';
 import { Link } from 'react-router-dom';
+import { CabinetBadgeList } from '../../content/cabinet/CabinetBadge';
 
 interface Cabinet {
   id: string;
@@ -9,6 +10,7 @@ interface Cabinet {
   model: string;
   images: StorageImage[];
   type: string;
+  badges: string[];
 }
 
 interface Props {
@@ -32,6 +34,13 @@ export default function CabinetCard({ cabinet }: Props) {
           className="z-0 w-full h-full object-cover"
           src={cabinet.images?.[0]?.url}
         />
+        <CardFooter className="absolute bottom-0 w-full">
+          <CabinetBadgeList
+            badges={cabinet.badges}
+            size="sm"
+            className="flex-col-reverse items-end w-full"
+          />
+        </CardFooter>
       </Card>
     </Link>
   );

@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useState } from 'react';
 import AdminOnly from '@/components/AdminOnly';
-import AddCabinetButton from '../../components/content/cabinet/AddCabinet';
+import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton';
 
 /* export function Cabinets() {
   return (
@@ -27,7 +27,7 @@ export function Cabinets() {
   const [cabFetch] = useState(
     supabase
       .from('cabinets')
-      .select('id, brand, model, images, type')
+      .select('id, brand, model, images, type, badges')
       .eq('active', true)
   );
 

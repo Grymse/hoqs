@@ -5,18 +5,18 @@ import React, { useRef } from 'react';
 import Dropzone from 'react-dropzone';
 import toast from 'react-hot-toast';
 
-type Props = {
-  file: AbstractStorageFile;
+type Props<T> = {
+  file: T;
   allowedTypes?: string[];
-  setFile: (file: AbstractStorageFile) => void;
+  setFile: (file: T) => void;
 } & React.ComponentProps<typeof Button>;
-export default function UploaderReplacerButton({
+export default function UploaderReplacerButton<T extends AbstractStorageFile>({
   file,
   allowedTypes,
   setFile,
   children,
   ...props
-}: Props) {
+}: Props<T>) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   function uploadFile(files: File[]) {

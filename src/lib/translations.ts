@@ -59,3 +59,20 @@ export function formatBytes(bytes: number): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
+
+export function formatDate(date: Date | string | number): string {
+  if (date === undefined) return '';
+
+  if (typeof date === 'string' || typeof date === 'number') {
+    date = new Date(date);
+  }
+
+  return date.toLocaleString('en-GB', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+}

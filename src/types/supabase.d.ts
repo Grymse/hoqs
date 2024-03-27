@@ -12,6 +12,7 @@ export interface Database {
       cabinets: {
         Row: {
           active: boolean;
+          badges: string[];
           brand: string;
           created_at: string;
           depth_mm: number | null;
@@ -26,6 +27,7 @@ export interface Database {
           id: string;
           images: Json;
           max_spl: number[];
+          measurements: Json;
           model: string;
           sensitivity: number | null;
           sensitivity_measurement_settings: string | null;
@@ -37,6 +39,7 @@ export interface Database {
         };
         Insert: {
           active?: boolean;
+          badges?: string[];
           brand?: string;
           created_at?: string;
           depth_mm?: number | null;
@@ -51,6 +54,7 @@ export interface Database {
           id?: string;
           images?: Json;
           max_spl: number[];
+          measurements?: Json;
           model?: string;
           sensitivity?: number | null;
           sensitivity_measurement_settings?: string | null;
@@ -62,6 +66,7 @@ export interface Database {
         };
         Update: {
           active?: boolean;
+          badges?: string[];
           brand?: string;
           created_at?: string;
           depth_mm?: number | null;
@@ -76,6 +81,7 @@ export interface Database {
           id?: string;
           images?: Json;
           max_spl?: number[];
+          measurements?: Json;
           model?: string;
           sensitivity?: number | null;
           sensitivity_measurement_settings?: string | null;
