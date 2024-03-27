@@ -29,7 +29,7 @@ export default function Uploader({
         toast.promise(uploadToSupabase(file), {
           loading: `Uploading ${file.name}`,
           success: `Successfully uploaded ${file.name}`,
-          error: (err) => `Failed to upload ${file.name} - ${err}`,
+          error: (err) => `Failed to upload ${file.name} - ${err.message}`,
         });
       });
   }
@@ -46,6 +46,7 @@ export default function Uploader({
 
   async function uploadToSupabase(file: File) {
     const uploadPath = path + '/' + file.name;
+
     const { data, error } = await supabase.storage
       .from(bucket)
       .upload(uploadPath, file);
@@ -61,7 +62,7 @@ export default function Uploader({
       size: file.size,
       mimetype: file.type,
       url: url.data.publicUrl,
-      uploadedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       createdAt: new Date().toISOString(),
     });
 

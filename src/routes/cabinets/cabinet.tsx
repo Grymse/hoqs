@@ -22,6 +22,11 @@ export function Cabinet() {
   return (
     <PageContainer>
       <StatusComponent />
+      {cabinet?.active === false && (
+        <div className="w-full flex justify-center bg-red-500">
+          <Text className="my-0">NOT PUBLISHED</Text>
+        </div>
+      )}
       {cabinet && (
         <div>
           <ImageCaroussel images={cabinet.images} />

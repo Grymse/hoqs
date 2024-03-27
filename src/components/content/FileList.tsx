@@ -49,7 +49,7 @@ export default function FileList({ files, onChange }: Props) {
   }
 
   return (
-    <Table selectionMode="single">
+    <Table selectionMode="single" aria-label="A Table of files">
       <TableHeader>
         <TableColumn>TITLE</TableColumn>
         <TableColumn>DESCRIPTION</TableColumn>

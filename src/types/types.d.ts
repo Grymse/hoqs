@@ -9,7 +9,7 @@ export type StorageFile = {
 export interface AbstractStorageFile {
   title: string;
   url: string;
-  uploadedAt: string;
+  updatedAt: string;
   createdAt: string;
   size: number;
   mimetype: string;

@@ -34,7 +34,7 @@ export default function FileUploader({
         bucket={bucket}
         path={path}
         onFileUploaded={addFile}
-        suggestedFiles="PDF, DOCS, XLSX, etc. Max 25mb"
+        suggestedFiles="PDF, DOCS, XLSX, etc. Max 20mb"
       />
       <FileList files={files} onChange={updateFiles} />
     </div>

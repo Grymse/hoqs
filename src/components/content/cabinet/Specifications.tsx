@@ -102,7 +102,7 @@ export default function Specifications({ cabinet }: Props) {
   ];
 
   return (
-    <Table hideHeader aria-label="Example static collection table">
+    <Table hideHeader aria-label="A Table of specification of cabinet">
       <TableHeader>
         <TableColumn>Attribute</TableColumn>
         <TableColumn>Value</TableColumn>

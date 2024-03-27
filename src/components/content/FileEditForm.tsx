@@ -13,6 +13,7 @@ import {
 import { useEffect, useState } from 'react';
 import Text from '../ui/Text';
 import { formatBytes } from '../../lib/translations';
+import UploaderReplacerButton from './UploadReplacerButton';
 
 type FileEditFormProps = {
   initialFile: StorageFile;
@@ -67,9 +68,20 @@ export default function FileEditForm({
                   minRows={10}
                   maxRows={20}
                 />
-                <Text variant="small" color="muted">
-                  {file.mimetype} - {formatBytes(file.size)}
-                </Text>
+
+                <div className="flex justify-between w-full">
+                  <Text variant="small" color="muted">
+                    {file.mimetype} - {formatBytes(file.size)}
+                  </Text>
+                  <UploaderReplacerButton
+                    file={file}
+                    setFile={setFile}
+                    variant="bordered"
+                    color="secondary"
+                  >
+                    Replace file
+                  </UploaderReplacerButton>
+                </div>
               </ModalBody>
               <ModalFooter>
                 <Button color="default" variant="flat" onPress={onClose}>
