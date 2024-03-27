@@ -15,19 +15,19 @@ import FileEditForm from './FileEditForm';
 
 interface Props {
   files: StorageFile[] | null;
-  onChange?: (files: StorageFile[] | null) => void;
+  setFiles?: (files: StorageFile[] | null) => void;
 }
 
-export default function FileList({ files, onChange }: Props) {
+export default function FileList({ files, setFiles }: Props) {
   function deleteFile(index: number) {
-    if (onChange) {
-      onChange(files?.filter((_, i) => i !== index) || []);
+    if (setFiles) {
+      setFiles(files?.filter((_, i) => i !== index) || []);
     }
   }
 
   function updateFile(index: number, file: StorageFile) {
-    if (onChange) {
-      onChange(files?.map((f, i) => (i === index ? file : f)) || [file]);
+    if (setFiles) {
+      setFiles(files?.map((f, i) => (i === index ? file : f)) || [file]);
     }
   }
 
@@ -63,7 +63,7 @@ export default function FileList({ files, onChange }: Props) {
                 onClick={(e) => downloadFile(e, file)}
               >
                 <TableCell className="flex gap-2">
-                  {onChange && (
+                  {setFiles && (
                     <>
                       <ButtonWithConfirm
                         title={`Are you sure you want to delete ${file.title}`}

@@ -3,9 +3,7 @@ import PageContainer from '@/components/ui/PageContainer';
 import { supabase } from '@/lib/supabase';
 import { useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Tables } from '../../types/supabase';
 import ImageCaroussel from '@/components/content/ImageCaroussel';
-import { WithImages } from '@/types/types';
 import Header from '@/components/ui/Header';
 import Text from '@/components/ui/Text';
 import { Button } from '@nextui-org/react';
@@ -13,12 +11,13 @@ import Specifications from '@/components/content/cabinet/Specifications';
 import AdminOnly from '../../components/AdminOnly';
 import FileList from '@/components/content/FileList';
 import { CabinetBadgeList } from '@/components/content/cabinet/CabinetBadge';
+import { SpeakerCabinet } from '@/types/types';
 
 export function Cabinet() {
   const { id } = useParams();
   const cabReq = useRef(supabase.from('cabinets').select('*').eq('id', id));
   const { StatusComponent, data } = useSupabaseRequest(cabReq.current);
-  const cabinet = data?.[0] as WithImages<Tables<'cabinets'>>;
+  const cabinet = data?.[0] as SpeakerCabinet;
 
   return (
     <PageContainer>
@@ -43,6 +42,13 @@ export function Cabinet() {
           <Text variant="thick">{cabinet.short_description}</Text>
           <Text>{cabinet.description}</Text>
           <Specifications cabinet={cabinet} />
+          {cabinet.measurements && 0 < cabinet.measurements.length && (
+            <>
+              <Header variant="subtitle">Measurements</Header>
+              <ImageCaroussel images={cabinet.measurements} />
+            </>
+          )}
+
           <Header variant="subtitle">Files</Header>
           <FileList files={cabinet.files} />
         </div>

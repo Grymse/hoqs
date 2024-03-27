@@ -3,8 +3,7 @@ import {
   kgsToPounds,
   woodThicknessToInches,
 } from '@/lib/translations';
-import { Tables } from '@/types/supabase';
-import { WithImages } from '@/types/types';
+import { SpeakerCabinet } from '@/types/types';
 import { mmToInches } from '../../../lib/translations';
 import {
   Table,
@@ -20,7 +19,7 @@ import { MAX_SPL_COUNT } from '@/lib/variables';
 import { HelpCircleIcon } from 'lucide-react';
 
 interface Props {
-  cabinet: WithImages<Tables<'cabinets'>>;
+  cabinet: SpeakerCabinet;
 }
 
 interface Attribute {

@@ -4,17 +4,12 @@ import FileList from './FileList';
 
 interface Props {
   files: StorageFile[] | null;
-  updateFiles: (files: StorageFile[] | null) => void;
+  setFiles: (files: StorageFile[] | null) => void;
   bucket: string;
   path: string;
 }
 
-export default function FileUploader({
-  files,
-  updateFiles,
-  path,
-  bucket,
-}: Props) {
+export default function FileUploader({ files, setFiles, path, bucket }: Props) {
   function addFile(file: AbstractStorageFile) {
     const newFile = {
       description: '',
@@ -22,9 +17,9 @@ export default function FileUploader({
     };
 
     if (!Array.isArray(files)) {
-      updateFiles([newFile]);
+      setFiles([newFile]);
     } else {
-      updateFiles([...files, newFile]);
+      setFiles([...files, newFile]);
     }
   }
 
@@ -36,7 +31,7 @@ export default function FileUploader({
         onFileUploaded={addFile}
         suggestedFiles="PDF, DOCS, XLSX, etc. Max 20mb"
       />
-      <FileList files={files} onChange={updateFiles} />
+      <FileList files={files} setFiles={setFiles} />
     </div>
   );
 }

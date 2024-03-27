@@ -4,31 +4,24 @@ import Uploader from './Uploader';
 
 interface Props {
   images: StorageImage[] | null;
-  updateImages: (fn: (images: StorageImage[] | null) => StorageImage[]) => void;
+  setImages: (images: StorageImage[]) => void;
   bucket: string;
   path: string;
 }
 
 export default function ImageUploader({
   images,
-  updateImages,
+  setImages,
   path,
   bucket,
 }: Props) {
   function addImage(file: AbstractStorageFile) {
-    updateImages((images) => {
-      const newImage = file;
+    if (!images) {
+      setImages([{ ...file }]);
+      return;
+    }
 
-      if (!Array.isArray(images)) return [newImage];
-      return [...images, newImage];
-    });
-  }
-
-  function deleteImage(index: number) {
-    updateImages((images) => {
-      if (!Array.isArray(images)) return [];
-      return images.filter((_, i) => i !== index);
-    });
+    setImages([...images, { ...file }]);
   }
 
   return (
@@ -40,7 +33,7 @@ export default function ImageUploader({
         suggestedFiles="PNG, JPG or SVG"
         allowedTypes={allowedFileTypes}
       />
-      <ImageCaroussel images={images} onDelete={deleteImage} />
+      <ImageCaroussel images={images} setImages={setImages} />
     </div>
   );
 }

@@ -12,27 +12,33 @@ import { useDisclosure } from '@nextui-org/react';
 import ImageFullscreen from './ImageFullscreen';
 import { useState } from 'react';
 import ButtonWithConfirm from '../modals/ButtonWithConfirm';
+import ImageDescription from './ImageDescription';
 
 // import required modules
 
 interface Props {
   images: StorageImage[] | null;
-  disableFullscreen?: boolean;
+  isFullscreen?: boolean;
   initialSlide?: number;
-  onDelete?: (index: number) => void;
+  setImages?: (images: StorageImage[]) => void;
 }
 
 export default function ImageCaroussel({
   images,
-  disableFullscreen = false,
+  isFullscreen = false,
   initialSlide = 0,
-  onDelete,
+  setImages,
 }: Props) {
   const { onOpen, isOpen, onOpenChange } = useDisclosure();
   const [slideIndex, setSlideIndex] = useState(initialSlide);
 
+  function deleteImage(index: number) {
+    setImages?.(images?.filter((_, i) => i !== index) || []);
+  }
+
   return (
     <>
+      {isFullscreen && <ImageDescription image={images?.[slideIndex]} />}
       <Swiper
         modules={[Navigation, Pagination]}
         loop={true}
@@ -60,14 +66,14 @@ export default function ImageCaroussel({
             />
           </SwiperSlide>
         ))}
-        {onDelete && (
+        {setImages && (
           <div className="absolute top-2 right-2 z-10">
             <ButtonWithConfirm
               title="Are you sure?"
               description="Are you sure you want to delete this image? This action cannot be undone."
               cancelText="Cancel"
               color="danger"
-              onConfirm={() => onDelete(slideIndex)}
+              onConfirm={() => deleteImage(slideIndex)}
               isIconOnly
             >
               <Trash2 />
@@ -75,7 +81,7 @@ export default function ImageCaroussel({
           </div>
         )}
       </Swiper>
-      {images && !disableFullscreen && (
+      {images && !isFullscreen && (
         <ImageFullscreen
           images={images}
           isOpen={isOpen}

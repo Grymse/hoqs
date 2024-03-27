@@ -28,7 +28,7 @@ export default function ImageFullscreen({
           <>
             <ImageCaroussel
               images={images}
-              disableFullscreen
+              isFullscreen
               initialSlide={initialSlide}
             />
             <Button

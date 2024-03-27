@@ -94,13 +94,19 @@ interface EditFormProps {
 function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
   const [cabinet, setCabinet] = useState(initialCabinet);
 
-  function updateImages(fn: (images: StorageImage[] | null) => StorageImage[]) {
+  function setImages(images: StorageImage[]) {
     setCabinet((cabinet) => {
-      return { ...cabinet, images: fn(cabinet.images) };
+      return { ...cabinet, images };
     });
   }
 
-  function updateFiles(files: StorageFile[] | null) {
+  function setMeasurements(measurements: StorageImage[]) {
+    setCabinet((cabinet) => {
+      return { ...cabinet, measurements };
+    });
+  }
+
+  function setFiles(files: StorageFile[] | null) {
     setCabinet((cabinet) => {
       return { ...cabinet, files };
     });
@@ -253,7 +259,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
       />
       <Header variant="sub-subtitle">Images</Header>
       <ImageUploader
-        updateImages={updateImages}
+        setImages={setImages}
         images={(cabinet.images ?? []) as StorageImage[]}
         bucket="cabinets"
         path={cabinet.id}
@@ -464,10 +470,18 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
         <br /> Weight: {kgsToPounds(cabinet.weight_kg)} pounds
       </Text>
 
+      <Header variant="sub-subtitle">Measurements</Header>
+      <ImageUploader
+        setImages={setMeasurements}
+        images={(cabinet.measurements ?? []) as StorageImage[]}
+        bucket="cabinets"
+        path={cabinet.id}
+      />
+
       <Header variant="sub-subtitle">Files</Header>
       <FileUploader
         files={cabinet.files}
-        updateFiles={updateFiles}
+        setFiles={setFiles}
         bucket="cabinets"
         path={cabinet.id}
       />

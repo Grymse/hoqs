@@ -1,6 +1,14 @@
 import { Tables } from './supabase';
 
-export type StorageImage = AbstractStorageFile;
+export type StorageImage = {
+  description?: string;
+  where?: string;
+  microphone?: string;
+  driver?: string;
+  calibrated?: boolean;
+  dataUrl?: string;
+  contributors?: Contributor[];
+} & AbstractStorageFile;
 
 export type StorageFile = {
   description: string;
@@ -16,28 +24,17 @@ export interface AbstractStorageFile {
 }
 
 export interface Contributor {
-  user: string;
+  name: string;
   desc: string;
 }
 
-export interface Measurements {
-  image: string;
-  data?: Blob;
-  title: string;
-  description: string;
-  where: string;
-  microphone: string;
-  calibrated?: boolean;
-}
-
-export type WithImages<T> = MergeWithOverwrite<
-  T,
+export type SpeakerCabinet = MergeWithOverwrite<
+  Tables<'cabinets'>,
   {
     images: StorageImage[] | null;
     files: StorageFile[] | null;
+    measurements: StorageMeasurements[] | null;
   }
 >;
-
-export type SpeakerCabinet = WithImages<Tables<'cabinets'>>;
 
 export type MergeWithOverwrite<T, U> = Omit<T, keyof U> & U;
