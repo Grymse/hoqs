@@ -23,6 +23,8 @@ import { useNavigate } from 'react-router-dom';
 
 export function Cabinets() {
   const navigate = useNavigate();
+
+  // Setup as useState in case we want to add filters later
   const [cabFetch] = useState(
     supabase
       .from('cabinets')
@@ -67,6 +69,7 @@ export function Cabinets() {
                       <TableRow
                         key={cabinet.id}
                         onClick={() => goToCabinet(cabinet.id)}
+                        className="cursor-pointer"
                       >
                         <TableCell>
                           {cabinet.brand + ' ' + cabinet.model}{' '}
