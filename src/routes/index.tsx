@@ -1,5 +1,15 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 export function Index() {
-  return <div className="w-96 h-96 flex justify-center items-center"></div>;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirect to /cabinets
+    navigate('/cabinets');
+  }, [navigate]); // Dependency array ensures effect runs once
+
+  return null; // Render nothing
 }
 
 export default Index;
