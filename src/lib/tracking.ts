@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+/* import { useEffect } from 'react';
 import ReactGA from 'react-ga';
 import { useLocation } from 'react-router-dom';
 
@@ -17,4 +17,4 @@ export function useRouteTracking() {
 
     ReactGA.pageview(location.pathname + location.search);
   }, [location]);
-}
+} */

@@ -2,6 +2,7 @@ import { PropsWithChildren, useEffect } from 'react';
 import { atom, useAtom } from 'jotai';
 import { supabase } from './supabase';
 import { AuthOtpResponse, User } from '@supabase/supabase-js';
+import toast from 'react-hot-toast';
 
 type UserWithRole = User & { api_role?: string };
 
@@ -53,11 +54,22 @@ export async function signInWithEmail(
   email: string,
   redirect: string
 ): Promise<AuthOtpResponse> {
+  const origin = window.location.origin;
+
+  if (
+    !origin.startsWith('http://localhost:4200') &&
+    !origin.startsWith('https://hoqs.org')
+  ) {
+    toast.error('Invalid origin. Contact administrators');
+    console.error(origin);
+    throw Error('Invalid origin. Contact administrators');
+  }
+
   return await supabase.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: true,
-      emailRedirectTo: 'http://localhost:4200/',
+      emailRedirectTo: origin,
     },
   });
 }
