@@ -1,7 +1,7 @@
 {
   "name": "hoqs",
   "version": "0.0.1",
-  "homepage": "https://grymse.github.io/hoqs/",
+  "homepage": "https://grymse.github.io/hoqs",
   "license": "MIT",
   "scripts": {
     "predeploy": "npm run build",
