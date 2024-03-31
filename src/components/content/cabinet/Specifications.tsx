@@ -34,13 +34,22 @@ export default function Specifications({ cabinet }: Props) {
     {
       name: 'Model',
       value: `${cabinet.brand} - ${cabinet.model}`,
-      active: false,
+      active: true,
     },
     { name: 'Type', value: cabinet.type, active: cabinet.type !== null },
     {
       name: 'Driver size',
       value: cabinet.driver_size.join(', '),
-      active: false,
+      active: cabinet.driver_size.length !== 0,
+    },
+    {
+      name: 'Release date',
+      value: new Date(cabinet.created_at).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
+      active: true,
     },
     {
       name: 'Directivity',

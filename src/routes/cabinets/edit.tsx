@@ -217,6 +217,19 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
             <SelectItem key={badge.title}>{badge.title}</SelectItem>
           ))}
         </Select>
+
+        <Input
+          type="date"
+          variant="bordered"
+          label="Release date"
+          value={cabinet.created_at.slice(0, 10)}
+          onChange={(e) =>
+            setCabinet({
+              ...cabinet,
+              created_at: new Date(e.target.value).toISOString(),
+            })
+          }
+        />
       </div>
       <Header variant="sub-subtitle">Descriptions</Header>
       <Textarea

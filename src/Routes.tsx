@@ -7,10 +7,10 @@ import Cabinet from './routes/cabinets/cabinet';
 import License from './routes/license';
 import { EditCabinet } from './routes/cabinets/edit';
 import Index from './routes/index';
-import { useRouteTracking } from './lib/tracking';
+/* import { useRouteTracking } from './lib/tracking'; */
 
 export default () => {
-  useRouteTracking();
+  /* useRouteTracking(); */
 
   return (
     <Routes>
