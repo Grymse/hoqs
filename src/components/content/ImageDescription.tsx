@@ -16,13 +16,9 @@ export default function ImageDescription({ image }: Props) {
   useEffect(() => {
     const handleMouseMovement = (e: MouseEvent) => {
       if (e.movementX <= 0 || e.movementY <= 0) return;
-
-      clearTimer();
-      setShowContent(true);
-      timeoutId.current = setTimeout(() => {
-        setShowContent(false);
-      }, 1000);
+      displayContent(1500);
     };
+    displayContent();
 
     document.addEventListener('mousemove', handleMouseMovement);
 
@@ -31,6 +27,14 @@ export default function ImageDescription({ image }: Props) {
       clearTimer();
     };
   }, []);
+
+  function displayContent(displayLength = 3000) {
+    setShowContent(true);
+    clearTimer();
+    timeoutId.current = setTimeout(() => {
+      setShowContent(false);
+    }, displayLength);
+  }
 
   function clearTimer() {
     clearTimeout(timeoutId.current);
@@ -42,7 +46,7 @@ export default function ImageDescription({ image }: Props) {
     <div
       className={`overflow-hidden bg-opacity-50 max-w-[30vw] px-4 pb-4 bg-background rounded-md bottom-4 right-10 absolute z-10 w-fit ${
         showContent ? 'opacity-100' : 'opacity-0'
-      } duration-150`}
+      } duration-300`}
       onMouseMove={(e) => {
         e.stopPropagation();
         e.preventDefault();

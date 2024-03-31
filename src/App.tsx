@@ -2,7 +2,7 @@ import Navbar from './components/Navbar';
 import Routes from './Routes';
 import { AuthProvider } from './lib/auth';
 import { NextUIProvider } from '@nextui-org/react';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { DefaultToastOptions, Toaster } from 'react-hot-toast';
 import { DarkModeProvider } from './lib/darkmode';
 import { IntlProvider } from 'react-intl';
@@ -17,7 +17,7 @@ export default function App() {
       <DarkModeProvider>
         <IntlProvider defaultLocale="en" locale="en" messages={messages}>
           <NextUIProvider>
-            <BrowserRouter>
+            <HashRouter>
               <div className="min-w-screen min-h-screen flex relative items-center flex-col">
                 <Toaster toastOptions={toastOptions} />
                 {/* <CookieBanner /> */}
@@ -26,7 +26,7 @@ export default function App() {
                 <Footer />
                 <BackgroundEffect />
               </div>
-            </BrowserRouter>
+            </HashRouter>
           </NextUIProvider>
         </IntlProvider>
       </DarkModeProvider>
