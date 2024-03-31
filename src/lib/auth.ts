@@ -54,11 +54,16 @@ export async function signInWithEmail(
   email: string,
   redirect: string
 ): Promise<AuthOtpResponse> {
-  const origin = window.location.origin;
+  let origin = window.location.origin;
+
+  if (origin.startsWith('https://grymse.github.io')) {
+    origin = 'https://grymse.github.io/hoqs';
+  }
 
   if (
     !origin.startsWith('http://localhost:4200') &&
-    !origin.startsWith('https://hoqs.org')
+    !origin.startsWith('https://hoqs.org') &&
+    !origin.startsWith('https://grymse.github.io')
   ) {
     toast.error('Invalid origin. Contact administrators');
     console.error(origin);
