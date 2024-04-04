@@ -43,7 +43,7 @@ export default function Navbar() {
   const location = useLocation();
   const activeRouteIndex =
     location.pathname !== '/' &&
-    routes.findIndex((route) => route.path.startsWith(location.pathname));
+    routes.findIndex((route) => location.pathname.startsWith(route.path));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (

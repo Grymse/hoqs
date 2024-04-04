@@ -73,7 +73,7 @@ export async function signInWithEmail(
   return await supabase.auth.signInWithOtp({
     email,
     options: {
-      shouldCreateUser: true,
+      shouldCreateUser: false,
       emailRedirectTo: origin,
     },
   });

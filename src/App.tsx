@@ -9,7 +9,7 @@ import { IntlProvider } from 'react-intl';
 import BackgroundEffect from './components/BackgroundEffect';
 import { messages } from './lib/text';
 import Footer from './components/Footer';
-/* import CookieBanner from './components/CookieBanner'; */
+import Cookies from './components/Cookies';
 
 export default function App() {
   return (
@@ -20,7 +20,7 @@ export default function App() {
             <HashRouter>
               <div className="min-w-screen min-h-screen flex relative items-center flex-col">
                 <Toaster toastOptions={toastOptions} />
-                {/* <CookieBanner /> */}
+                <Cookies />
                 <Navbar />
                 <Routes />
                 <Footer />

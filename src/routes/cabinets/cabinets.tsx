@@ -5,7 +5,6 @@ import CabinetCard from '../../components/ui/cabinet/CabinetCard';
 import { supabase } from '@/lib/supabase';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useState } from 'react';
-import AdminOnly from '@/components/AdminOnly';
 import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton';
 import { CabinetBadgeList } from '../../components/content/cabinet/CabinetBadge';
 import {
@@ -20,6 +19,7 @@ import {
 } from '@nextui-org/react';
 import { formatFrequency } from '@/lib/translations';
 import { useNavigate } from 'react-router-dom';
+import ProtectedFeature from '@/components/auth/ProtectedFeature';
 
 export function Cabinets() {
   const navigate = useNavigate();
@@ -44,9 +44,9 @@ export function Cabinets() {
     <PageContainer>
       <StatusComponent />
       <div className="w-full mb-4 flex justify-end">
-        <AdminOnly>
+        <ProtectedFeature>
           <AddCabinetButton />
-        </AdminOnly>
+        </ProtectedFeature>
       </div>
       {cabinets && (
         <div className="flex w-full flex-col">

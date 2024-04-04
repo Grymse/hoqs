@@ -28,10 +28,10 @@ import {
   MAX_SPL_COUNT,
   WOOD_THICKNESS,
 } from '@/lib/variables';
-import RequireRole from '@/components/auth/RequireRole';
 import FileUploader from '../../components/content/FileUploader';
 import { CABINET_BADGES } from '../../lib/variables';
 import CabinetBadge from '@/components/content/cabinet/CabinetBadge';
+import ProtectedPage from '@/components/auth/ProtectedPage';
 
 export function EditCabinet() {
   const { id } = useParams();
@@ -70,7 +70,7 @@ export function EditCabinet() {
   }
 
   return (
-    <RequireRole roles={['admin']}>
+    <ProtectedPage>
       <PageContainer className="flex flex-col gap-4">
         <StatusComponent />
         {cabinet && (
@@ -81,7 +81,7 @@ export function EditCabinet() {
           />
         )}
       </PageContainer>
-    </RequireRole>
+    </ProtectedPage>
   );
 }
 

@@ -5,9 +5,12 @@ import PageContainer from '../ui/PageContainer';
 import Header from '../ui/Header';
 import Text from '../ui/Text';
 
-type RequireRole = PropsWithChildren<{ roles: Enums<'role'>[] }>;
+type ProtectedPageProps = PropsWithChildren<{ roles?: Enums<'role'>[] }>;
 
-export default function RequireRole({ children, roles }: RequireRole) {
+export default function ProtectedPage({
+  children,
+  roles = ['admin'],
+}: ProtectedPageProps) {
   const user = useAuth();
   const hasRole = roles?.includes(user?.api_role as Enums<'role'>);
 

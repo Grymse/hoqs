@@ -8,10 +8,10 @@ import Header from '@/components/ui/Header';
 import Text from '@/components/ui/Text';
 import { Button } from '@nextui-org/react';
 import Specifications from '@/components/content/cabinet/Specifications';
-import AdminOnly from '../../components/AdminOnly';
 import FileList from '@/components/content/FileList';
 import { CabinetBadgeList } from '@/components/content/cabinet/CabinetBadge';
 import { SpeakerCabinet } from '@/types/types';
+import ProtectedFeature from '@/components/auth/ProtectedFeature';
 
 export function Cabinet() {
   const { id } = useParams();
@@ -32,11 +32,11 @@ export function Cabinet() {
           <ImageCaroussel images={cabinet.images} />
           <div className="flex justify-between">
             <Header>{cabinet.brand + ' ' + cabinet.model}</Header>
-            <AdminOnly>
+            <ProtectedFeature>
               <Button as={Link} disabled to={'./edit'} color="primary">
                 Edit
               </Button>
-            </AdminOnly>
+            </ProtectedFeature>
           </div>
           <CabinetBadgeList badges={cabinet.badges} />
           <Text variant="thick">{cabinet.short_description}</Text>
