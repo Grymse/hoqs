@@ -3,7 +3,7 @@ import Header from '../ui/Header';
 import Text from '../ui/Text';
 import { useState, useEffect, useRef } from 'react';
 import { MapPin, Volume2 } from 'lucide-react';
-import { Chip } from '@nextui-org/react';
+import { Chip, CircularProgress } from '@nextui-org/react';
 
 interface Props {
   image: StorageImage | undefined;
@@ -11,6 +11,9 @@ interface Props {
 
 export default function ImageDescription({ image }: Props) {
   const [showContent, setShowContent] = useState(true);
+  const [showContentDuration, setShowContentDuration] = useState<number | null>(
+    3000
+  );
   const timeoutId = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
@@ -30,6 +33,9 @@ export default function ImageDescription({ image }: Props) {
 
   function displayContent(displayLength = 3000) {
     setShowContent(true);
+    setShowContentDuration((v) =>
+      v === displayLength ? displayLength + 1 : displayLength
+    );
     clearTimer();
     timeoutId.current = setTimeout(() => {
       setShowContent(false);
@@ -51,10 +57,13 @@ export default function ImageDescription({ image }: Props) {
         e.stopPropagation();
         e.preventDefault();
         clearTimer();
+        setShowContentDuration(null);
       }}
       onMouseLeave={() => setShowContent(false)}
     >
-      <Header variant="sub-subtitle">{image.title}</Header>
+      <Header variant="sub-subtitle" className="mt-10">
+        {image.title}
+      </Header>
       <div className="flex gap-2">
         {image.driver && (
           <Chip
@@ -75,6 +84,39 @@ export default function ImageDescription({ image }: Props) {
         )}
       </div>
       {image.description && <Text>{image.description}</Text>}
+      <CountdownVisualizer duration={showContentDuration} />
+    </div>
+  );
+}
+
+interface CountdownVisualizerProps {
+  duration: number | null;
+}
+
+function CountdownVisualizer({ duration }: CountdownVisualizerProps) {
+  const [localDuration, setLocalDuration] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      localDuration > 0 && setLocalDuration(localDuration - 33);
+    }, 33);
+
+    return () => clearInterval(interval);
+  });
+
+  useEffect(() => {
+    setLocalDuration(duration || 0);
+  }, [duration]);
+
+  return (
+    <div className="flex justify-end">
+      <CircularProgress
+        aria-label="Image Description hiding countdown"
+        size="md"
+        disableAnimation
+        value={duration ? localDuration : 1}
+        maxValue={duration ?? 1}
+      />
     </div>
   );
 }
