@@ -20,9 +20,18 @@ export interface AbstractStorageFile {
   mimetype: string;
 }
 
+type ContributorRole =
+  | 'Scientist'
+  | 'Optimizer'
+  | 'Prototyper'
+  | 'Lead'
+  | 'Helpful'
+  | 'Writer';
+
 export interface Contributor {
   name: string;
-  desc: string;
+  description: string;
+  role: ContributorRole;
 }
 
 export type SpeakerCabinet = MergeWithOverwrite<
@@ -31,6 +40,7 @@ export type SpeakerCabinet = MergeWithOverwrite<
     images: StorageImage[] | null;
     files: StorageFile[] | null;
     measurements: StorageMeasurements[] | null;
+    contributors: Contributor[];
   }
 >;
 

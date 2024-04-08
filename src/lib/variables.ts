@@ -1,3 +1,4 @@
+import { ContributorRole } from '@/types/types';
 import {
   Box,
   DraftingCompass,
@@ -74,3 +75,12 @@ export const CABINET_BADGES = [
   variant: 'dot' | 'shadow' | 'solid' | 'bordered' | 'light' | 'flat' | 'faded';
   icon?: LucideIcon;
 }[];
+
+export const CONTRIBUTOR_ROLES = [
+  'Scientist',
+  'Optimizer',
+  'Prototyper',
+  'Lead',
+  'Helpful',
+  'Writer',
+] satisfies ContributorRole[];

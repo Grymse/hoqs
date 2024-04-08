@@ -14,7 +14,12 @@ import Text from '@/components/ui/Text';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase, toPromise } from '@/lib/supabase';
-import { SpeakerCabinet, StorageFile, StorageImage } from '@/types/types';
+import {
+  Contributor,
+  SpeakerCabinet,
+  StorageFile,
+  StorageImage,
+} from '@/types/types';
 import {
   kgsToPounds,
   mmToInches,
@@ -32,6 +37,7 @@ import FileUploader from '../../components/content/FileUploader';
 import { CABINET_BADGES } from '../../lib/variables';
 import CabinetBadge from '@/components/content/cabinet/CabinetBadge';
 import ProtectedPage from '@/components/auth/ProtectedPage';
+import ContributorsEditor from '@/components/content/cabinet/ContributorEditor';
 
 export function EditCabinet() {
   const { id } = useParams();
@@ -109,6 +115,12 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
   function setFiles(files: StorageFile[] | null) {
     setCabinet((cabinet) => {
       return { ...cabinet, files };
+    });
+  }
+
+  function setContributors(contributors: Contributor[]) {
+    setCabinet((cabinet) => {
+      return { ...cabinet, contributors };
     });
   }
 
@@ -483,6 +495,12 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
         setFiles={setFiles}
         bucket="cabinets"
         path={cabinet.id}
+      />
+
+      <Header variant="sub-subtitle">Contributors</Header>
+      <ContributorsEditor
+        contributors={cabinet.contributors}
+        setContributors={setContributors}
       />
 
       {/* FOOTER */}

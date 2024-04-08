@@ -12,6 +12,7 @@ import FileList from '@/components/content/FileList';
 import { CabinetBadgeList } from '@/components/content/cabinet/CabinetBadge';
 import { SpeakerCabinet } from '@/types/types';
 import ProtectedFeature from '@/components/auth/ProtectedFeature';
+import Contributors from '@/components/content/cabinet/Contributors';
 
 export function Cabinet() {
   const { id } = useParams();
@@ -49,6 +50,12 @@ export function Cabinet() {
             </>
           )}
 
+          {cabinet.contributors.length !== 0 && (
+            <>
+              <Header variant="subtitle">Contributors</Header>
+              <Contributors contributors={cabinet.contributors} />
+            </>
+          )}
           <Header variant="subtitle">Files</Header>
           <FileList files={cabinet.files} />
         </div>
