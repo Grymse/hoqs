@@ -1,9 +1,8 @@
-import { ContributorRole } from '@/types/types';
+import { BadgeType, ContributorRole } from '@/types/types';
 import {
   Box,
   DraftingCompass,
   IterationCcw,
-  LucideIcon,
   Ship,
   Sparkles,
   ThumbsUp,
@@ -69,12 +68,28 @@ export const CABINET_BADGES = [
     variant: 'shadow',
     icon: DraftingCompass,
   },
-] satisfies {
-  title: string;
-  color: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'secondary';
-  variant: 'dot' | 'shadow' | 'solid' | 'bordered' | 'light' | 'flat' | 'faded';
-  icon?: LucideIcon;
-}[];
+] satisfies BadgeType[];
+
+export const FILE_BADGES = [
+  { title: 'Popular', color: 'primary', variant: 'shadow', icon: Zap },
+  { title: 'Recommended', color: 'primary', variant: 'shadow', icon: ThumbsUp },
+  { title: 'Compact', color: 'danger', variant: 'shadow', icon: Box },
+  { title: 'Flagship', color: 'danger', variant: 'shadow', icon: Ship },
+  { title: 'New', color: 'secondary', variant: 'shadow', icon: Sparkles },
+  {
+    title: 'Updated',
+    color: 'secondary',
+    variant: 'shadow',
+    icon: IterationCcw,
+  },
+  { title: 'Discontinued', color: 'warning', variant: 'shadow', icon: Unplug },
+  {
+    title: 'Prototype',
+    color: 'warning',
+    variant: 'shadow',
+    icon: DraftingCompass,
+  },
+] satisfies BadgeType[];
 
 export const CONTRIBUTOR_ROLES = [
   'Scientist',

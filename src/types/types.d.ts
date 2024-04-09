@@ -9,6 +9,7 @@ export type StorageImage = {
 
 export type StorageFile = {
   description: string;
+  badges?: string[];
 } & AbstractStorageFile;
 
 export interface AbstractStorageFile {
@@ -45,3 +46,10 @@ export type SpeakerCabinet = MergeWithOverwrite<
 >;
 
 export type MergeWithOverwrite<T, U> = Omit<T, keyof U> & U;
+
+export interface BadgeType {
+  title: string;
+  color: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'secondary';
+  variant: 'dot' | 'shadow' | 'solid' | 'bordered' | 'light' | 'flat' | 'faded';
+  icon?: LucideIcon;
+}

@@ -1,5 +1,5 @@
 import { AbstractStorageFile, StorageFile } from '@/types/types';
-import Uploader from './Uploader';
+import Uploader from '../Uploader';
 import FileList from './FileList';
 
 interface Props {

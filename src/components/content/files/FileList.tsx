@@ -10,7 +10,7 @@ import {
 import FileIcon from './FileIcon';
 import { formatBytes } from '@/lib/translations';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
-import ButtonWithConfirm from '../modals/ButtonWithConfirm';
+import ButtonWithConfirm from '../../modals/ButtonWithConfirm';
 import FileEditForm from './FileEditForm';
 
 interface Props {

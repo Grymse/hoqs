@@ -11,9 +11,9 @@ import {
   Textarea,
 } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import Text from '../ui/Text';
-import { formatBytes, formatDate } from '../../lib/translations';
-import UploaderReplacerButton from './UploadReplacerButton';
+import Text from '../../ui/Text';
+import { formatBytes, formatDate } from '../../../lib/translations';
+import UploaderReplacerButton from '../UploadReplacerButton';
 
 type FileEditFormProps = {
   initialFile: StorageFile;

@@ -1,6 +1,6 @@
 import { AbstractStorageFile, StorageImage } from '@/types/types';
 import ImageCaroussel from './ImageCaroussel';
-import Uploader from './Uploader';
+import Uploader from '../Uploader';
 
 interface Props {
   images: StorageImage[] | null;

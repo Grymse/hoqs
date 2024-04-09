@@ -9,7 +9,7 @@ import {
 } from '@nextui-org/react';
 import Header from '@/components/ui/Header';
 import { useRef, useState } from 'react';
-import ImageUploader from '@/components/content/ImageUploader';
+import ImageUploader from '@/components/content/images/ImageUploader';
 import Text from '@/components/ui/Text';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -33,11 +33,11 @@ import {
   MAX_SPL_COUNT,
   WOOD_THICKNESS,
 } from '@/lib/variables';
-import FileUploader from '../../components/content/FileUploader';
+import FileUploader from '../../components/content/files/FileUploader';
 import { CABINET_BADGES } from '../../lib/variables';
-import CabinetBadge from '@/components/content/cabinet/CabinetBadge';
 import ProtectedPage from '@/components/auth/ProtectedPage';
 import ContributorsEditor from '@/components/content/cabinet/ContributorEditor';
+import BadgeSelector from '@/components/content/badges/BadgeSelector';
 
 export function EditCabinet() {
   const { id } = useParams();
@@ -196,39 +196,20 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
             <SelectItem key={driverSize}>{driverSize}</SelectItem>
           ))}
         </Select>
-        <Select
-          items={CABINET_BADGES.map((badge) => badge.title)}
+        <BadgeSelector
+          badges={cabinet.badges}
           label="Cabinet Badges"
           className="col-span-2"
-          selectionMode="multiple"
           placeholder="Select cabinet badges"
-          variant="bordered"
-          selectedKeys={cabinet.badges}
-          isMultiline
-          onChange={(e) =>
+          selectionMode="multiple"
+          setBadges={(badges) =>
             setCabinet((cabinet) => ({
               ...cabinet,
-              badges: e.target.value.split(','),
+              badges,
             }))
           }
-          renderValue={(badges) => {
-            return (
-              <div className="flex flex-wrap gap-2 -my-2">
-                {badges.map((badge) => (
-                  <CabinetBadge
-                    size="sm"
-                    badgeTitle={badge.textValue}
-                    key={badge.key}
-                  />
-                ))}
-              </div>
-            );
-          }}
-        >
-          {CABINET_BADGES.map((badge) => (
-            <SelectItem key={badge.title}>{badge.title}</SelectItem>
-          ))}
-        </Select>
+          badgeTypes={CABINET_BADGES}
+        />
 
         <Input
           type="date"

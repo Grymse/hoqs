@@ -11,8 +11,8 @@ import {
   Textarea,
 } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import Text from '../ui/Text';
-import { formatBytes, formatDate } from '../../lib/translations';
+import Text from '../../ui/Text';
+import { formatBytes, formatDate } from '../../../lib/translations';
 
 type ImageEditFormProps = {
   initialImage: StorageImage;

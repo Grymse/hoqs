@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 import { useDisclosure } from '@nextui-org/react';
 import ImageFullscreen from './ImageFullscreen';
 import { useState } from 'react';
-import ButtonWithConfirm from '../modals/ButtonWithConfirm';
+import ButtonWithConfirm from '../../modals/ButtonWithConfirm';
 import ImageDescription from './ImageDescription';
 import ImageEditForm from './ImageEditForm';
 

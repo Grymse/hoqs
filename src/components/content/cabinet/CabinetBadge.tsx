@@ -1,6 +1,6 @@
-import { cn } from '@/components/ui/util';
 import { CABINET_BADGES } from '@/lib/variables';
-import { Chip } from '@nextui-org/react';
+import Badge from '../badges/Badge';
+import BadgeList from '../badges/BadgeList';
 
 interface Props {
   badgeTitle?: string | undefined;
@@ -8,24 +8,8 @@ interface Props {
 }
 
 export default function CabinetBadge({ badgeTitle, size }: Props) {
-  const badge = CABINET_BADGES.find((badge) => badge.title === badgeTitle);
-  if (!badge) return null;
   return (
-    <Chip
-      color={badge.color}
-      variant={badge.variant}
-      startContent={
-        badge.icon && (
-          <badge.icon
-            className="ml-1"
-            size={size === 'lg' ? 20 : size === 'md' ? 16 : 12}
-          />
-        )
-      }
-      size={size}
-    >
-      {badge.title}
-    </Chip>
+    <Badge badgeTitle={badgeTitle} size={size} badgeTypes={CABINET_BADGES} />
   );
 }
 
@@ -37,10 +21,11 @@ interface ListProps {
 
 export function CabinetBadgeList({ badges, size, className }: ListProps) {
   return (
-    <div className={cn('flex gap-2', className)}>
-      {badges.map((badge) => (
-        <CabinetBadge size={size} key={badge} badgeTitle={badge} />
-      ))}
-    </div>
+    <BadgeList
+      badges={badges}
+      className={className}
+      size={size}
+      badgeTypes={CABINET_BADGES}
+    />
   );
 }
