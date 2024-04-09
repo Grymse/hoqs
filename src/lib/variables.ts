@@ -2,9 +2,14 @@ import { BadgeType, ContributorRole } from '@/types/types';
 import {
   Box,
   DraftingCompass,
+  FileSliders,
+  FileText,
   IterationCcw,
+  LineChart,
+  Mic,
   Ship,
   Sparkles,
+  SquareKanbanDashed,
   ThumbsUp,
   Unplug,
   Zap,
@@ -71,24 +76,46 @@ export const CABINET_BADGES = [
 ] satisfies BadgeType[];
 
 export const FILE_BADGES = [
-  { title: 'Popular', color: 'primary', variant: 'shadow', icon: Zap },
-  { title: 'Recommended', color: 'primary', variant: 'shadow', icon: ThumbsUp },
-  { title: 'Compact', color: 'danger', variant: 'shadow', icon: Box },
-  { title: 'Flagship', color: 'danger', variant: 'shadow', icon: Ship },
-  { title: 'New', color: 'secondary', variant: 'shadow', icon: Sparkles },
+  { title: 'Manual', color: 'primary', variant: 'shadow', icon: FileText },
   {
-    title: 'Updated',
+    title: 'HornResp',
     color: 'secondary',
     variant: 'shadow',
-    icon: IterationCcw,
+    icon: FileSliders,
   },
-  { title: 'Discontinued', color: 'warning', variant: 'shadow', icon: Unplug },
   {
-    title: 'Prototype',
+    title: 'Measurements',
+    color: 'secondary',
+    variant: 'shadow',
+    icon: LineChart,
+  },
+  { title: 'REW', color: 'secondary', variant: 'shadow', icon: Mic },
+  {
+    title: 'AKABAK',
+    color: 'secondary',
+    variant: 'shadow',
+    icon: SquareKanbanDashed,
+  },
+  {
+    title: 'Illustration',
     color: 'warning',
     variant: 'shadow',
     icon: DraftingCompass,
   },
+  {
+    title: '3D-Model',
+    color: 'warning',
+    variant: 'shadow',
+    icon: Box,
+  },
+  {
+    title: 'Sketch-up',
+    color: 'warning',
+    variant: 'shadow',
+    icon: DraftingCompass,
+  },
+  { title: 'New', color: 'danger', variant: 'shadow', icon: Sparkles },
+  { title: 'Old', color: 'default', variant: 'shadow', icon: Ship },
 ] satisfies BadgeType[];
 
 export const CONTRIBUTOR_ROLES = [

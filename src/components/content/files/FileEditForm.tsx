@@ -14,6 +14,8 @@ import { useEffect, useState } from 'react';
 import Text from '../../ui/Text';
 import { formatBytes, formatDate } from '../../../lib/translations';
 import UploaderReplacerButton from '../UploadReplacerButton';
+import BadgeSelector from '../badges/BadgeSelector';
+import { FILE_BADGES } from '@/lib/variables';
 
 type FileEditFormProps = {
   initialFile: StorageFile;
@@ -70,6 +72,12 @@ export default function FileEditForm({
                   minRows={10}
                   maxRows={20}
                 />
+                <BadgeSelector
+                  badges={file.badges ?? []}
+                  badgeTypes={FILE_BADGES}
+                  setBadges={(badges) => setFile({ ...file, badges })}
+                  label="Select File Badges"
+                />
 
                 <div className="flex justify-between w-full">
                   <Text variant="small" color="muted">
@@ -100,7 +108,7 @@ export default function FileEditForm({
                     onClose();
                   }}
                 >
-                  Save changes
+                  Continue
                 </Button>
               </ModalFooter>
             </>

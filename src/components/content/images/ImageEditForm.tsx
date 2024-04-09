@@ -127,7 +127,7 @@ export default function ImageEditForm({
                     onClose();
                   }}
                 >
-                  Save changes
+                  Continue
                 </Button>
               </ModalFooter>
             </>

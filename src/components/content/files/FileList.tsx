@@ -12,6 +12,8 @@ import { formatBytes } from '@/lib/translations';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
 import ButtonWithConfirm from '../../modals/ButtonWithConfirm';
 import FileEditForm from './FileEditForm';
+import BadgeList from '../badges/BadgeList';
+import { FILE_BADGES } from '@/lib/variables';
 
 interface Props {
   files: StorageFile[] | null;
@@ -86,12 +88,17 @@ export default function FileList({ files, setFiles }: Props) {
                       </FileEditForm>
                     </>
                   )}
-                  <FileIcon className="w-8 h-8" mimetype={file.mimetype} />
+                  <FileIcon className="w-12 h-12" mimetype={file.mimetype} />
                   <div className="block">
-                    {file.title} <br />
-                    <span className="text-default-500">
-                      {formatBytes(file.size)} - {file.mimetype}
+                    {file.title}{' '}
+                    <span className="text-default-400">
+                      {formatBytes(file.size)} - {file.mimetype.split('/')[1]}
                     </span>
+                    <BadgeList
+                      size="sm"
+                      badges={file.badges}
+                      badgeTypes={FILE_BADGES}
+                    />
                   </div>
                 </TableCell>
                 <TableCell>{file.description}</TableCell>
