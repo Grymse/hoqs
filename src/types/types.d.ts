@@ -42,14 +42,31 @@ export type SpeakerCabinet = MergeWithOverwrite<
     files: StorageFile[] | null;
     measurements: StorageMeasurements[] | null;
     contributors: Contributor[];
+    timeline: TimelineEntry[];
   }
 >;
 
 export type MergeWithOverwrite<T, U> = Omit<T, keyof U> & U;
 
+export type ColorVariant =
+  | 'default'
+  | 'primary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'secondary';
+
 export interface BadgeType {
   title: string;
-  color: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'secondary';
+  color: ColorVariant;
   variant: 'dot' | 'shadow' | 'solid' | 'bordered' | 'light' | 'flat' | 'faded';
   icon?: LucideIcon;
+}
+
+export interface TimelineEntry {
+  title: string;
+  date: string;
+  description: string;
+  color: ColorVariant;
+  badge?: string;
 }

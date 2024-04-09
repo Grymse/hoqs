@@ -12,7 +12,7 @@ import {
 } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import Text from '../../ui/Text';
-import { formatBytes, formatDate } from '../../../lib/translations';
+import { formatBytes, formatDateTime } from '../../../lib/translations';
 import UploaderReplacerButton from '../UploadReplacerButton';
 import BadgeSelector from '../badges/BadgeSelector';
 import { FILE_BADGES } from '@/lib/variables';
@@ -93,8 +93,8 @@ export default function FileEditForm({
                   </UploaderReplacerButton>
                 </div>
                 <Text variant="small" color="muted">
-                  Created at {formatDate(file.createdAt)}
-                  <br /> Updated at {formatDate(file.updatedAt)}
+                  Created at {formatDateTime(file.createdAt)}
+                  <br /> Updated at {formatDateTime(file.updatedAt)}
                 </Text>
               </ModalBody>
               <ModalFooter>

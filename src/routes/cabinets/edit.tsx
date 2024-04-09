@@ -38,6 +38,7 @@ import { CABINET_BADGES } from '../../lib/variables';
 import ProtectedPage from '@/components/auth/ProtectedPage';
 import ContributorsEditor from '@/components/content/cabinet/ContributorEditor';
 import BadgeSelector from '@/components/content/badges/BadgeSelector';
+import Timeline from '@/components/content/timeline/Timeline';
 
 export function EditCabinet() {
   const { id } = useParams();
@@ -482,6 +483,12 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
       <ContributorsEditor
         contributors={cabinet.contributors}
         setContributors={setContributors}
+      />
+
+      <Header variant="sub-subtitle">Timeline</Header>
+      <Timeline
+        entries={cabinet.timeline}
+        setEntries={(entries) => setCabinet({ ...cabinet, timeline: entries })}
       />
 
       {/* FOOTER */}

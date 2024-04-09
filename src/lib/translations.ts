@@ -60,7 +60,7 @@ export function formatBytes(bytes: number): string {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-export function formatDate(date: Date | string | number): string {
+export function formatDateTime(date: Date | string | number): string {
   if (date === undefined) return '';
 
   if (typeof date === 'string' || typeof date === 'number') {
@@ -75,4 +75,31 @@ export function formatDate(date: Date | string | number): string {
     minute: '2-digit',
     hour12: false,
   });
+}
+
+export function formatDate(date: Date | string | number): string {
+  if (date === undefined) return '';
+
+  if (typeof date === 'string' || typeof date === 'number') {
+    date = new Date(date);
+  }
+
+  const dateStrings = date
+    .toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+    .split(' ');
+
+  const extension =
+    dateStrings[0] === '1'
+      ? 'st'
+      : dateStrings[0] === '2'
+      ? 'nd'
+      : dateStrings[0] === '3'
+      ? 'rd'
+      : 'th';
+
+  return `${dateStrings[1]} ${dateStrings[0]}${extension}, ${dateStrings[2]}`;
 }

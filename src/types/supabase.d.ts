@@ -33,6 +33,7 @@ export interface Database {
           sensitivity: number | null;
           sensitivity_measurement_settings: string | null;
           short_description: string;
+          timeline: Json;
           type: string | null;
           weight_kg: number | null;
           width_mm: number | null;
@@ -61,6 +62,7 @@ export interface Database {
           sensitivity?: number | null;
           sensitivity_measurement_settings?: string | null;
           short_description?: string;
+          timeline?: Json;
           type?: string | null;
           weight_kg?: number | null;
           width_mm?: number | null;
@@ -89,6 +91,7 @@ export interface Database {
           sensitivity?: number | null;
           sensitivity_measurement_settings?: string | null;
           short_description?: string;
+          timeline?: Json;
           type?: string | null;
           weight_kg?: number | null;
           width_mm?: number | null;

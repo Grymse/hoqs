@@ -13,6 +13,7 @@ import { CabinetBadgeList } from '@/components/content/cabinet/CabinetBadge';
 import { SpeakerCabinet } from '@/types/types';
 import ProtectedFeature from '@/components/auth/ProtectedFeature';
 import Contributors from '@/components/content/cabinet/Contributors';
+import Timeline from '@/components/content/timeline/Timeline';
 
 export function Cabinet() {
   const { id } = useParams();
@@ -54,6 +55,12 @@ export function Cabinet() {
             <>
               <Header variant="subtitle">Contributors</Header>
               <Contributors contributors={cabinet.contributors} />
+            </>
+          )}
+          {cabinet.timeline.length !== 0 && (
+            <>
+              <Header variant="subtitle">Timeline</Header>
+              <Timeline entries={cabinet.timeline} />{' '}
             </>
           )}
           <Header variant="subtitle">Files</Header>

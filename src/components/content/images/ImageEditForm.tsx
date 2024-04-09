@@ -12,7 +12,7 @@ import {
 } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
 import Text from '../../ui/Text';
-import { formatBytes, formatDate } from '../../../lib/translations';
+import { formatBytes, formatDateTime } from '../../../lib/translations';
 
 type ImageEditFormProps = {
   initialImage: StorageImage;
@@ -112,8 +112,8 @@ export default function ImageEditForm({
                   </Text>
                 </div>
                 <Text variant="small" color="muted">
-                  Created at {formatDate(image.createdAt)}
-                  <br /> Updated at {formatDate(image.updatedAt)}
+                  Created at {formatDateTime(image.createdAt)}
+                  <br /> Updated at {formatDateTime(image.updatedAt)}
                 </Text>
               </ModalBody>
               <ModalFooter>

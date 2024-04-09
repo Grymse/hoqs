@@ -1,4 +1,4 @@
-import { BadgeType, ContributorRole } from '@/types/types';
+import { BadgeType, ColorVariant, ContributorRole } from '@/types/types';
 import {
   Box,
   DraftingCompass,
@@ -126,3 +126,12 @@ export const CONTRIBUTOR_ROLES = [
   'Helpful',
   'Writer',
 ] satisfies ContributorRole[];
+
+export const COLORS = [
+  'primary',
+  'secondary',
+  'danger',
+  'warning',
+  'success',
+  'default',
+] satisfies ColorVariant[];
