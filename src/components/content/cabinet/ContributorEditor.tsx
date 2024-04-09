@@ -140,26 +140,30 @@ function ContributorEditor({
 interface IconProps {
   className: string;
   Icon: React.ElementType;
+  rank: number;
 }
 
 export const contributorIconRoles: {
   [key in ContributorRole]: IconProps;
 } = {
-  Lead: { Icon: Crown, className: 'text-primary-500' },
-  Scientist: { Icon: Atom, className: 'text-primary-500' },
-  Prototyper: {
-    Icon: Hammer,
-    className: 'text-primary-500',
-  },
+  Lead: { Icon: Crown, className: 'danger', rank: 1 },
+  Scientist: { Icon: Atom, className: 'primary', rank: 2 },
   Optimizer: {
     Icon: Gauge,
-    className: 'text-primary-500',
+    className: 'primary',
+    rank: 3,
   },
+  Prototyper: {
+    Icon: Hammer,
+    className: 'secondary',
+    rank: 4,
+  },
+  Writer: { Icon: NotebookPen, className: 'default', rank: 5 },
   Helpful: {
     Icon: Award,
-    className: 'text-primary-500',
+    className: 'warning',
+    rank: 6,
   },
-  Writer: { Icon: NotebookPen, className: 'text-primary-500' },
 };
 
 interface ContributorIconProps {
@@ -169,5 +173,6 @@ interface ContributorIconProps {
 
 export function ContributorIcon({ role, className }: ContributorIconProps) {
   const Icon = contributorIconRoles[role];
-  return <Icon.Icon className={cn('w-8 h-8', Icon.className, className)} />;
+  const iconColor = 'text-' + Icon.className + '-500';
+  return <Icon.Icon className={cn('w-6 h-6', iconColor, className)} />;
 }

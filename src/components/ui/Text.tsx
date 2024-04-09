@@ -51,7 +51,7 @@ function getClasses(
 ) {
   const textColorClass =
     color === 'muted'
-      ? 'text-default-500'
+      ? 'text-default-400 dark:text-default-500'
       : color === 'default'
       ? 'text-default-foreground'
       : 'text-' + color;
