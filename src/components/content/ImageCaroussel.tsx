@@ -65,11 +65,12 @@ export default function ImageCaroussel({
             style={{
               display: 'flex',
               justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <img
               src={image.url}
-              className="object-contain"
+              className="object-contain h-fit"
               alt={'image of ' + image.title}
             />
           </SwiperSlide>

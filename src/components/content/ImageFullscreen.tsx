@@ -16,14 +16,22 @@ export default function ImageFullscreen({
   images,
   initialSlide = 0,
 }: ImageFullscreenProps) {
+  function onClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    if (e.target.className.startsWith('swiper-slide')) onOpenChange(false);
+  }
   return (
     <Modal
       size="full"
       hideCloseButton
       isOpen={isOpen}
       onOpenChange={onOpenChange}
+      id="modal-fullscreen"
     >
-      <ModalContent className="bg-transparent shadow-none m-4 max-h-full max-w-full">
+      <ModalContent
+        id="modal-content"
+        className="bg-transparent shadow-none m-4 max-h-full max-w-full"
+        onClick={onClick}
+      >
         {(onClose) => (
           <>
             <ImageCaroussel
