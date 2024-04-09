@@ -17,6 +17,7 @@ export default function ImageFullscreen({
   initialSlide = 0,
 }: ImageFullscreenProps) {
   function onClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    // @ts-expect-error className is not in the EventTarget type
     if (e.target.className.startsWith('swiper-slide')) onOpenChange(false);
   }
   return (
