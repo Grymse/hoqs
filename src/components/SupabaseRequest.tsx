@@ -12,10 +12,13 @@ export function useSupabaseRequest<T>(
   supabaseRequest: SimplePromise<PostgrestSingleResponse<T>>
 ) {
   const [data, setData] = useState<T | null>(null);
+  const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<PostgrestError | null>(null);
 
   useEffect(() => {
+    setLoading(true);
     supabaseRequest.then((out) => {
+      setLoading(false);
       if (out.error) {
         setError(out.error);
       } else {
@@ -39,13 +42,13 @@ export function useSupabaseRequest<T>(
     data,
     StatusComponent: error
       ? () => <SupabaseError error={error} />
-      : data
-      ? () => null
-      : () => (
+      : isLoading
+      ? () => (
           <div className="w-full h-full flex justify-center items-center">
             <CircularProgress size="md" aria-label="Loading..." />
           </div>
-        ),
+        )
+      : () => null,
   };
 }
 

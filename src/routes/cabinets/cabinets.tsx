@@ -1,10 +1,8 @@
 import PageContainer from '../../components/ui/PageContainer';
-/* import { TableBody, TableColumn, TableHeader } from '@nextui-org/react';
-import { Table } from 'lucide-react'; */
 import CabinetCard from '../../components/ui/cabinet/CabinetCard';
 import { supabase } from '@/lib/supabase';
 import { useSupabaseRequest } from '@/components/SupabaseRequest';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton';
 import { CabinetBadgeList } from '../../components/content/cabinet/CabinetBadge';
 import {
@@ -16,6 +14,7 @@ import {
   TableBody,
   TableRow,
   TableCell,
+  Switch,
 } from '@nextui-org/react';
 import { formatFrequency } from '@/lib/translations';
 import { useNavigate } from 'react-router-dom';
@@ -23,16 +22,11 @@ import ProtectedFeature from '@/components/auth/ProtectedFeature';
 
 export function Cabinets() {
   const navigate = useNavigate();
+  const [fetchSettings, setFetchSettings] = useState({
+    active: true,
+  });
 
-  // Setup as useState in case we want to add filters later
-  const [cabFetch] = useState(
-    supabase
-      .from('cabinets')
-      .select(
-        'id, brand, model, images, type, badges, frequency_start, frequency_end, sensitivity'
-      )
-      .eq('active', true)
-  );
+  const cabFetch = useMemo(() => fetchCabinets(fetchSettings), [fetchSettings]);
 
   const { data: cabinets, StatusComponent } = useSupabaseRequest(cabFetch);
 
@@ -43,18 +37,28 @@ export function Cabinets() {
   return (
     <PageContainer>
       <StatusComponent />
-      <div className="w-full mb-4 flex justify-end">
-        <ProtectedFeature>
+      <ProtectedFeature>
+        <div className="w-full mb-4 flex justify-end gap-4">
+          <Switch
+            value={String(!fetchSettings.active)}
+            onValueChange={(isSelected) =>
+              setFetchSettings({ ...fetchSettings, active: !isSelected })
+            }
+          >
+            Show hidden
+          </Switch>
           <AddCabinetButton />
-        </ProtectedFeature>
-      </div>
+        </div>
+      </ProtectedFeature>
       {cabinets && (
         <div className="flex w-full flex-col">
           <Tabs aria-label="Views">
-            <Tab key="gallary" title="Gallery">
-              {cabinets?.map((cabinet) => (
-                <CabinetCard key={cabinet.id} cabinet={cabinet} />
-              ))}
+            <Tab key="gallery" title="Gallery">
+              <div className="flex gap-4 justify-center">
+                {cabinets?.map((cabinet) => (
+                  <CabinetCard key={cabinet.id} cabinet={cabinet} />
+                ))}
+              </div>
             </Tab>
             <Tab key="table" title="Table">
               <Table aria-label="Example empty table" selectionMode="single">
@@ -96,6 +100,22 @@ export function Cabinets() {
       )}
     </PageContainer>
   );
+}
+
+interface FetchSettings {
+  active: boolean;
+}
+
+function fetchCabinets(settings: FetchSettings) {
+  let fetch = supabase
+    .from('cabinets')
+    .select(
+      'id, brand, model, images, type, badges, frequency_start, frequency_end, sensitivity'
+    );
+
+  if (settings.active) fetch = fetch.eq('active', true);
+
+  return fetch;
 }
 
 export default Cabinets;
