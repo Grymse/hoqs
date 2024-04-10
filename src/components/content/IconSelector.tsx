@@ -1,16 +1,19 @@
 import { Button } from '@nextui-org/react';
 import { LucideIcon } from 'lucide-react';
+import { ColorVariant } from '@/types/types';
 
 interface Props<T extends Record<string, LucideIcon>> {
   icon?: keyof T;
   setIcon: (color: keyof T) => void;
   icons: T;
+  selectColor?: ColorVariant;
 }
 
 export default function IconSelector<T extends Record<string, LucideIcon>>({
   icon,
   setIcon,
   icons,
+  selectColor = 'primary',
 }: Props<T>) {
   return (
     <div>
@@ -24,7 +27,7 @@ export default function IconSelector<T extends Record<string, LucideIcon>>({
         {Object.entries(icons).map(([title, Icon]) => (
           <Button
             size="sm"
-            color={title === icon ? 'primary' : 'default'}
+            color={title === icon ? selectColor : 'default'}
             isIconOnly
             onPress={() => setIcon(title)}
           >

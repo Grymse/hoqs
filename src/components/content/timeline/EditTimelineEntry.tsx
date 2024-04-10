@@ -113,6 +113,7 @@ export default function EditTimelineEntryButton({
                 </div>
                 <IconSelector
                   icons={TIMELINE_ICOMS}
+                  selectColor={entry.color}
                   setIcon={(icon) => setEntry({ ...entry, icon })}
                   icon={entry.icon || 'flag'}
                 />
