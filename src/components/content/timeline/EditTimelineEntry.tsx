@@ -12,7 +12,9 @@ import {
   useDisclosure,
 } from '@nextui-org/react';
 import { ComponentProps, useEffect, useState } from 'react';
-import ColorChooser from '../ColorChooser';
+import ColorSelector from '../ColorSelector';
+import IconSelector from '../IconSelector';
+import { TIMELINE_ICOMS } from '../../../lib/variables';
 
 type Props = {
   entry: TimelineEntry;
@@ -104,11 +106,16 @@ export default function EditTimelineEntryButton({
                     variant="bordered"
                   />
 
-                  <ColorChooser
+                  <ColorSelector
                     color={entry.color}
                     setColor={(color) => setEntry({ ...entry, color })}
                   />
                 </div>
+                <IconSelector
+                  icons={TIMELINE_ICOMS}
+                  setIcon={(icon) => setEntry({ ...entry, icon })}
+                  icon={entry.icon || 'flag'}
+                />
               </ModalBody>
               <ModalFooter>
                 <Button color="default" variant="flat" onPress={onClose}>

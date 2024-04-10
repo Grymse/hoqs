@@ -5,6 +5,7 @@ import { Button, Chip } from '@nextui-org/react';
 import { formatDate } from '@/lib/translations';
 import { TimelineEntry as TimelineEntryType } from '@/types/types';
 import EditTimelineEntryButton from './EditTimelineEntry';
+import { TIMELINE_ICOMS } from '../../../lib/variables';
 
 interface Props {
   entries: TimelineEntryType[];
@@ -29,6 +30,7 @@ export default function Timeline({ entries, setEntries }: Props) {
         date: new Date().toISOString(),
         description: 'This is the new epic entry about something cool',
         color: 'primary',
+        icon: 'flag',
       },
       ...entries,
     ]);
@@ -74,10 +76,12 @@ function TimelineEntry({ setEntry, entry, isLast }: TimelineEntryProps) {
     setEntry?.(null);
   }
 
+  const EntryIcon = entry.icon ? TIMELINE_ICOMS[entry.icon] : FileText;
+
   return (
     <>
       <div className="h-full flex flex-col items-center gap-2">
-        <Icon Icon={FileText} color={entry.color}></Icon>
+        <Icon Icon={EntryIcon} color={entry.color}></Icon>
         {!isLast && <div className={`flex-1 w-0.5 rounded ${bgColor}`} />}
       </div>
       <div className="relative h-fit mb-6">

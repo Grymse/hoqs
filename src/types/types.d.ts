@@ -1,4 +1,5 @@
 import { Tables } from './supabase';
+import { TIMELINE_ICOMS } from '../lib/variables';
 
 export type StorageImage = {
   description?: string;
@@ -69,4 +70,5 @@ export interface TimelineEntry {
   description: string;
   color: ColorVariant;
   badge?: string;
+  icon?: keyof typeof TIMELINE_ICOMS;
 }

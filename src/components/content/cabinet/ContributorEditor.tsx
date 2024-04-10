@@ -95,8 +95,10 @@ function ContributorEditor({
         label="Role"
         size="sm"
         value={contributor.role}
-        defaultSelectedKeys={[contributor.role]}
+        selectedKeys={[contributor.role]}
         onChange={(e) => {
+          if (!e.target.value || e.target.value.length === 0) return;
+
           setContributor({
             ...contributor,
             role: e.target.value as Contributor['role'],

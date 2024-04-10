@@ -1,18 +1,33 @@
 import { BadgeType, ColorVariant, ContributorRole } from '@/types/types';
 import {
+  Archive,
+  AudioLines,
+  BarChart,
   Box,
+  Boxes,
+  Crown,
   DraftingCompass,
   FileSliders,
   FileText,
+  Flag,
+  HandHeart,
+  HandHelping,
+  Heart,
   IterationCcw,
   LineChart,
+  MessagesSquare,
   Mic,
+  SearchCheck,
+  ShieldCheck,
   Ship,
   Sparkles,
   SquareKanbanDashed,
   ThumbsUp,
+  TrendingUp,
   Unplug,
+  Volume,
   Zap,
+  Text,
 } from 'lucide-react';
 
 export const CABINET_TYPES = [
@@ -117,6 +132,31 @@ export const FILE_BADGES = [
   { title: 'New', color: 'danger', variant: 'shadow', icon: Sparkles },
   { title: 'Old', color: 'default', variant: 'shadow', icon: Ship },
 ] satisfies BadgeType[];
+
+export const TIMELINE_ICOMS = {
+  sparkles: Sparkles,
+  shield: ShieldCheck,
+  audio: AudioLines,
+  box: Box,
+  boxes: Boxes,
+  archive: Archive,
+  chart: BarChart,
+  trending: TrendingUp,
+  hand: HandHelping,
+  messages: MessagesSquare,
+  drafting: DraftingCompass,
+  flag: Flag,
+  crown: Crown,
+  heart: Heart,
+  thumbs: ThumbsUp,
+  unplug: Unplug,
+  zap: Zap,
+  handheart: HandHeart,
+  volume: Volume,
+  search: SearchCheck,
+  mic: Mic,
+  text: Text,
+};
 
 export const CONTRIBUTOR_ROLES = [
   'Scientist',
