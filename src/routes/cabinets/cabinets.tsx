@@ -20,7 +20,6 @@ import { formatFrequency } from '@/lib/translations';
 import { useNavigate } from 'react-router-dom';
 import ProtectedFeature from '@/components/auth/ProtectedFeature';
 import { GalleryHorizontal, Text } from 'lucide-react';
-import Header from '@/components/ui/Header';
 
 export function Cabinets() {
   const navigate = useNavigate();
