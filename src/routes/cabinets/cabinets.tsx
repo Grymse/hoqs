@@ -19,6 +19,8 @@ import {
 import { formatFrequency } from '@/lib/translations';
 import { useNavigate } from 'react-router-dom';
 import ProtectedFeature from '@/components/auth/ProtectedFeature';
+import { GalleryHorizontal, Text } from 'lucide-react';
+import Header from '@/components/ui/Header';
 
 export function Cabinets() {
   const navigate = useNavigate();
@@ -35,10 +37,10 @@ export function Cabinets() {
   }
 
   return (
-    <PageContainer>
+    <PageContainer className="relative">
       <StatusComponent />
       <ProtectedFeature>
-        <div className="w-full mb-4 flex justify-end gap-4">
+        <div className="absolute left-auto right-0 flex gap-4 mr-8">
           <Switch
             value={String(!fetchSettings.active)}
             onValueChange={(isSelected) =>
@@ -51,52 +53,63 @@ export function Cabinets() {
         </div>
       </ProtectedFeature>
       {cabinets && (
-        <div className="flex w-full flex-col">
-          <Tabs aria-label="Views">
-            <Tab key="gallery" title="Gallery">
-              <div className="flex gap-4 justify-center">
-                {cabinets?.map((cabinet) => (
-                  <CabinetCard key={cabinet.id} cabinet={cabinet} />
-                ))}
+        <Tabs aria-label="Views">
+          <Tab
+            key="gallery"
+            title={
+              <div className="flex items-center space-x-2">
+                <GalleryHorizontal className="w-5 h-5" />
+                <span>Gallery</span>
               </div>
-            </Tab>
-            <Tab key="table" title="Table">
-              <Table aria-label="Example empty table" selectionMode="single">
-                <TableHeader>
-                  <TableColumn>Cabinet</TableColumn>
-                  <TableColumn>Type</TableColumn>
-                  <TableColumn>Range</TableColumn>
-                  <TableColumn>Sensitivity</TableColumn>
-                </TableHeader>
-                <TableBody emptyContent={'No rows to display.'}>
-                  {cabinets
-                    ? cabinets.map((cabinet) => (
-                        <TableRow
-                          key={cabinet.id}
-                          onClick={() => goToCabinet(cabinet.id)}
-                          className="cursor-pointer"
-                        >
-                          <TableCell>
-                            {cabinet.brand + ' ' + cabinet.model}{' '}
-                            <CabinetBadgeList
-                              size="sm"
-                              badges={cabinet.badges}
-                            />
-                          </TableCell>
-                          <TableCell>{cabinet.type}</TableCell>
-                          <TableCell>
-                            {formatFrequency(cabinet.frequency_start)}-
-                            {formatFrequency(cabinet.frequency_end)}
-                          </TableCell>
-                          <TableCell>{cabinet.sensitivity}dB</TableCell>
-                        </TableRow>
-                      ))
-                    : []}
-                </TableBody>
-              </Table>
-            </Tab>
-          </Tabs>
-        </div>
+            }
+          >
+            <div className="flex gap-4 justify-center">
+              {cabinets?.map((cabinet) => (
+                <CabinetCard key={cabinet.id} cabinet={cabinet} />
+              ))}
+            </div>
+          </Tab>
+          <Tab
+            key="table"
+            title={
+              <div className="flex items-center space-x-2">
+                <Text className="w-5 h-5" />
+                <span>Table</span>
+              </div>
+            }
+          >
+            <Table aria-label="Example empty table" selectionMode="single">
+              <TableHeader>
+                <TableColumn>Cabinet</TableColumn>
+                <TableColumn>Type</TableColumn>
+                <TableColumn>Range</TableColumn>
+                <TableColumn>Sensitivity</TableColumn>
+              </TableHeader>
+              <TableBody emptyContent={'No rows to display.'}>
+                {cabinets
+                  ? cabinets.map((cabinet) => (
+                      <TableRow
+                        key={cabinet.id}
+                        onClick={() => goToCabinet(cabinet.id)}
+                        className="cursor-pointer"
+                      >
+                        <TableCell>
+                          {cabinet.brand + ' ' + cabinet.model}{' '}
+                          <CabinetBadgeList size="sm" badges={cabinet.badges} />
+                        </TableCell>
+                        <TableCell>{cabinet.type}</TableCell>
+                        <TableCell>
+                          {formatFrequency(cabinet.frequency_start)}-
+                          {formatFrequency(cabinet.frequency_end)}
+                        </TableCell>
+                        <TableCell>{cabinet.sensitivity}dB</TableCell>
+                      </TableRow>
+                    ))
+                  : []}
+              </TableBody>
+            </Table>
+          </Tab>
+        </Tabs>
       )}
     </PageContainer>
   );
