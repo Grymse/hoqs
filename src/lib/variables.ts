@@ -28,6 +28,7 @@ import {
   Volume,
   Zap,
   Text,
+  ThumbsDown,
 } from 'lucide-react';
 
 export const CABINET_TYPES = [
@@ -46,6 +47,17 @@ export const WOOD_THICKNESS = [
   '18mm',
   '21mm',
   '24mm',
+];
+
+export const DRIVER_TYPES = [
+  'Subwoofer',
+  'Mid bass',
+  'Mid-range',
+  'Low frequency',
+  'Full-Range',
+  'Woofer',
+  'Triaxial',
+  'Full-range',
 ];
 
 export const DRIVER_SIZES = [
@@ -87,6 +99,21 @@ export const CABINET_BADGES = [
     color: 'warning',
     variant: 'shadow',
     icon: DraftingCompass,
+  },
+] satisfies BadgeType[];
+
+export const DRIVER_BADGES = [
+  { title: 'Popular', color: 'primary', variant: 'shadow', icon: Zap },
+  { title: 'Recommended', color: 'primary', variant: 'shadow', icon: ThumbsUp },
+  { title: 'Good Value', color: 'danger', variant: 'shadow', icon: Box },
+  { title: 'Flagship', color: 'danger', variant: 'shadow', icon: Ship },
+  { title: 'New', color: 'secondary', variant: 'shadow', icon: Sparkles },
+  { title: 'Discontinued', color: 'warning', variant: 'shadow', icon: Unplug },
+  {
+    title: 'Not Recommended',
+    color: 'warning',
+    variant: 'shadow',
+    icon: ThumbsDown,
   },
 ] satisfies BadgeType[];
 

@@ -72,3 +72,5 @@ export interface TimelineEntry {
   badge?: string;
   icon?: keyof typeof TIMELINE_ICOMS;
 }
+
+export type Driver = Tables<'drivers'>;

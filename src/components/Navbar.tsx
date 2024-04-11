@@ -26,7 +26,6 @@ const routes = [
   {
     path: '/drivers',
     name: 'Drivers',
-    disabled: true,
   },
   {
     path: '/guides',
