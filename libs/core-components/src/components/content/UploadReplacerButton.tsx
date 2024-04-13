@@ -1,5 +1,5 @@
-import { supabase } from '@/lib/supabase';
-import { AbstractStorageFile } from '@/types/types';
+import { supabase } from '@core/lib/supabase';
+import { AbstractStorageFile } from '@core/types/types';
 import { Button } from '@nextui-org/react';
 import React, { useRef } from 'react';
 import Dropzone from 'react-dropzone';

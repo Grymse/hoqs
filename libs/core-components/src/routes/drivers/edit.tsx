@@ -1,18 +1,18 @@
-import PageContainer from '@/components/ui/PageContainer';
+import PageContainer from '@core/components/ui/PageContainer';
 import { Button, Input, SelectItem, Textarea, Select } from '@nextui-org/react';
-import Header from '@/components/ui/Header';
+import Header from '@core/components/ui/Header';
 import { useRef, useState } from 'react';
-import { useSupabaseRequest } from '@/components/SupabaseRequest';
+import { useSupabaseRequest } from '@core/components/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase, toPromise } from '@/lib/supabase';
-import { Driver } from '@/types/types';
+import { supabase, toPromise } from '@core/lib/supabase';
+import { Driver } from '@core/types/types';
 import toast from 'react-hot-toast';
-import ProtectedPage from '@/components/auth/ProtectedPage';
-import ButtonWithConfirm from '@/components/modals/ButtonWithConfirm';
-import DriverImporter from '../../components/content/driver/DriverImporter';
-import BadgeSelector from '@/components/content/badges/BadgeSelector';
-import { DRIVER_BADGES, DRIVER_TYPES } from '@/lib/variables';
-import { driverAttributes } from '@/lib/driverAttributes';
+import ProtectedPage from '@core/components/auth/ProtectedPage';
+import ButtonWithConfirm from '@core/components/modals/ButtonWithConfirm';
+import DriverImporter from '@core/components/content/driver/DriverImporter';
+import BadgeSelector from '@core/components/content/badges/BadgeSelector';
+import { DRIVER_BADGES, DRIVER_TYPES } from '@core/lib/variables';
+import { driverAttributes } from '@core/lib/driverAttributes';
 
 export function EditDriver() {
   const { id } = useParams();
@@ -212,5 +212,3 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
     </>
   );
 }
-
-export default EditDriver;

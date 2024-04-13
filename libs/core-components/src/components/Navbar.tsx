@@ -14,7 +14,7 @@ import DarkModeToggle from './DarkModeToggle';
 import HoqsLogo from './brands/HoqsLogo';
 import Header from './ui/Header';
 import Text from './ui/Text';
-import { signOut, useAuth } from '@/lib/auth';
+import { signOut, useAuth } from '@core/lib/auth';
 import FacebookIcon from './brands/FacebookIcon';
 import { FormattedMessage } from 'react-intl';
 
@@ -38,7 +38,7 @@ const routes = [
   },
 ];
 
-export default function Navbar() {
+export function Navbar() {
   const location = useLocation();
   const activeRouteIndex =
     location.pathname !== '/' &&

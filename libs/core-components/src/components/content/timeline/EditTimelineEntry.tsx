@@ -1,4 +1,4 @@
-import { TimelineEntry } from '@/types/types';
+import { TimelineEntry } from '@core/types/types';
 import {
   Button,
   Chip,
@@ -14,7 +14,7 @@ import {
 import { ComponentProps, useEffect, useState } from 'react';
 import ColorSelector from '../ColorSelector';
 import IconSelector from '../IconSelector';
-import { TIMELINE_ICOMS } from '../../../lib/variables';
+import { TIMELINE_ICOMS } from '@core/lib/variables';
 
 type Props = {
   entry: TimelineEntry;

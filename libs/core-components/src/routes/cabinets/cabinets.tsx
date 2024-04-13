@@ -1,10 +1,10 @@
-import PageContainer from '../../components/ui/PageContainer';
-import CabinetCard from '../../components/ui/cabinet/CabinetCard';
-import { supabase } from '@/lib/supabase';
-import { useSupabaseRequest } from '@/components/SupabaseRequest';
+import PageContainer from '@core/components/ui/PageContainer';
+import CabinetCard from '@core/components/ui/cabinet/CabinetCard';
+import { supabase } from '@core/lib/supabase';
+import { useSupabaseRequest } from '@core/components/SupabaseRequest';
 import { useMemo, useState } from 'react';
-import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton';
-import { CabinetBadgeList } from '../../components/content/cabinet/CabinetBadge';
+import AddCabinetButton from '@core/components/content/cabinet/AddCabinetButton';
+import { CabinetBadgeList } from '@core/components/content/cabinet/CabinetBadge';
 import {
   Tab,
   TableHeader,
@@ -16,9 +16,9 @@ import {
   TableCell,
   Switch,
 } from '@nextui-org/react';
-import { formatFrequency } from '@/lib/translations';
+import { formatFrequency } from '@core/lib/translations';
 import { useNavigate } from 'react-router-dom';
-import ProtectedFeature from '@/components/auth/ProtectedFeature';
+import ProtectedFeature from '@core/components/auth/ProtectedFeature';
 import { GalleryHorizontal, Text } from 'lucide-react';
 
 export function Cabinets() {
@@ -129,5 +129,3 @@ function fetchCabinets(settings: FetchSettings) {
 
   return fetch;
 }
-
-export default Cabinets;

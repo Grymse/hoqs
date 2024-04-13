@@ -1,6 +1,5 @@
-import { ColorVariant } from '@/types/types';
+import { ColorVariant } from '@core/types/types';
 import { LucideIcon } from 'lucide-react';
-import React from 'react';
 import { cn } from './util';
 
 interface Props {

@@ -1,4 +1,4 @@
-export default function BackgroundEffect() {
+export function BackgroundEffect() {
   return (
     <>
       <div

@@ -1,5 +1,5 @@
-import Text from '@/components/ui/Text';
-import { Contributor as ContributorType } from '@/types/types';
+import Text from '@core/components/ui/Text';
+import { Contributor as ContributorType } from '@core/types/types';
 import { ContributorIcon, contributorIconRoles } from './ContributorEditor';
 
 interface ContributorsProps {

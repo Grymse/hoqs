@@ -1,6 +1,6 @@
-import { StorageImage } from '@/types/types';
-import Header from '../../ui/Header';
-import Text from '../../ui/Text';
+import { StorageImage } from '@core/types/types';
+import Header from '@core/components/ui/Header';
+import Text from '@core/components/ui/Text';
 import { useState, useEffect, useRef } from 'react';
 import { MapPin, Volume2 } from 'lucide-react';
 import { Chip, CircularProgress } from '@nextui-org/react';

@@ -1,6 +1,6 @@
 import { Button } from '@nextui-org/react';
 import { LucideIcon } from 'lucide-react';
-import { ColorVariant } from '@/types/types';
+import { ColorVariant } from '@core/types/types';
 
 interface Props<T extends Record<string, LucideIcon>> {
   icon?: keyof T;

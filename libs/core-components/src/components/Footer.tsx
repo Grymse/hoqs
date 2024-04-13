@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { openCookieModal } from './Cookies';
 
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="grow flex flex-col justify-end w-full p-8 text-center">
       <Text variant="small" color="muted">

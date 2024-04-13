@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
 import { useLocation } from 'react-router-dom';
 import {
@@ -21,7 +21,7 @@ const onOpenListenerObject = {
   },
 };
 
-export default function Cookies() {
+export function Cookies() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const location = useLocation();
   const [accepted, setAccepted] = useState(false);

@@ -1,6 +1,6 @@
-import PageContainer from '../../components/ui/PageContainer';
-import { supabase } from '@/lib/supabase';
-import { useSupabaseRequest } from '@/components/SupabaseRequest';
+import PageContainer from '@core/components/ui/PageContainer';
+import { supabase } from '@core/lib/supabase';
+import { useSupabaseRequest } from '@core/components/SupabaseRequest';
 import { useEffect, useMemo, useState } from 'react';
 import {
   TableHeader,
@@ -11,10 +11,10 @@ import {
   TableCell,
 } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
-import ProtectedFeature from '@/components/auth/ProtectedFeature';
-import { CabinetBadgeList } from '@/components/content/cabinet/CabinetBadge';
-import AddDriverButton from '@/components/content/driver/AddDriver';
-import { Driver } from '@/types/types';
+import ProtectedFeature from '@core/components/auth/ProtectedFeature';
+import { CabinetBadgeList } from '@core/components/content/cabinet/CabinetBadge';
+import AddDriverButton from '@core/components/content/driver/AddDriver';
+import { Driver } from '@core/types/types';
 
 export function Drivers() {
   const navigate = useNavigate();
@@ -94,5 +94,3 @@ function fetchDrivers(settings: FetchSettings) {
 
   return fetch;
 }
-
-export default Drivers;

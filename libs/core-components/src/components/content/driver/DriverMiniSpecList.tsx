@@ -1,6 +1,6 @@
-import { Driver } from '@/types/types';
-import { formatFrequency } from '../../../lib/translations';
-import { driverAttributes } from '@/lib/driverAttributes';
+import { Driver } from '@core/types/types';
+import { formatFrequency } from '@core/lib/translations';
+import { driverAttributes } from '@core/lib/driverAttributes';
 
 interface Props {
   driver: Partial<Driver>;

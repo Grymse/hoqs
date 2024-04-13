@@ -1,4 +1,4 @@
-import { DRIVER_BADGES } from '@/lib/variables';
+import { DRIVER_BADGES } from '@core/lib/variables';
 import Badge from '../badges/Badge';
 import BadgeList from '../badges/BadgeList';
 

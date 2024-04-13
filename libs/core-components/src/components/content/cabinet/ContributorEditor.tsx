@@ -1,6 +1,6 @@
-import { cn } from '@/components/ui/util';
-import { CONTRIBUTOR_ROLES } from '@/lib/variables';
-import { Contributor, ContributorRole } from '@/types/types';
+import { cn } from '@core/components/ui/util';
+import { CONTRIBUTOR_ROLES } from '@core/lib/variables';
+import { Contributor, ContributorRole } from '@core/types/types';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import {
   Atom,

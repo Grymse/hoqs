@@ -1,7 +1,7 @@
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
-import { StorageImage } from '@/types/types';
+import { StorageImage } from '@core/types/types';
 import { Pencil, Trash2 } from 'lucide-react';
 
 // Import Swiper styles
@@ -11,7 +11,7 @@ import 'swiper/css/navigation';
 import { useDisclosure } from '@nextui-org/react';
 import ImageFullscreen from './ImageFullscreen';
 import { useState } from 'react';
-import ButtonWithConfirm from '../../modals/ButtonWithConfirm';
+import ButtonWithConfirm from '@core/components/modals/ButtonWithConfirm';
 import ImageDescription from './ImageDescription';
 import ImageEditForm from './ImageEditForm';
 

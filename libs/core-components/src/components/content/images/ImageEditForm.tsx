@@ -1,4 +1,4 @@
-import { StorageImage } from '@/types/types';
+import { StorageImage } from '@core/types/types';
 import {
   Modal,
   ModalContent,
@@ -11,8 +11,8 @@ import {
   Textarea,
 } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import Text from '../../ui/Text';
-import { formatBytes, formatDateTime } from '../../../lib/translations';
+import Text from '@core/components/ui/Text';
+import { formatBytes, formatDateTime } from '@core/lib/translations';
 
 type ImageEditFormProps = {
   initialImage: StorageImage;

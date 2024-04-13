@@ -1,6 +1,6 @@
-import { supabase } from '@/lib/supabase';
-import { removeFileExtension } from '@/lib/translations';
-import { AbstractStorageFile } from '@/types/types';
+import { supabase } from '@core/lib/supabase';
+import { removeFileExtension } from '@core/lib/translations';
+import { AbstractStorageFile } from '@core/types/types';
 import Dropzone from 'react-dropzone';
 import toast from 'react-hot-toast';
 

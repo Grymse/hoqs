@@ -1,4 +1,4 @@
-import { AbstractStorageFile, StorageFile } from '@/types/types';
+import { AbstractStorageFile, StorageFile } from '@core/types/types';
 import Uploader from '../Uploader';
 import FileList from './FileList';
 

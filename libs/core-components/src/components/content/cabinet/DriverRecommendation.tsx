@@ -1,6 +1,6 @@
-import { useSupabaseRequest } from '@/components/SupabaseRequest';
-import { supabase } from '@/lib/supabase';
-import { DriverRank } from '@/types/types';
+import { useSupabaseRequest } from '@core/components/SupabaseRequest';
+import { supabase } from '@core/lib/supabase';
+import { DriverRank } from '@core/types/types';
 import {
   Input,
   Spinner,
@@ -13,7 +13,7 @@ import {
 } from '@nextui-org/react';
 import React, { useRef } from 'react';
 import { Search } from 'lucide-react';
-import HoqsLogo from '@/components/brands/HoqsLogo';
+import HoqsLogo from '@core/components/brands/HoqsLogo';
 import { useNavigate } from 'react-router-dom';
 import { rankToRankNumber } from '../driver/DriverRecommendationRank';
 import DriverRecommendationRank from '../driver/DriverRecommendationRank';

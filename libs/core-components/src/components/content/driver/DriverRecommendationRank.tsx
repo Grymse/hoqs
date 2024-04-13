@@ -1,5 +1,5 @@
 import { Chip } from '@nextui-org/react';
-import { ColorVariant, DriverRank } from '@/types/types';
+import { ColorVariant, DriverRank } from '@core/types/types';
 
 interface Props {
   rank: DriverRank;

@@ -1,10 +1,10 @@
-import { useSupabaseRequest } from '@/components/SupabaseRequest';
-import PageContainer from '@/components/ui/PageContainer';
-import { supabase } from '@/lib/supabase';
+import { useSupabaseRequest } from '@core/components/SupabaseRequest';
+import PageContainer from '@core/components/ui/PageContainer';
+import { supabase } from '@core/lib/supabase';
 import { useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Header from '@/components/ui/Header';
-import Text from '@/components/ui/Text';
+import Header from '@core/components/ui/Header';
+import Text from '@core/components/ui/Text';
 import {
   Button,
   TableBody,
@@ -14,14 +14,14 @@ import {
   TableRow,
   Table,
 } from '@nextui-org/react';
-import ProtectedFeature from '@/components/auth/ProtectedFeature';
-import { Driver as DriverType } from '@/types/types';
-import { DriverBadgeList } from '@/components/content/driver/DriverBadge';
-import { formatFrequency } from '../../lib/translations';
-import CabinetRecommendation from '@/components/content/driver/CabinetRecommendation';
-import { driverAttributes } from '@/lib/driverAttributes';
+import ProtectedFeature from '@core/components/auth/ProtectedFeature';
+import { Driver as DriverType } from '@core/types/types';
+import { DriverBadgeList } from '@core/components/content/driver/DriverBadge';
+import { formatFrequency } from '@core/lib/translations';
+import CabinetRecommendation from '@core/components/content/driver/CabinetRecommendation';
+import { driverAttributes } from '@core/lib/driverAttributes';
 
-export default function Driver() {
+export function Driver() {
   const { id } = useParams();
   const cabReq = useRef(supabase.from('drivers').select('*').eq('id', id));
   const { StatusComponent, data } = useSupabaseRequest(cabReq.current);

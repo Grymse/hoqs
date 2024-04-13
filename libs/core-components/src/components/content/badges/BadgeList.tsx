@@ -1,5 +1,5 @@
 import { cn } from '@nextui-org/react';
-import { BadgeType } from 'libs/core-components/src/types/types';
+import { BadgeType } from '@core/types/types';
 import Badge from './Badge';
 interface ListProps {
   badges?: string[];

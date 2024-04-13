@@ -1,4 +1,4 @@
-import { Driver } from '@/types/types';
+import { Driver } from '@core/types/types';
 import { Button, Input } from '@nextui-org/react';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';

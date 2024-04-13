@@ -1,4 +1,4 @@
-import { StorageImage } from '@/types/types';
+import { StorageImage } from '@core/types/types';
 import { Modal, ModalContent, Button } from '@nextui-org/react';
 import React from 'react';
 import ImageCaroussel from './ImageCaroussel';

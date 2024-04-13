@@ -11,5 +11,3 @@ export function Index() {
 
   return null; // Render nothing
 }
-
-export default Index;

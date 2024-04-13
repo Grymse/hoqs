@@ -1,4 +1,4 @@
-import { AbstractStorageFile, StorageImage } from '@/types/types';
+import { AbstractStorageFile, StorageImage } from '@core/types/types';
 import ImageCaroussel from './ImageCaroussel';
 import Uploader from '../Uploader';
 

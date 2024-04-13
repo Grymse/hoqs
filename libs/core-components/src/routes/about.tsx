@@ -1,8 +1,8 @@
-import PageContainer from '@/components/ui/PageContainer';
+import PageContainer from '@core/components/ui/PageContainer';
 import Header from '../components/ui/Header';
 import Text from '../components/ui/Text';
 
-export default function About() {
+export function About() {
   return (
     <PageContainer>
       <Header variant="title">About us</Header>

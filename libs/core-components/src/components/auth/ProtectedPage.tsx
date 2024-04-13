@@ -1,10 +1,9 @@
-
 import { PropsWithChildren } from 'react';
 import PageContainer from '../ui/PageContainer';
 import Header from '../ui/Header';
 import Text from '../ui/Text';
-import { Enums } from '../../types/supabase';
-import { useAuth } from '../../lib/auth';
+import { useAuth } from '@core/lib/auth';
+import { Enums } from '@core/types/supabase';
 
 type ProtectedPageProps = PropsWithChildren<{ roles?: Enums<'role'>[] }>;
 

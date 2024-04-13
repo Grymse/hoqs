@@ -1,7 +1,7 @@
-import Header from '@/components/ui/Header';
-import Text from '@/components/ui/Text';
+import Header from '@core/components/ui/Header';
+import Text from '@core/components/ui/Text';
 
-export default function NotFound() {
+export function NotFound() {
   return (
     <main className="grow justify-center items-center text-center max-w-96 flex flex-col gap-2">
       <Header id="notfound.title" />

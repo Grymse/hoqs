@@ -10,9 +10,10 @@ import {
 } from '@nextui-org/react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import Text from '../../ui/Text';
 import slugify from 'slugify';
 import { useNavigate } from 'react-router-dom';
+import { supabase, toPromise } from '@core/lib/supabase';
+import Text from '@core/components/ui/Text';
 
 export default function AddCabinetButton() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

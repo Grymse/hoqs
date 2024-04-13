@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@hoqs-monorepo/core-components": ["libs/core-components/src/index.ts"]
+      "@hoqs/core": ["libs/core-components/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

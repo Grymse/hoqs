@@ -1,4 +1,4 @@
-import { StorageFile } from '@/types/types';
+import { StorageFile } from '@core/types/types';
 import {
   TableBody,
   TableColumn,
@@ -8,12 +8,12 @@ import {
   TableCell,
 } from '@nextui-org/react';
 import FileIcon from './FileIcon';
-import { formatBytes } from '@/lib/translations';
+import { formatBytes } from '@core/lib/translations';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
-import ButtonWithConfirm from '../../modals/ButtonWithConfirm';
+import ButtonWithConfirm from '@core/components/modals/ButtonWithConfirm';
 import FileEditForm from './FileEditForm';
 import BadgeList from '../badges/BadgeList';
-import { FILE_BADGES } from '@/lib/variables';
+import { FILE_BADGES } from '@core/lib/variables';
 
 interface Props {
   files: StorageFile[] | null;

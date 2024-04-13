@@ -1,11 +1,11 @@
-import Icon from '@/components/ui/Icon';
-import Text from '@/components/ui/Text';
+import Icon from '@core/components/ui/Icon';
+import Text from '@core/components/ui/Text';
 import { FileText, Pencil, PlusCircle, Trash } from 'lucide-react';
 import { Button, Chip } from '@nextui-org/react';
-import { formatDate } from '@/lib/translations';
-import { TimelineEntry as TimelineEntryType } from '@/types/types';
+import { formatDate } from '@core/lib/translations';
+import { TimelineEntry as TimelineEntryType } from '@core/types/types';
 import EditTimelineEntryButton from './EditTimelineEntry';
-import { TIMELINE_ICOMS } from '../../../lib/variables';
+import { TIMELINE_ICOMS } from '@core/lib/variables';
 
 interface Props {
   entries: TimelineEntryType[];

@@ -1,20 +1,20 @@
-import { useSupabaseRequest } from '@/components/SupabaseRequest';
-import PageContainer from '@/components/ui/PageContainer';
-import { supabase } from '@/lib/supabase';
+import { useSupabaseRequest } from '@core/components/SupabaseRequest';
+import PageContainer from '@core/components/ui/PageContainer';
+import { supabase } from '@core/lib/supabase';
 import { useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ImageCaroussel from '@/components/content/images/ImageCaroussel';
-import Header from '@/components/ui/Header';
-import Text from '@/components/ui/Text';
+import ImageCaroussel from '@core/components/content/images/ImageCaroussel';
+import Header from '@core/components/ui/Header';
+import Text from '@core/components/ui/Text';
 import { Button } from '@nextui-org/react';
-import Specifications from '@/components/content/cabinet/Specifications';
-import FileList from '@/components/content/files/FileList';
-import { CabinetBadgeList } from '@/components/content/cabinet/CabinetBadge';
-import { SpeakerCabinet } from '@/types/types';
-import ProtectedFeature from '@/components/auth/ProtectedFeature';
-import Contributors from '@/components/content/cabinet/Contributors';
-import Timeline from '@/components/content/timeline/Timeline';
-import DriverRecommendation from '@/components/content/cabinet/DriverRecommendation';
+import Specifications from '@core/components/content/cabinet/Specifications';
+import FileList from '@core/components/content/files/FileList';
+import { CabinetBadgeList } from '@core/components/content/cabinet/CabinetBadge';
+import { SpeakerCabinet } from '@core/types/types';
+import ProtectedFeature from '@core/components/auth/ProtectedFeature';
+import Contributors from '@core/components/content/cabinet/Contributors';
+import Timeline from '@core/components/content/timeline/Timeline';
+import DriverRecommendation from '@core/components/content/cabinet/DriverRecommendation';
 
 export function Cabinet() {
   const { id } = useParams();
@@ -77,5 +77,3 @@ export function Cabinet() {
     </PageContainer>
   );
 }
-
-export default Cabinet;

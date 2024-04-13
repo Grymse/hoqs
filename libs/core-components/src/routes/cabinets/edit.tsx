@@ -1,4 +1,4 @@
-import PageContainer from '@/components/ui/PageContainer';
+import PageContainer from '@core/components/ui/PageContainer';
 import {
   Button,
   Checkbox,
@@ -7,39 +7,39 @@ import {
   SelectItem,
   Textarea,
 } from '@nextui-org/react';
-import Header from '@/components/ui/Header';
+import Header from '@core/components/ui/Header';
 import { useRef, useState } from 'react';
-import ImageUploader from '@/components/content/images/ImageUploader';
-import Text from '@/components/ui/Text';
-import { useSupabaseRequest } from '@/components/SupabaseRequest';
+import ImageUploader from '@core/components/content/images/ImageUploader';
+import Text from '@core/components/ui/Text';
+import { useSupabaseRequest } from '@core/components/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase, toPromise } from '@/lib/supabase';
+import { supabase, toPromise } from '@core/lib/supabase';
 import {
   Contributor,
   SpeakerCabinet,
   StorageFile,
   StorageImage,
-} from '@/types/types';
+} from '@core/types/types';
 import {
   kgsToPounds,
   mmToInches,
   woodThicknessToInches,
-} from '@/lib/translations';
+} from '@core/lib/translations';
 import toast from 'react-hot-toast';
-import ButtonWithConfirm from '@/components/modals/ButtonWithConfirm';
+import ButtonWithConfirm from '@core/components/modals/ButtonWithConfirm';
 import {
   CABINET_TYPES,
   DRIVER_SIZES,
   MAX_SPL_COUNT,
   WOOD_THICKNESS,
-} from '@/lib/variables';
-import FileUploader from '../../components/content/files/FileUploader';
-import { CABINET_BADGES } from '../../lib/variables';
-import ProtectedPage from '@/components/auth/ProtectedPage';
-import ContributorsEditor from '@/components/content/cabinet/ContributorEditor';
-import BadgeSelector from '@/components/content/badges/BadgeSelector';
-import Timeline from '@/components/content/timeline/Timeline';
-import EditDriverRecommendation from '@/components/content/cabinet/EditDriverRecommendation';
+} from '@core/lib/variables';
+import FileUploader from '@core/components/content/files/FileUploader';
+import { CABINET_BADGES } from '@core/lib/variables';
+import ProtectedPage from '@core/components/auth/ProtectedPage';
+import ContributorsEditor from '@core/components/content/cabinet/ContributorEditor';
+import BadgeSelector from '@core/components/content/badges/BadgeSelector';
+import Timeline from '@core/components/content/timeline/Timeline';
+import EditDriverRecommendation from '@core/components/content/cabinet/EditDriverRecommendation';
 
 export function EditCabinet() {
   const { id } = useParams();
@@ -515,5 +515,3 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
     </>
   );
 }
-
-export default EditCabinet;
