@@ -13,7 +13,6 @@ import toast from 'react-hot-toast';
 import Text from '../../ui/Text';
 import slugify from 'slugify';
 import { useNavigate } from 'react-router-dom';
-import { supabase, toPromise } from 'libs/core-components/src/lib/supabase';
 
 export default function AddCabinetButton() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
