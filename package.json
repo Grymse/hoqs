@@ -2,7 +2,14 @@
   "name": "@hoqs-monorepo/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "dev": "nx serve main-site",
+    "build": "nx build main-site",
+    "test": "nx test main-site",
+    "gentypes": "npx supabase gen types typescript --project-id \"vgtljajaxrfrybokahvz\" --schema public > src/types/supabase.d.ts"
+  },
   "private": true,
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
