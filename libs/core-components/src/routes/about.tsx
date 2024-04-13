@@ -1,4 +1,4 @@
-import PageContainer from '@core/components/ui/PageContainer';
+import PageContainer from '../components/ui/PageContainer';
 import Header from '../components/ui/Header';
 import Text from '../components/ui/Text';
 

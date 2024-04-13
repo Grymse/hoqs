@@ -14,13 +14,13 @@ import {
   ModalFooter,
 } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmail, useAuth } from '@core/lib/auth';
-import Text from '@core/components/ui/Text';
+import { signInWithEmail, useAuth } from '../lib/auth';
+import Text from '../components/ui/Text';
 import { z } from 'zod';
-import { validate } from '@core/lib/zod';
+import { validate } from '../lib/zod';
 import toast from 'react-hot-toast';
 import { FormattedMessage } from 'react-intl';
-import Header from '@core/components/ui/Header';
+import Header from '../components/ui/Header';
 
 export function Login() {
   const { onOpen, isOpen, onOpenChange } = useDisclosure();

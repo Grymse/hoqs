@@ -1,5 +1,5 @@
 import { Tables } from './supabase';
-import { TIMELINE_ICOMS } from '@core/lib/variables';
+import { TIMELINE_ICOMS } from '../lib/variables';
 
 export type StorageImage = {
   description?: string;

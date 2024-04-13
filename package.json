@@ -8,7 +8,7 @@
     "dev": "nx serve main-site",
     "build": "nx build main-site",
     "test": "nx test main-site",
-    "gentypes": "npx supabase gen types typescript --project-id \"vgtljajaxrfrybokahvz\" --schema public > src/types/supabase.d.ts"
+    "gentypes": "npx supabase gen types typescript --project-id \"vgtljajaxrfrybokahvz\" --schema public > libs/core-components/src/types/supabase.d.ts"
   },
   "private": true,
   "dependencies": {

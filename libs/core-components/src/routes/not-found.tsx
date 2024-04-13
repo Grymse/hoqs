@@ -1,5 +1,5 @@
-import Header from '@core/components/ui/Header';
-import Text from '@core/components/ui/Text';
+import Header from '../components/ui/Header';
+import Text from '../components/ui/Text';
 
 export function NotFound() {
   return (

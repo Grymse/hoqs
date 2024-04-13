@@ -99,6 +99,48 @@ export interface Database {
         };
         Relationships: [];
       };
+      driver_recommendations: {
+        Row: {
+          cabinet_id: string;
+          created_at: string;
+          driver_id: string;
+          id: number;
+          notes: string | null;
+          rank: string;
+        };
+        Insert: {
+          cabinet_id: string;
+          created_at?: string;
+          driver_id: string;
+          id?: number;
+          notes?: string | null;
+          rank: string;
+        };
+        Update: {
+          cabinet_id?: string;
+          created_at?: string;
+          driver_id?: string;
+          id?: number;
+          notes?: string | null;
+          rank?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'public_driver_recommendations_cabinet_id_fkey';
+            columns: ['cabinet_id'];
+            isOneToOne: false;
+            referencedRelation: 'cabinets';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'public_driver_recommendations_driver_id_fkey';
+            columns: ['driver_id'];
+            isOneToOne: false;
+            referencedRelation: 'drivers';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
       drivers: {
         Row: {
           air_gap: number | null;

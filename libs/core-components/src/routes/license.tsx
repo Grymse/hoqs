@@ -1,6 +1,6 @@
-import Header from '@core/components/ui/Header';
-import PageContainer from '@core/components/ui/PageContainer';
-import Text from '@core/components/ui/Text';
+import Header from '../components/ui/Header';
+import PageContainer from '../components/ui/PageContainer';
+import Text from '../components/ui/Text';
 import { Link } from 'react-router-dom';
 import { Link as LinkUI } from '@nextui-org/react';
 
