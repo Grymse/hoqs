@@ -9,14 +9,14 @@
       "options": {
         "cypressConfig": "e2e/cypress.config.ts",
         "testingType": "e2e",
-        "devServerTarget": "hoqs:serve"
+        "devServerTarget": "hoqs2:serve"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "hoqs:serve:production"
+          "devServerTarget": "hoqs2:serve:production"
         },
         "ci": {
-          "devServerTarget": "hoqs:serve-static"
+          "devServerTarget": "hoqs2:serve-static"
         }
       }
     },
@@ -24,6 +24,6 @@
       "executor": "@nx/eslint:lint"
     }
   },
-  "implicitDependencies": ["hoqs"],
+  "implicitDependencies": ["hoqs2"],
   "tags": []
 }

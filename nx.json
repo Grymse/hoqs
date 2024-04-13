@@ -58,7 +58,7 @@
     ],
     "sharedGlobals": []
   },
-  "defaultProject": "hoqs",
+  "defaultProject": "hoqs2",
   "generators": {
     "@nx/react": {
       "application": {
@@ -72,7 +72,8 @@
       },
       "library": {
         "style": "css",
-        "linter": "eslint"
+        "linter": "eslint",
+        "unitTestRunner": "none"
       }
     }
   },
