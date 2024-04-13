@@ -1,6 +1,6 @@
-import { attributes } from '@/routes/drivers/driver';
 import { Driver } from '@/types/types';
 import { formatFrequency } from '../../../lib/translations';
+import { driverAttributes } from '@/lib/driverAttributes';
 
 interface Props {
   driver: Partial<Driver>;
@@ -26,7 +26,7 @@ export default function DriverMiniSpecList({ driver }: Props) {
       )}
 
       {(driver.spl || driver.qes || driver.p_max || driver.bl || driver.blre) &&
-        attributes.map((category) => (
+        driverAttributes.map((category) => (
           <>
             <p className="text-tiny text-primary-500">{category.name}</p>
             {Object.entries(category.attributes)

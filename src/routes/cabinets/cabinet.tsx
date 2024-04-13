@@ -14,6 +14,7 @@ import { SpeakerCabinet } from '@/types/types';
 import ProtectedFeature from '@/components/auth/ProtectedFeature';
 import Contributors from '@/components/content/cabinet/Contributors';
 import Timeline from '@/components/content/timeline/Timeline';
+import DriverRecommendation from '@/components/content/cabinet/DriverRecommendation';
 
 export function Cabinet() {
   const { id } = useParams();
@@ -61,6 +62,12 @@ export function Cabinet() {
             <>
               <Header variant="subtitle">Timeline</Header>
               <Timeline entries={cabinet.timeline} />{' '}
+            </>
+          )}
+          {id && (
+            <>
+              <Header variant="subtitle">Recommended Drivers</Header>
+              <DriverRecommendation id={id} />
             </>
           )}
           <Header variant="subtitle">Files</Header>

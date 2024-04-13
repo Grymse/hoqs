@@ -13,7 +13,6 @@ import {
 import { useNavigate } from 'react-router-dom';
 import ProtectedFeature from '@/components/auth/ProtectedFeature';
 import { CabinetBadgeList } from '@/components/content/cabinet/CabinetBadge';
-import { mmToInches } from '../../lib/translations';
 import AddDriverButton from '@/components/content/driver/AddDriver';
 import { Driver } from '@/types/types';
 
@@ -71,7 +70,7 @@ export function Drivers() {
                       {driver.brand + ' ' + driver.model}{' '}
                       <CabinetBadgeList size="sm" badges={driver.badges} />
                     </TableCell>
-                    <TableCell>{mmToInches(driver.diam)}"</TableCell>
+                    <TableCell>{driver.size_inches}"</TableCell>
                     <TableCell>{driver.p_w}w</TableCell>
                     <TableCell>{driver.spl}dB</TableCell>
                   </TableRow>
@@ -91,7 +90,7 @@ interface FetchSettings {
 function fetchDrivers(settings: FetchSettings) {
   const fetch = supabase
     .from('drivers')
-    .select('id, brand, badges, model, diam, p_w, spl');
+    .select('id, brand, badges, model, size_inches, p_w, spl');
 
   return fetch;
 }

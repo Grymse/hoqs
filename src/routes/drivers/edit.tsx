@@ -8,11 +8,11 @@ import { supabase, toPromise } from '@/lib/supabase';
 import { Driver } from '@/types/types';
 import toast from 'react-hot-toast';
 import ProtectedPage from '@/components/auth/ProtectedPage';
-import { attributes } from './driver';
 import ButtonWithConfirm from '@/components/modals/ButtonWithConfirm';
 import DriverImporter from '../../components/content/driver/DriverImporter';
 import BadgeSelector from '@/components/content/badges/BadgeSelector';
 import { DRIVER_BADGES, DRIVER_TYPES } from '@/lib/variables';
+import { driverAttributes } from '@/lib/driverAttributes';
 
 export function EditDriver() {
   const { id } = useParams();
@@ -155,10 +155,10 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
           <Select
             items={DRIVER_TYPES}
             label="Type"
-            placeholder="Max SPL counts"
+            placeholder="Driver type"
             variant="bordered"
-            value={driver?.type ?? undefined}
-            defaultSelectedKeys={driver?.type ?? undefined}
+            value={driver.type ? [driver.type] : undefined}
+            defaultSelectedKeys={driver.type ? [driver.type] : undefined}
             onChange={(e) => {
               setDriver({ ...driver, type: e.target.value });
             }}
@@ -171,7 +171,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
           </Select>
         </div>
 
-        {attributes.map((category) => (
+        {driverAttributes.map((category) => (
           <div key={category.name}>
             <Header variant="sub-subtitle">{category.name}</Header>
             {Object.entries(category.attributes).map(([key, value]) => (

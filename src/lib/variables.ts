@@ -1,4 +1,5 @@
 import { BadgeType, ColorVariant, ContributorRole } from '@/types/types';
+import { DriverRank } from '../types/types';
 import {
   Archive,
   AudioLines,
@@ -193,6 +194,14 @@ export const CONTRIBUTOR_ROLES = [
   'Helpful',
   'Writer',
 ] satisfies ContributorRole[];
+
+export const DRIVER_RANK = [
+  'Optimal',
+  'Excellent',
+  'Good',
+  'Okay',
+  'Bad',
+] satisfies DriverRank[];
 
 export const COLORS = [
   'primary',
