@@ -20,7 +20,7 @@ interface Props {
   cabinet: Cabinet;
 }
 
-export default function CabinetCard({ cabinet }: Props) {
+export function CabinetCard({ cabinet }: Props) {
   return (
     <Link to={'/cabinets/' + cabinet.id} className="w-fit flex">
       <Card className="col-span-12 sm:col-span-4 h-64 w-64 cursor-pointer outline-1 hover:outline-primary-500">
@@ -52,3 +52,5 @@ export default function CabinetCard({ cabinet }: Props) {
     </Link>
   );
 }
+
+export default CabinetCard;

@@ -19,7 +19,7 @@ type ImageEditFormProps = {
   onChange: (image: StorageImage) => void;
 } & Omit<React.ComponentProps<typeof Button>, 'onChange'>;
 
-export default function ImageEditForm({
+export function ImageEditForm({
   initialImage,
   onChange,
   children,
@@ -137,3 +137,5 @@ export default function ImageEditForm({
     </>
   );
 }
+
+export default ImageEditForm;

@@ -77,3 +77,5 @@ export function Cabinet() {
     </PageContainer>
   );
 }
+
+export default Cabinet;

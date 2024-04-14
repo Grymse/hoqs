@@ -13,7 +13,7 @@ type HeaderProps = PropsWithChildren<{
   Omit<React.ComponentProps<typeof FormattedMessage>, 'children'> &
   React.HTMLAttributes<HTMLHeadingElement>;
 
-export default function Header({
+export function Header({
   variant = 'title',
   color = 'default',
   children,
@@ -59,3 +59,5 @@ function getClasses(
 
   return cn(textColorClass, textVariantClass, className);
 }
+
+export default Header;

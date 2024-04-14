@@ -11,7 +11,7 @@ import ProtectedPage from '@core/components/auth/ProtectedPage';
 import ButtonWithConfirm from '@core/components/modals/ButtonWithConfirm';
 import DriverImporter from '@core/components/content/driver/DriverImporter';
 import BadgeSelector from '@core/components/content/badges/BadgeSelector';
-import { DRIVER_BADGES, DRIVER_TYPES } from '@core/lib/variables';
+import { DRIVER_BADGES, DRIVER_TYPES } from '../../lib/variables';
 import { driverAttributes } from '@core/lib/driverAttributes';
 
 export function EditDriver() {
@@ -220,3 +220,5 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
     </>
   );
 }
+
+export default EditDriver;

@@ -9,7 +9,7 @@ interface Props {
   path: string;
 }
 
-export default function FileUploader({ files, setFiles, path, bucket }: Props) {
+export function FileUploader({ files, setFiles, path, bucket }: Props) {
   function addFile(file: AbstractStorageFile) {
     const newFile = {
       description: '',
@@ -35,3 +35,5 @@ export default function FileUploader({ files, setFiles, path, bucket }: Props) {
     </div>
   );
 }
+
+export default FileUploader;

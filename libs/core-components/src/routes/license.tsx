@@ -112,3 +112,5 @@ export function License() {
     </PageContainer>
   );
 }
+
+export default License;

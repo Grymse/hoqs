@@ -104,3 +104,5 @@ export function About() {
     </PageContainer>
   );
 }
+
+export default About;

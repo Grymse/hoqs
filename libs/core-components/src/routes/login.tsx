@@ -216,3 +216,5 @@ function getEmailProvider(email: string): EmailProvider | undefined {
 
   return emailProviders.find((provider) => provider.domainName === domainName);
 }
+
+export default Login;

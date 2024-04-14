@@ -22,7 +22,7 @@ type FileEditFormProps = {
   onChange: (file: StorageFile) => void;
 } & Omit<React.ComponentProps<typeof Button>, 'onChange'>;
 
-export default function FileEditForm({
+export function FileEditForm({
   initialFile,
   onChange,
   children,
@@ -120,3 +120,5 @@ export default function FileEditForm({
     </>
   );
 }
+
+export default FileEditForm;

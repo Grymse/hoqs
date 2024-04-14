@@ -94,3 +94,5 @@ function fetchDrivers(settings: FetchSettings) {
 
   return fetch;
 }
+
+export default Drivers;

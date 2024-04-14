@@ -129,3 +129,5 @@ function fetchCabinets(settings: FetchSettings) {
 
   return fetch;
 }
+
+export default Cabinets;

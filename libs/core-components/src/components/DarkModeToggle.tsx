@@ -2,7 +2,7 @@ import { Button } from '@nextui-org/react';
 import { useDarkMode } from 'usehooks-ts';
 import { Sun, Moon } from 'lucide-react';
 
-export default function DarkModeToggle() {
+export function DarkModeToggle() {
   const { toggle, isDarkMode } = useDarkMode();
 
   return (
@@ -11,3 +11,5 @@ export default function DarkModeToggle() {
     </Button>
   );
 }
+
+export default DarkModeToggle;

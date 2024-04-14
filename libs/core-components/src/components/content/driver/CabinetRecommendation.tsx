@@ -35,7 +35,7 @@ interface CabinetRecommendation {
   };
 }
 
-export default function CabinetRecommendation({ driverId }: Props) {
+export function CabinetRecommendation({ driverId }: Props) {
   const navigate = useNavigate();
   const [filterValue, setFilterValue] = React.useState('');
   const cabinetReqRef = useRef(
@@ -131,3 +131,5 @@ export default function CabinetRecommendation({ driverId }: Props) {
 function compareRank(a: CabinetRecommendation, b: CabinetRecommendation) {
   return rankToRankNumber(b.rank) - rankToRankNumber(a.rank);
 }
+
+export default CabinetRecommendation;

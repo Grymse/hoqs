@@ -9,7 +9,7 @@ interface Props {
   path: string;
 }
 
-export default function ImageUploader({
+export function ImageUploader({
   images,
   setImages,
   path,
@@ -45,3 +45,5 @@ const allowedFileTypes = [
   'image/jpg',
   'image/svg',
 ];
+
+export default ImageUploader;

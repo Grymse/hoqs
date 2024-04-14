@@ -5,7 +5,7 @@ interface Props {
   rank: DriverRank;
 }
 
-export default function DriverRecommendationRank({ rank }: Props) {
+export function DriverRecommendationRank({ rank }: Props) {
   return (
     <Chip
       className="capitalize"
@@ -55,3 +55,5 @@ function getRankColor(rank: DriverRank): ColorVariant {
       return 'danger';
   }
 }
+
+export default DriverRecommendationRank;

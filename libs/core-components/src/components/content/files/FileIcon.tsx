@@ -5,7 +5,7 @@ type Props = {
   mimetype: string;
 } & ComponentProps<typeof File>;
 
-export default function FileIcon({ mimetype, ...props }: Props) {
+export function FileIcon({ mimetype, ...props }: Props) {
   // @ts-expect-error - Icon is a component
   const Icon = MimeToIcon[mimetype] || File;
   return <Icon {...props}></Icon>;
@@ -39,3 +39,5 @@ const MimeToIcon = {
   'video/quicktime': Video,
   'video/*': Video,
 };
+
+export default FileIcon;

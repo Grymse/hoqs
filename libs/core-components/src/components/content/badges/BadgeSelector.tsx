@@ -9,7 +9,7 @@ type BadgeSelectorProps = {
   className?: string;
 } & Omit<React.ComponentProps<typeof Select>, 'children'>;
 
-export default function BadgeSelector({
+export function BadgeSelector({
   badges,
   setBadges,
   badgeTypes,
@@ -59,3 +59,5 @@ export default function BadgeSelector({
     </Select>
   );
 }
+
+export default BadgeSelector;

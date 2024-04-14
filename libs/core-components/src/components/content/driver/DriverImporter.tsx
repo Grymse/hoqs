@@ -8,7 +8,7 @@ interface Props {
   driver: Partial<Driver>;
 }
 
-export default function DriverImporter({ setDriver, driver }: Props) {
+export function DriverImporter({ setDriver, driver }: Props) {
   const [importURL, setImportURL] = useState('');
   const [error, setError] = useState('');
 
@@ -88,3 +88,5 @@ export default function DriverImporter({ setDriver, driver }: Props) {
     </div>
   );
 }
+
+export default DriverImporter;

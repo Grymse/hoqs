@@ -20,7 +20,7 @@ interface Props {
   setFiles?: (files: StorageFile[] | null) => void;
 }
 
-export default function FileList({ files, setFiles }: Props) {
+export function FileList({ files, setFiles }: Props) {
   function deleteFile(index: number) {
     if (setFiles) {
       setFiles(files?.filter((_, i) => i !== index) || []);
@@ -109,3 +109,5 @@ export default function FileList({ files, setFiles }: Props) {
     </Table>
   );
 }
+
+export default FileList;

@@ -11,7 +11,7 @@ interface Props {
   allowedTypes?: string[];
   onFileUploaded: (file: AbstractStorageFile) => void;
 }
-export default function Uploader({
+export function Uploader({
   path,
   bucket,
   suggestedFiles,
@@ -118,3 +118,5 @@ export default function Uploader({
     </Dropzone>
   );
 }
+
+export default Uploader;
