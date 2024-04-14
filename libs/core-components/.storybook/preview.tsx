@@ -2,7 +2,7 @@ import 'apps/main-site/src/index.css';
 import { withThemeByClassName } from '@storybook/addon-themes';
 import { IntlProvider } from 'react-intl';
 import React from 'react';
-import { AuthProvider, DarkModeProvider, messages } from '../src';
+import { AuthProvider, BackgroundEffect, DarkModeProvider, messages } from '../src';
 import { Preview } from '@storybook/react';
 import { HashRouter, useNavigate } from 'react-router-dom';
 import { NextUIProvider } from '@nextui-org/react';
@@ -25,6 +25,8 @@ const preview: Preview = {
               <HashRouter>
                 <UIProvider>
                   <Story />
+                  <BackgroundEffect />
+
                 </UIProvider>
               </HashRouter>
             </IntlProvider>
