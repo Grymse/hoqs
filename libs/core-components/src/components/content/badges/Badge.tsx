@@ -7,7 +7,7 @@ interface BadgeProps {
   badgeTypes: BadgeType[];
 }
 
-export default function Badge({ badgeTitle, size, badgeTypes }: BadgeProps) {
+export function Badge({ badgeTitle, size, badgeTypes }: BadgeProps) {
   const badge = badgeTypes.find((badge) => badge.title === badgeTitle);
   if (!badge) return null;
   return (
@@ -28,3 +28,5 @@ export default function Badge({ badgeTitle, size, badgeTypes }: BadgeProps) {
     </Chip>
   );
 }
+
+export default Badge;

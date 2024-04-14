@@ -22,3 +22,5 @@ export function BackgroundEffect() {
     </>
   );
 }
+
+export default BackgroundEffect;

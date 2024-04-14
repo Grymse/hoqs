@@ -9,7 +9,7 @@ interface Props<T extends Record<string, LucideIcon>> {
   selectColor?: ColorVariant;
 }
 
-export default function IconSelector<T extends Record<string, LucideIcon>>({
+export function IconSelector<T extends Record<string, LucideIcon>>({
   icon,
   setIcon,
   icons,
@@ -38,3 +38,5 @@ export default function IconSelector<T extends Record<string, LucideIcon>>({
     </div>
   );
 }
+
+export default IconSelector;

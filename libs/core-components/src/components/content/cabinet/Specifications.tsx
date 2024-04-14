@@ -29,7 +29,7 @@ interface Attribute {
   help?: string;
 }
 
-export default function Specifications({ cabinet }: Props) {
+export function Specifications({ cabinet }: Props) {
   const attributes: Attribute[] = [
     {
       name: 'Model',
@@ -146,6 +146,8 @@ export default function Specifications({ cabinet }: Props) {
     </Table>
   );
 }
+
+export default Specifications;
 
 /* 
 export default function Specifications({ cabinet }: Props) {

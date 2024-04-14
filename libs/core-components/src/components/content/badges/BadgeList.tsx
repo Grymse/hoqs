@@ -8,7 +8,7 @@ interface ListProps {
   badgeTypes: BadgeType[];
 }
 
-export default function BadgeList({
+export function BadgeList({
   badges,
   size,
   className,
@@ -28,3 +28,5 @@ export default function BadgeList({
     </div>
   );
 }
+
+export default BadgeList;

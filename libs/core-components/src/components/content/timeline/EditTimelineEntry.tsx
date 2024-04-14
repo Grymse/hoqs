@@ -21,7 +21,7 @@ type Props = {
   setEntry: (entry: TimelineEntry | null) => void;
 } & ComponentProps<typeof Button>;
 
-export default function EditTimelineEntryButton({
+export function EditTimelineEntryButton({
   entry: initialEntry,
   setEntry: setInitialEntry,
   children,
@@ -143,3 +143,5 @@ export default function EditTimelineEntryButton({
     </>
   );
 }
+
+export default EditTimelineEntryButton;

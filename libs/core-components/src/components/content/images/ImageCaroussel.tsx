@@ -24,7 +24,7 @@ interface Props {
   setImages?: (images: StorageImage[]) => void;
 }
 
-export default function ImageCaroussel({
+export function ImageCaroussel({
   images,
   isFullscreen = false,
   initialSlide = 0,
@@ -109,3 +109,5 @@ export default function ImageCaroussel({
     </>
   );
 }
+
+export default ImageCaroussel;

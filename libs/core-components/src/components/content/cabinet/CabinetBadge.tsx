@@ -7,7 +7,7 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export default function CabinetBadge({ badgeTitle, size }: Props) {
+export function CabinetBadge({ badgeTitle, size }: Props) {
   return (
     <Badge badgeTitle={badgeTitle} size={size} badgeTypes={CABINET_BADGES} />
   );
@@ -29,3 +29,5 @@ export function CabinetBadgeList({ badges, size, className }: ListProps) {
     />
   );
 }
+
+export default CabinetBadge;

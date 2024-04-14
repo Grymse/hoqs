@@ -12,7 +12,7 @@ interface Props {
   setEntries?: (entries: TimelineEntryType[]) => void;
 }
 
-export default function Timeline({ entries, setEntries }: Props) {
+export function Timeline({ entries, setEntries }: Props) {
   if (entries.length === 0 && !setEntries) return null;
 
   function setEntry(index: number, entry: TimelineEntryType | null) {
@@ -120,3 +120,5 @@ function TimelineEntry({ setEntry, entry, isLast }: TimelineEntryProps) {
     </>
   );
 }
+
+export default Timeline;

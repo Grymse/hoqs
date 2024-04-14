@@ -19,7 +19,7 @@ type TextProps = PropsWithChildren<{
   Omit<React.ComponentProps<typeof FormattedMessage>, 'children'> &
   React.HTMLAttributes<HTMLParagraphElement>;
 
-export default function Text({
+export function Text({
   variant = 'regular',
   color = 'default',
   children,
@@ -67,3 +67,5 @@ function getClasses(
 
   return cn(textColorClass, textVariantClass, className);
 }
+
+export default Text;

@@ -6,7 +6,7 @@ interface Props {
   driver: Partial<Driver>;
 }
 
-export default function DriverMiniSpecList({ driver }: Props) {
+export function DriverMiniSpecList({ driver }: Props) {
   return (
     <div className="grid-cols-2 gap-x-4 grid-flow-col">
       <p className="text-tiny text-foreground-400">
@@ -44,3 +44,5 @@ export default function DriverMiniSpecList({ driver }: Props) {
     </div>
   );
 }
+
+export default DriverMiniSpecList;

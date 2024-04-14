@@ -18,7 +18,6 @@ import { Search, Trash } from 'lucide-react';
 import HoqsLogo from '@core/components/brands/HoqsLogo';
 import { useNavigate } from 'react-router-dom';
 import { rankToRankNumber } from '../driver/DriverRecommendationRank';
-import DriverRecommendation from './DriverRecommendation';
 import { DRIVER_RANK } from '@core/lib/variables';
 
 interface Props {
@@ -39,7 +38,7 @@ interface DriverRecommendation {
   };
 }
 
-export default function EditDriverRecommendation({ id }: Props) {
+export function EditDriverRecommendation({ id }: Props) {
   const driverReqRef = useRef(
     supabase
       .from('driver_recommendations')
@@ -198,3 +197,5 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
 function compareRank(a: DriverRecommendation, b: DriverRecommendation) {
   return rankToRankNumber(b.rank) - rankToRankNumber(a.rank);
 }
+
+export default EditDriverRecommendation;

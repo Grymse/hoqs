@@ -7,7 +7,7 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export default function DriverBadge({ badgeTitle, size }: Props) {
+export function DriverBadge({ badgeTitle, size }: Props) {
   return (
     <Badge badgeTitle={badgeTitle} size={size} badgeTypes={DRIVER_BADGES} />
   );
@@ -29,3 +29,5 @@ export function DriverBadgeList({ badges, size, className }: ListProps) {
     />
   );
 }
+
+export default DriverBadge;

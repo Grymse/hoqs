@@ -6,7 +6,7 @@ interface ContributorsProps {
   contributors: ContributorType[];
 }
 
-export default function Contributors({ contributors }: ContributorsProps) {
+export function Contributors({ contributors }: ContributorsProps) {
   return (
     <div className="grid grid-cols-2 gap-2">
       {contributors.sort(contributorSorter).map((contributor, index) => (
@@ -45,3 +45,5 @@ function Contributor({ contributor }: ContributorProps) {
     </div>
   );
 }
+
+export default Contributors;

@@ -536,3 +536,5 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
     </>
   );
 }
+
+export default EditCabinet;

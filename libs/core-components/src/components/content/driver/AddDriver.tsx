@@ -28,7 +28,7 @@ interface Props {
   onNewDriver?: (driver: Driver) => void;
 }
 
-export default function AddDriverButton({ onNewDriver }: Props) {
+export function AddDriverButton({ onNewDriver }: Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [driver, setDriver] = useState<DriverState>({
     brand: 'Eminence',
@@ -108,3 +108,5 @@ export default function AddDriverButton({ onNewDriver }: Props) {
     </>
   );
 }
+
+export default AddDriverButton;

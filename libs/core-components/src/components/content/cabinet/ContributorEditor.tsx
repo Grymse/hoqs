@@ -19,7 +19,7 @@ interface ContributorsProps {
   setContributors: (contributors: Contributor[]) => void;
 }
 
-export default function ContributorsEditor({
+export function ContributorsEditor({
   contributors,
   setContributors,
 }: ContributorsProps) {
@@ -180,3 +180,5 @@ export function ContributorIcon({ role, className }: ContributorIconProps) {
   const iconColor = 'text-' + Icon.className + '-500';
   return <Icon.Icon className={cn('w-6 h-6', iconColor, className)} />;
 }
+
+export default ContributorsEditor;

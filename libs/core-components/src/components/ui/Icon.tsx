@@ -8,7 +8,7 @@ interface Props {
   size?: 'md';
 }
 
-export default function Icon({ color, Icon, size = 'md' }: Props) {
+export function Icon({ color, Icon, size = 'md' }: Props) {
   const bgColor = 'bg-' + color + '-100';
   const iconColor = 'text-' + color + '-500';
   return (
@@ -19,3 +19,5 @@ export default function Icon({ color, Icon, size = 'md' }: Props) {
     </div>
   );
 }
+
+export default Icon;

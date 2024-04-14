@@ -18,7 +18,7 @@ type WarningModalProps = {
   description?: string;
 } & React.ComponentProps<typeof Button>;
 
-export default function ButtonWithConfirm({
+export function ButtonWithConfirm({
   onConfirm,
   onClose: outerOnClose,
   children,
@@ -74,3 +74,5 @@ export default function ButtonWithConfirm({
     </>
   );
 }
+
+export default ButtonWithConfirm;

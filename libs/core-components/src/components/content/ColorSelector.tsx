@@ -8,7 +8,7 @@ interface Props {
   setColor: (color: ColorVariant) => void;
 }
 
-export default function ColorSelector({ color, setColor }: Props) {
+export function ColorSelector({ color, setColor }: Props) {
   return (
     <div className="flex flex-wrap gap-2">
       {COLORS.map((c) => (
@@ -19,3 +19,5 @@ export default function ColorSelector({ color, setColor }: Props) {
     </div>
   );
 }
+
+export default ColorSelector;

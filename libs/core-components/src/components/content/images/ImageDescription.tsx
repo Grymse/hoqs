@@ -9,7 +9,7 @@ interface Props {
   image: StorageImage | undefined;
 }
 
-export default function ImageDescription({ image }: Props) {
+export function ImageDescription({ image }: Props) {
   const [showContent, setShowContent] = useState(true);
   const [showContentDuration, setShowContentDuration] = useState<number | null>(
     3000
@@ -120,3 +120,5 @@ function CountdownVisualizer({ duration }: CountdownVisualizerProps) {
     </div>
   );
 }
+
+export default ImageDescription;

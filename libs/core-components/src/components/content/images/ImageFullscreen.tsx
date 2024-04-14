@@ -10,7 +10,7 @@ interface ImageFullscreenProps {
   initialSlide?: number;
 }
 
-export default function ImageFullscreen({
+export function ImageFullscreen({
   isOpen,
   onOpenChange,
   images,
@@ -69,3 +69,5 @@ export default function ImageFullscreen({
     </Modal>
   );
 }
+
+export default ImageFullscreen;

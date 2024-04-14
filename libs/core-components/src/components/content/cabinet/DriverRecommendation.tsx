@@ -22,7 +22,7 @@ interface Props {
   id: string;
 }
 
-interface DriverRecommendation {
+interface DriverRecommendationProps {
   notes: string;
   rank: DriverRank;
   driver_id: string;
@@ -36,7 +36,7 @@ interface DriverRecommendation {
   };
 }
 
-export default function DriverRecommendation({ id }: Props) {
+export function DriverRecommendation({ id }: Props) {
   const navigate = useNavigate();
   const [filterValue, setFilterValue] = React.useState('');
   const driverReqRef = useRef(
@@ -56,9 +56,9 @@ export default function DriverRecommendation({ id }: Props) {
 
   const { StatusComponent, data: driverRecommendations, isLoading } =
     // @ts-expect-error - Injecting the type of the request makes it complain
-    useSupabaseRequest<DriverRecommendation[]>(driverReqRef.current);
+    useSupabaseRequest<DriverRecommendationProps[]>(driverReqRef.current);
 
-  function containsName(driver: DriverRecommendation) {
+  function containsName(driver: DriverRecommendationProps) {
     const filter = filterValue.toLowerCase();
     return (
       driver.drivers.brand.toLowerCase().match(filter) !== null ||
@@ -132,6 +132,8 @@ export default function DriverRecommendation({ id }: Props) {
   );
 }
 
-function compareRank(a: DriverRecommendation, b: DriverRecommendation) {
+function compareRank(a: DriverRecommendationProps, b: DriverRecommendationProps) {
   return rankToRankNumber(b.rank) - rankToRankNumber(a.rank);
 }
+
+export default DriverRecommendation;

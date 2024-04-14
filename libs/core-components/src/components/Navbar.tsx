@@ -173,3 +173,5 @@ function UserSection() {
     </Button>
   );
 }
+
+export default Navbar;

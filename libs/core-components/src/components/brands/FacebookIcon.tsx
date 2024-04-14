@@ -1,4 +1,4 @@
-export default function FacebookIcon() {
+export function FacebookIcon() {
   return (
     <svg
       width="32px"
@@ -11,3 +11,5 @@ export default function FacebookIcon() {
     </svg>
   );
 }
+
+export default FacebookIcon;
