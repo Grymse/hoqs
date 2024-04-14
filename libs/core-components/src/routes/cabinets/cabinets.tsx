@@ -1,7 +1,7 @@
 import PageContainer from '../../components/ui/PageContainer';
 import CabinetCard from '../../components/ui/cabinet/CabinetCard';
 import { supabase } from '../../lib/supabase';
-import { useSupabaseRequest } from '../../components/SupabaseRequest';
+import { useSupabaseRequest } from '../../components/helpers/SupabaseRequest';
 import { useMemo, useState } from 'react';
 import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton';
 import { CabinetBadgeList } from '../../components/content/cabinet/CabinetBadge';

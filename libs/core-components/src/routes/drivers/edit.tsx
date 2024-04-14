@@ -2,7 +2,7 @@ import PageContainer from '@core/components/ui/PageContainer';
 import { Button, Input, SelectItem, Textarea, Select } from '@nextui-org/react';
 import Header from '@core/components/ui/Header';
 import { useRef, useState } from 'react';
-import { useSupabaseRequest } from '@core/components/SupabaseRequest';
+import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase, toPromise } from '@core/lib/supabase';
 import { Driver } from '@core/types/types';

@@ -11,7 +11,7 @@ import Header from '@core/components/ui/Header';
 import { useRef, useState } from 'react';
 import ImageUploader from '@core/components/content/images/ImageUploader';
 import Text from '@core/components/ui/Text';
-import { useSupabaseRequest } from '@core/components/SupabaseRequest';
+import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase, toPromise } from '@core/lib/supabase';
 import {

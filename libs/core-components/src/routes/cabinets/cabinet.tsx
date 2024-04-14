@@ -1,4 +1,4 @@
-import { useSupabaseRequest } from '@core/components/SupabaseRequest';
+import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
 import PageContainer from '@core/components/ui/PageContainer';
 import { supabase } from '@core/lib/supabase';
 import { useRef } from 'react';

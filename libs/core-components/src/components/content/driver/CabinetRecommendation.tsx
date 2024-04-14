@@ -1,4 +1,4 @@
-import { useSupabaseRequest } from '@core/components/SupabaseRequest';
+import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
 import { supabase } from '@core/lib/supabase';
 import { DriverRank } from '@core/types/types';
 import {

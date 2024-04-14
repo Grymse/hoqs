@@ -1,7 +1,7 @@
 import { PostgrestError, PostgrestSingleResponse } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
-import Text from './ui/Text';
-import Header from './ui/Header';
+import Text from '../ui/Text';
+import Header from '../ui/Header';
 import { CircularProgress } from '@nextui-org/react';
 
 interface SimplePromise<T> {
