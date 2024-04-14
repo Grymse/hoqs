@@ -89,6 +89,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
           value={driver.brand}
           onChange={(e) => setDriver({ ...driver, brand: e.target.value })}
           variant="underlined"
+          aria-label="Write speaker brand"
           label="Brand"
         />
         <Input
@@ -96,6 +97,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
           value={driver.model}
           onChange={(e) => setDriver({ ...driver, model: e.target.value })}
           variant="underlined"
+          aria-label="Write speaker model"
           label="Model"
         />
       </div>
@@ -104,6 +106,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
         variant="bordered"
         placeholder="Enter your notes"
         className="w-full h-fit"
+        aria-label="Write notes about the driver"
         size="sm"
         minRows={5}
         maxRows={10}
@@ -121,6 +124,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
           <Header variant="sub-subtitle">General</Header>
           <Input
             size="sm"
+            aria-label="Write speaker sensitivity"
             value={String(driver.spl)}
             type="number"
             onChange={(e) =>
@@ -134,6 +138,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
             size="sm"
             value={String(driver.fr_start)}
             type="number"
+            aria-label="Write speaker frequency response low"
             onChange={(e) =>
               setDriver({ ...driver, fr_start: Number(e.target.value) ?? null })
             }
@@ -145,6 +150,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
             size="sm"
             value={String(driver.fr_end)}
             type="number"
+            aria-label="Write speaker frequency response high"
             onChange={(e) =>
               setDriver({ ...driver, fr_end: Number(e.target.value) ?? null })
             }
@@ -156,6 +162,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
             items={DRIVER_TYPES}
             label="Type"
             placeholder="Driver type"
+            aria-label="Select driver type"
             variant="bordered"
             value={driver.type ? [driver.type] : undefined}
             defaultSelectedKeys={driver.type ? [driver.type] : undefined}
@@ -182,6 +189,7 @@ function EditForm({ initialDriver, onSave, onDelete }: EditFormProps) {
                 onChange={(e) =>
                   setDriver({ ...driver, [key]: e.target.value })
                 }
+                aria-label={`Write ${value.name}`}
                 variant="underlined"
                 label={`${value.name}${
                   value.symbol ? ' (' + value.symbol + ')' : ''

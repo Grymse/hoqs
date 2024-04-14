@@ -55,6 +55,7 @@ export default function FileEditForm({
                 <Input
                   autoFocus
                   label="Title"
+                  aria-label="Edit title"
                   placeholder="Enter the title of the file"
                   value={file.title}
                   onChange={(e) => setFile({ ...file, title: e.target.value })}
@@ -63,6 +64,7 @@ export default function FileEditForm({
 
                 <Textarea
                   label="Description"
+                  aria-label="Edit description"
                   placeholder="Enter the description of the file"
                   value={file.description}
                   onChange={(e) =>

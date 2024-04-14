@@ -88,12 +88,14 @@ function ContributorEditor({
         }
         placeholder="John Doe"
         label="Name"
+        aria-label="Contributor name"
         size="sm"
       />
       <Select
         items={CONTRIBUTOR_ROLES}
         label="Role"
         size="sm"
+        aria-label="Select contributor role"
         value={contributor.role}
         selectedKeys={[contributor.role]}
         onChange={(e) => {

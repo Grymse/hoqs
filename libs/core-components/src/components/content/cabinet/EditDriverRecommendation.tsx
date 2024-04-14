@@ -113,6 +113,7 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
         isClearable
         className="w-full sm:max-w-[44%]"
         placeholder="Search by name..."
+        aria-label="Search by name"
         startContent={<Search />}
         value={filterValue}
         size="sm"
@@ -156,6 +157,7 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
                 <TableCell>
                   <Select
                     radius="full"
+                    aria-label="Select Rank"
                     className="w-32"
                     classNames={{ base: 'm-2' }}
                     size="sm"

@@ -22,20 +22,25 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
   useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange((_, session) => {
       const newUser = session?.user as UserWithRole | null;
-      setUser(newUser ?? null);
+      setUser((user) => {
+        if (user?.id === newUser?.id) {
+          return user;
+        }
 
-      // Fetch role of user elsewhere
-      if (newUser?.id) {
-        supabase
-          .from('users')
-          .select('role')
-          .eq('id', newUser?.id)
-          .then(({ data }) => {
-            if (data) {
-              setUser({ ...newUser, api_role: data[0].role });
-            }
-          });
-      }
+        // Fetch role of user elsewhere
+        if (newUser?.id) {
+          supabase
+            .from('users')
+            .select('role')
+            .eq('id', newUser?.id)
+            .then(({ data }) => {
+              if (data) {
+                setUser({ ...newUser, api_role: data[0].role });
+              }
+            });
+        }
+        return newUser;
+      });
     });
 
     return () => {

@@ -140,6 +140,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
 
         <Checkbox
           defaultSelected={cabinet.active}
+          aria-label="Is the cabinet active and displayed?"
           onChange={(e) => {
             setCabinet({ ...cabinet, active: e.target.checked });
           }}
@@ -151,6 +152,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
       <div className="grid grid-cols-3 gap-4">
         <Input
           type="text"
+          aria-label="Write speaker brand"
           variant="bordered"
           placeholder="Paraflex"
           defaultValue="Paraflex"
@@ -160,6 +162,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
         />
         <Input
           type="text"
+          aria-label="Write speaker model"
           variant="bordered"
           placeholder="Type C"
           defaultValue="Type C"
@@ -170,6 +173,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
         <Select
           items={CABINET_TYPES}
           label="Type"
+          aria-label="Select cabinet type"
           placeholder="Select cabinet type"
           selectedKeys={cabinet.type ? [cabinet.type] : []}
           variant="bordered"
@@ -184,6 +188,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           items={DRIVER_SIZES}
           label="Driver Size"
           selectionMode="multiple"
+          aria-label="Select cabinet driver size"
           placeholder="Select cabinet size"
           variant="bordered"
           selectedKeys={cabinet.driver_size}
@@ -201,6 +206,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
         <BadgeSelector
           badges={cabinet.badges}
           label="Cabinet Badges"
+          aria-label="Select cabinet badges"
           className="col-span-2"
           placeholder="Select cabinet badges"
           selectionMode="multiple"
@@ -217,6 +223,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="date"
           variant="bordered"
           label="Release date"
+          aria-label="Select cabinet release date"
           value={cabinet.created_at.slice(0, 10)}
           onChange={(e) =>
             setCabinet({
@@ -230,6 +237,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
       <Textarea
         label="Short Entry Description"
         variant="bordered"
+        aria-label="Write a short description"
         placeholder="Enter your description"
         className="w-full h-fit"
         minRows={3}
@@ -242,6 +250,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
       <Textarea
         label="Full Description"
         variant="bordered"
+        aria-label="Write a full description"
         placeholder="Enter your description"
         className="w-full"
         minRows={10}
@@ -265,6 +274,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
         <Select
           items={MAX_SPL_COUNT}
           label="Type"
+          aria-label="Select max SPL counts"
           placeholder="Max SPL counts"
           variant="bordered"
           value={MAX_SPL_COUNT[cabinet.max_spl.length - 1]}
@@ -287,6 +297,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
             <Input
               key={i}
               type="number"
+              aria-label={`Write max SPL ${MAX_SPL_COUNT[i]}`}
               variant="bordered"
               label={`Max SPL (${MAX_SPL_COUNT[i]})`}
               value={String(cabinet.max_spl[i])}
@@ -305,6 +316,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Frequency Start"
+          aria-label="Write speaker frequency start"
           endContent="Hz"
           value={String(cabinet.frequency_start ?? '')}
           onChange={(e) =>
@@ -318,6 +330,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Frequency End"
+          aria-label="Write speaker frequency end"
           endContent="Hz"
           value={String(cabinet.frequency_end ?? '')}
           onChange={(e) =>
@@ -331,6 +344,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Sensitivity"
+          aria-label="Write speaker sensitivity"
           endContent="dB"
           value={String(cabinet.sensitivity ?? '')}
           onChange={(e) =>
@@ -348,6 +362,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Horizontal"
+          aria-label="Write speaker directivity horizontal"
           endContent="deg"
           value={String(cabinet.directivity_horizontal ?? '')}
           onChange={(e) =>
@@ -363,6 +378,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Vertical"
+          aria-label="Write speaker directivity vertical"
           endContent="deg"
           value={String(cabinet.directivity_vertical ?? '')}
           onChange={(e) =>
@@ -384,6 +400,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Height"
+          aria-label="Write speaker height"
           endContent="mm"
           value={String(cabinet.height_mm ?? '')}
           onChange={(e) =>
@@ -397,6 +414,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Width"
+          aria-label="Write speaker width"
           endContent="mm"
           value={String(cabinet.width_mm ?? '')}
           onChange={(e) =>
@@ -410,6 +428,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Depth"
+          aria-label="Write speaker depth"
           endContent="mm"
           value={String(cabinet.depth_mm ?? '')}
           onChange={(e) =>
@@ -423,6 +442,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="number"
           variant="bordered"
           label="Weight (Unloaded)"
+          aria-label="Write speaker weight"
           endContent="kg"
           value={String(cabinet.weight_kg ?? '')}
           onChange={(e) =>
@@ -438,6 +458,7 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           label="Wood Thickness"
           placeholder="Select wood Thickness"
           variant="bordered"
+          aria-label="Select wood thickness"
           onChange={(e) =>
             setCabinet({
               ...cabinet,

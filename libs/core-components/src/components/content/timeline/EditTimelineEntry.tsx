@@ -55,6 +55,7 @@ export default function EditTimelineEntryButton({
                   autoFocus
                   label="Title"
                   placeholder="Enter the title of the file"
+                  aria-label="Edit title"
                   value={entry.title}
                   onChange={(e) =>
                     setEntry({ ...entry, title: e.target.value })
@@ -73,6 +74,7 @@ export default function EditTimelineEntryButton({
                 <Textarea
                   label="Description"
                   placeholder="Enter the description of the file"
+                  aria-label="Edit description"
                   value={entry.description}
                   onChange={(e) =>
                     setEntry({ ...entry, description: e.target.value })
@@ -85,6 +87,7 @@ export default function EditTimelineEntryButton({
                 <Input
                   type="date"
                   variant="bordered"
+                  aria-label="Enter Date of entry"
                   label="Date"
                   value={entry.date.slice(0, 10)}
                   onChange={(e) =>
@@ -99,6 +102,7 @@ export default function EditTimelineEntryButton({
                   <Input
                     label="Badge (Optional)"
                     placeholder="Enter text for a badge"
+                    aria-label="Edit badge text"
                     value={entry.badge}
                     onChange={(e) =>
                       setEntry({ ...entry, badge: e.target.value })

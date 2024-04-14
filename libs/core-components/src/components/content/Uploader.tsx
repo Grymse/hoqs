@@ -107,7 +107,11 @@ export default function Uploader({
                 {suggestedFiles}
               </p>
             </div>
-            <input id="dropzone-file" {...getInputProps()} />
+            <input
+              id="dropzone-file"
+              aria-label="Dropzone for files or images"
+              {...getInputProps()}
+            />
           </label>
         </div>
       )}

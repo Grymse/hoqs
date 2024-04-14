@@ -20,6 +20,7 @@ export default function BadgeSelector({
       items={badgeTypes.map((badge) => badge.title)}
       label="Badges"
       selectionMode="multiple"
+      aria-label="Select badges"
       placeholder="Select badges"
       variant="bordered"
       selectedKeys={badges}
