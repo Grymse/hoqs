@@ -16,7 +16,7 @@ export * from './components/Navbar';
 export * from './lib/auth';
 export * from './lib/darkmode';
 export * from './lib/text';
-export * from './components/BackgroundEffect';
+export * from './components/ui/BackgroundEffect';
 export * from './components/Footer';
 export * from './components/Cookies';
 export * from './lib/text';

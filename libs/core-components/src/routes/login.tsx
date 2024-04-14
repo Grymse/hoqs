@@ -70,6 +70,7 @@ export function Login() {
             <Input
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              aria-label="Enter email for login"
               label={<FormattedMessage id="login.emailLabel" />}
               errorMessage={zodError}
             />
@@ -110,6 +111,8 @@ function EmailSentModal({
   email,
   error,
 }: EmailModalProps) {
+  const emailProvider = getEmailProvider(email);
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
@@ -124,8 +127,20 @@ function EmailSentModal({
                 id="login.magicLinkSentDescription"
               />
             </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onPress={onClose}>
+            <ModalFooter className="flex justify-between flex-row-reverse">
+              {emailProvider && (
+                <Button
+                  color="primary"
+                  onClick={() => window.open(emailProvider.url, '_self')}
+                >
+                  Go to {emailProvider.name}
+                </Button>
+              )}
+              <Button
+                color={emailProvider ? 'default' : 'primary'}
+                variant={emailProvider ? 'bordered' : 'solid'}
+                onPress={onClose}
+              >
                 <FormattedMessage id="login.close" />
               </Button>
             </ModalFooter>
@@ -134,4 +149,70 @@ function EmailSentModal({
       </ModalContent>
     </Modal>
   );
+}
+
+const emailProviders = [
+  {
+    domainName: 'gmail',
+    url: 'https://mail.google.com',
+    name: 'Gmail',
+  },
+  {
+    domainName: 'hotmail',
+    url: 'https://outlook.live.com',
+    name: 'Outlook',
+  },
+  {
+    url: 'https://outlook.live.com',
+    domainName: 'live',
+    name: 'Outlook',
+  },
+  {
+    url: 'https://outlook.live.com',
+    domainName: 'outlook',
+    name: 'Outlook',
+  },
+  {
+    url: 'https://mail.yahoo.com',
+    domainName: 'yahoo',
+    name: 'Yahoo Mail',
+  },
+  {
+    url: 'https://mail.aol.com',
+    domainName: 'aol',
+    name: 'AOL Mail',
+  },
+  {
+    url: 'https://mail.protonmail.com',
+    domainName: 'protonmail',
+    name: 'ProtonMail',
+  },
+  {
+    url: 'https://www.icloud.com/mail',
+    domainName: 'icloud',
+    name: 'iCloud Mail',
+  },
+  {
+    url: 'https://mail.yandex.com',
+    domainName: 'yandex',
+    name: 'Yandex Mail',
+  },
+  {
+    url: 'https://mail.zoho.com',
+    domainName: 'zoho',
+    name: 'Zoho Mail',
+  },
+] satisfies EmailProvider[];
+
+interface EmailProvider {
+  domainName: string;
+  url: string;
+  name: string;
+}
+
+function getEmailProvider(email: string): EmailProvider | undefined {
+  const domain = email.split('@')?.[1];
+  const domainName = domain?.split('.')?.[0]?.toLowerCase();
+
+  return emailProviders.find((provider) => provider.domainName === domainName);
 }
