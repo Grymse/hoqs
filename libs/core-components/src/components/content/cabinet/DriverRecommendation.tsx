@@ -54,7 +54,7 @@ export default function DriverRecommendation({ id }: Props) {
       .eq('cabinet_id', id)
   );
 
-  const { StatusComponent, data: driverRecommendations } =
+  const { StatusComponent, data: driverRecommendations, isLoading } =
     // @ts-expect-error - Injecting the type of the request makes it complain
     useSupabaseRequest<DriverRecommendation[]>(driverReqRef.current);
 
@@ -95,18 +95,11 @@ export default function DriverRecommendation({ id }: Props) {
               <TableColumn key="height">Rank</TableColumn>
             </TableHeader>
             <TableBody
-              /* isLoading={isLoading}
-        items={list.items} */
+              isLoading={isLoading}
+              items={driverRecommendations}
+              emptyContent="No driver recommendations found"
               loadingContent={<Spinner label="Loading..." />}
             >
-              {/* {(item) => (
-          <TableRow key={item.name}>
-            {(columnKey) => (
-              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )} */}
-
               {driverRecommendations
                 .filter(containsName)
                 .sort(compareRank)

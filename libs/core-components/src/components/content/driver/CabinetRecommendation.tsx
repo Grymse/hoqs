@@ -18,7 +18,7 @@ import { rankToRankNumber } from './DriverRecommendationRank';
 import DriverRecommendationRank from './DriverRecommendationRank';
 
 interface Props {
-  id: string;
+  driverId: string;
 }
 
 interface CabinetRecommendation {
@@ -35,7 +35,7 @@ interface CabinetRecommendation {
   };
 }
 
-export default function CabinetRecommendation({ id }: Props) {
+export default function CabinetRecommendation({ driverId }: Props) {
   const navigate = useNavigate();
   const [filterValue, setFilterValue] = React.useState('');
   const cabinetReqRef = useRef(
@@ -50,12 +50,12 @@ export default function CabinetRecommendation({ id }: Props) {
           id, brand, model, frequency_start, frequency_end, sensitivity
         )`
       )
-      .eq('driver_id', id)
+      .eq('driver_id', driverId)
   );
 
-  const { StatusComponent, data: cabinetRecommendations } =
+  const { StatusComponent, data: cabinetRecommendations, isLoading } =
     // @ts-expect-error - Injecting the type of the request makes it complain
-    useSupabaseRequest<CabinetRecommendation[]>(cabinetReqRef.current);
+    useSupabaseRequest<CabinetRecommendation[]>(cabinetReqRef.current, true);
 
   function containsName(cabinet: CabinetRecommendation) {
     const filter = filterValue.toLowerCase();
@@ -67,7 +67,6 @@ export default function CabinetRecommendation({ id }: Props) {
 
   return (
     <>
-      <StatusComponent />
       {cabinetRecommendations && (
         <div className="flex flex-col gap-4">
           <Input
@@ -94,18 +93,11 @@ export default function CabinetRecommendation({ id }: Props) {
               <TableColumn key="height">Rank</TableColumn>
             </TableHeader>
             <TableBody
-              /* isLoading={isLoading}
-        items={list.items} */
+              isLoading={isLoading}
+              items={cabinetRecommendations}
+              emptyContent="No driver recommendations found"
               loadingContent={<Spinner label="Loading..." />}
             >
-              {/* {(item) => (
-          <TableRow key={item.name}>
-            {(columnKey) => (
-              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
-            )}
-          </TableRow>
-        )} */}
-
               {cabinetRecommendations
                 .filter(containsName)
                 .sort(compareRank)

@@ -113,7 +113,7 @@ export function Driver() {
           {id && (
             <>
               <Header variant="subtitle">Cabinet Recommendations</Header>
-              <CabinetRecommendation id={id} />
+              <CabinetRecommendation driverId={id} />
             </>
           )}
         </>
