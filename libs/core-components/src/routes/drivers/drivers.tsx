@@ -1,6 +1,6 @@
-import PageContainer from '@core/components/ui/PageContainer';
-import { supabase } from '@core/lib/supabase';
-import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
+import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
+import { supabase } from 'libs/core-components/src/lib/supabase.ts';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
 import { useEffect, useMemo, useState } from 'react';
 import {
   TableHeader,
@@ -11,10 +11,10 @@ import {
   TableCell,
 } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
-import ProtectedFeature from '@core/components/auth/ProtectedFeature';
-import { CabinetBadgeList } from '@core/components/content/cabinet/CabinetBadge';
-import AddDriverButton from '@core/components/content/driver/AddDriver';
-import { Driver } from '@core/types/types';
+import ProtectedFeature from 'libs/core-components/src/components/auth/ProtectedFeature.tsx';
+import { CabinetBadgeList } from 'libs/core-components/src/components/content/cabinet/CabinetBadge.tsx';
+import AddDriverButton from 'libs/core-components/src/components/content/driver/AddDriver.tsx';
+import { Driver } from 'libs/core-components/src/types/types.ts';
 
 export function Drivers() {
   const navigate = useNavigate();

@@ -1,10 +1,10 @@
-import PageContainer from '../../components/ui/PageContainer';
-import CabinetCard from '../../components/ui/cabinet/CabinetCard';
-import { supabase } from '../../lib/supabase';
-import { useSupabaseRequest } from '../../components/helpers/SupabaseRequest';
+import PageContainer from '../../components/ui/PageContainer.tsx';
+import CabinetCard from '../../components/ui/cabinet/CabinetCard.tsx';
+import { supabase } from '../../lib/supabase.ts';
+import { useSupabaseRequest } from '../../components/helpers/SupabaseRequest.tsx';
 import { useMemo, useState } from 'react';
-import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton';
-import { CabinetBadgeList } from '../../components/content/cabinet/CabinetBadge';
+import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton.tsx';
+import { CabinetBadgeList } from '../../components/content/cabinet/CabinetBadge.tsx';
 import {
   Tab,
   TableHeader,
@@ -16,9 +16,9 @@ import {
   TableCell,
   Switch,
 } from '@nextui-org/react';
-import { formatFrequency } from '../../lib/translations';
+import { formatFrequency } from '../../lib/translations.ts';
 import { useNavigate } from 'react-router-dom';
-import ProtectedFeature from '../../components/auth/ProtectedFeature';
+import ProtectedFeature from '../../components/auth/ProtectedFeature.tsx';
 import { GalleryHorizontal, Text } from 'lucide-react';
 
 export function Cabinets() {

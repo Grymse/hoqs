@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@core/*": ["libs/core-components/src/*"],
+      "libs/core-components/src/*": ["libs/core-components/src/*"],
       "@hoqs/core": ["libs/core-components/src/index.ts"]
     }
   },

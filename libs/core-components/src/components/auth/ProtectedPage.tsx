@@ -2,8 +2,8 @@ import { PropsWithChildren } from 'react';
 import PageContainer from '../ui/PageContainer';
 import Header from '../ui/Header';
 import Text from '../ui/Text';
-import { useAuth } from '@core/lib/auth';
-import { Enums } from '@core/types/supabase';
+import { useAuth } from 'libs/core-components/src/lib/auth.ts';
+import { Enums } from 'libs/core-components/src/types/supabase.ts';
 import { CircularProgress } from '@nextui-org/progress';
 
 type ProtectedPageProps = PropsWithChildren<{ roles?: Enums<'role'>[] }>;

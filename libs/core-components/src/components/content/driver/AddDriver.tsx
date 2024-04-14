@@ -1,4 +1,4 @@
-import { supabase, toPromise } from '@core/lib/supabase';
+import { supabase, toPromise } from 'libs/core-components/src/lib/supabase.ts';
 import {
   Modal,
   ModalContent,
@@ -11,13 +11,13 @@ import {
 } from '@nextui-org/react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import Text from '@core/components/ui/Text';
+import Text from 'libs/core-components/src/components/ui/Text.tsx';
 import slugify from 'slugify';
 import { useNavigate } from 'react-router-dom';
 import DriverImporter from './DriverImporter';
 import DriverMiniSpecList from './DriverMiniSpecList';
-import { Driver } from '@core/types/types';
-import { MergeWithOverwrite } from '@core/types/types';
+import { Driver } from 'libs/core-components/src/types/types.ts';
+import { MergeWithOverwrite } from 'libs/core-components/src/types/types.ts';
 
 type DriverState = MergeWithOverwrite<
   Partial<Driver>,

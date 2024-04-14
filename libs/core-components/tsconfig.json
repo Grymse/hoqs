@@ -6,12 +6,18 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "baseUrl": ".",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "paths": {
-      "@core/*": ["src/*"]
+      "libs/core-components/src/*": ["src/*"]
     }
   },
   "files": [],
-  "include": [],
+  "include": [    "src/**/*.js",
+    "src/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "references": [
     {
       "path": "./tsconfig.lib.json"

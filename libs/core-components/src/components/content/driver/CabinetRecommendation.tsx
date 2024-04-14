@@ -1,6 +1,6 @@
-import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
-import { supabase } from '@core/lib/supabase';
-import { DriverRank } from '@core/types/types';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
+import { supabase } from 'libs/core-components/src/lib/supabase.ts';
+import { DriverRank } from 'libs/core-components/src/types/types.ts';
 import {
   Input,
   Spinner,

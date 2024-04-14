@@ -1,6 +1,6 @@
-import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
-import { supabase } from '@core/lib/supabase';
-import { DriverRank } from '@core/types/types';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
+import { supabase } from 'libs/core-components/src/lib/supabase.ts';
+import { DriverRank } from 'libs/core-components/src/types/types.ts';
 import {
   Button,
   Input,
@@ -15,10 +15,10 @@ import {
 } from '@nextui-org/react';
 import React, { useEffect, useRef } from 'react';
 import { Search, Trash } from 'lucide-react';
-import HoqsLogo from '@core/components/brands/HoqsLogo';
+import HoqsLogo from 'libs/core-components/src/components/brands/HoqsLogo.tsx';
 import { useNavigate } from 'react-router-dom';
 import { rankToRankNumber } from '../driver/DriverRecommendationRank';
-import { DRIVER_RANK } from '@core/lib/variables';
+import { DRIVER_RANK } from 'libs/core-components/src/lib/variables.ts';
 
 interface Props {
   id: string;

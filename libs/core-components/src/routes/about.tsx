@@ -1,6 +1,6 @@
-import PageContainer from '../components/ui/PageContainer';
-import Header from '../components/ui/Header';
-import Text from '../components/ui/Text';
+import PageContainer from '../components/ui/PageContainer.tsx';
+import Header from '../components/ui/Header.tsx';
+import Text from '../components/ui/Text.tsx';
 
 export function About() {
   return (

@@ -1,4 +1,4 @@
-import { BadgeType, ColorVariant, ContributorRole } from '@core/types/types';
+import { BadgeType, ColorVariant, ContributorRole } from 'libs/core-components/src/types/types.ts';
 import { DriverRank } from '../types/types';
 import {
   Archive,

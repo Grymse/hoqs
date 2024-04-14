@@ -1,20 +1,20 @@
-import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
-import PageContainer from '@core/components/ui/PageContainer';
-import { supabase } from '@core/lib/supabase';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
+import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
+import { supabase } from 'libs/core-components/src/lib/supabase.ts';
 import { useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ImageCaroussel from '@core/components/content/images/ImageCaroussel';
-import Header from '@core/components/ui/Header';
-import Text from '@core/components/ui/Text';
+import ImageCaroussel from 'libs/core-components/src/components/content/images/ImageCaroussel.tsx';
+import Header from 'libs/core-components/src/components/ui/Header.tsx';
+import Text from 'libs/core-components/src/components/ui/Text.tsx';
 import { Button } from '@nextui-org/react';
-import Specifications from '@core/components/content/cabinet/Specifications';
-import FileList from '@core/components/content/files/FileList';
-import { CabinetBadgeList } from '@core/components/content/cabinet/CabinetBadge';
-import { SpeakerCabinet } from '@core/types/types';
-import ProtectedFeature from '@core/components/auth/ProtectedFeature';
-import Contributors from '@core/components/content/cabinet/Contributors';
-import Timeline from '@core/components/content/timeline/Timeline';
-import DriverRecommendation from '@core/components/content/cabinet/DriverRecommendation';
+import Specifications from 'libs/core-components/src/components/content/cabinet/Specifications.tsx';
+import FileList from 'libs/core-components/src/components/content/files/FileList.tsx';
+import { CabinetBadgeList } from 'libs/core-components/src/components/content/cabinet/CabinetBadge.tsx';
+import { SpeakerCabinet } from 'libs/core-components/src/types/types.ts';
+import ProtectedFeature from 'libs/core-components/src/components/auth/ProtectedFeature.tsx';
+import Contributors from 'libs/core-components/src/components/content/cabinet/Contributors.tsx';
+import Timeline from 'libs/core-components/src/components/content/timeline/Timeline.tsx';
+import DriverRecommendation from 'libs/core-components/src/components/content/cabinet/DriverRecommendation.tsx';
 
 export function Cabinet() {
   const { id } = useParams();

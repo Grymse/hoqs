@@ -1,4 +1,4 @@
-import PageContainer from '@core/components/ui/PageContainer';
+import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
 import {
   Button,
   Checkbox,
@@ -7,39 +7,39 @@ import {
   SelectItem,
   Textarea,
 } from '@nextui-org/react';
-import Header from '@core/components/ui/Header';
+import Header from 'libs/core-components/src/components/ui/Header.tsx';
 import { useRef, useState } from 'react';
-import ImageUploader from '@core/components/content/images/ImageUploader';
-import Text from '@core/components/ui/Text';
-import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
+import ImageUploader from 'libs/core-components/src/components/content/images/ImageUploader.tsx';;
+import Text from 'libs/core-components/src/components/ui/Text.tsx';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase, toPromise } from '@core/lib/supabase';
+import { supabase, toPromise } from 'libs/core-components/src/lib/supabase.ts';
 import {
   Contributor,
   SpeakerCabinet,
   StorageFile,
   StorageImage,
-} from '@core/types/types';
+} from 'libs/core-components/src/types/types.ts';
 import {
   kgsToPounds,
   mmToInches,
   woodThicknessToInches,
-} from '@core/lib/translations';
+} from 'libs/core-components/src/lib/translations.ts';
 import toast from 'react-hot-toast';
-import ButtonWithConfirm from '@core/components/modals/ButtonWithConfirm';
+import ButtonWithConfirm from 'libs/core-components/src/components/modals/ButtonWithConfirm.tsx';
 import {
   CABINET_TYPES,
   DRIVER_SIZES,
   MAX_SPL_COUNT,
   WOOD_THICKNESS,
-} from '@core/lib/variables';
-import FileUploader from '@core/components/content/files/FileUploader';
-import { CABINET_BADGES } from '@core/lib/variables';
-import ProtectedPage from '@core/components/auth/ProtectedPage';
-import ContributorsEditor from '@core/components/content/cabinet/ContributorEditor';
-import BadgeSelector from '@core/components/content/badges/BadgeSelector';
-import Timeline from '@core/components/content/timeline/Timeline';
-import EditDriverRecommendation from '@core/components/content/cabinet/EditDriverRecommendation';
+} from 'libs/core-components/src/lib/variables.ts';
+import FileUploader from 'libs/core-components/src/components/content/files/FileUploader.tsx';
+import { CABINET_BADGES } from 'libs/core-components/src/lib/variables.ts';
+import ProtectedPage from 'libs/core-components/src/components/auth/ProtectedPage.tsx';
+import ContributorsEditor from 'libs/core-components/src/components/content/cabinet/ContributorEditor.tsx';
+import BadgeSelector from 'libs/core-components/src/components/content/badges/BadgeSelector.tsx';
+import Timeline from 'libs/core-components/src/components/content/timeline/Timeline.tsx';
+import EditDriverRecommendation from 'libs/core-components/src/components/content/cabinet/EditDriverRecommendation.tsx';
 
 export function EditCabinet() {
   const { id } = useParams();
