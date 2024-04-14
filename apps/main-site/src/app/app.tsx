@@ -1,5 +1,5 @@
 import { NextUIProvider } from '@nextui-org/react';
-import { HashRouter, useNavigate, Routes } from 'react-router-dom';
+import { HashRouter, useNavigate } from 'react-router-dom';
 import { DefaultToastOptions, Toaster } from 'react-hot-toast';
 import { IntlProvider } from 'react-intl';
 import {
@@ -11,6 +11,7 @@ import {
   BackgroundEffect,
   messages,
 } from '@hoqs/core';
+import Routes from './Routes';
 
 export default function App() {
   return (
