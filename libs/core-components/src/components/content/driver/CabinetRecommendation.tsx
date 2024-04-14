@@ -84,7 +84,7 @@ export default function CabinetRecommendation({ id }: Props) {
             isHeaderSticky
             aria-label="A table showing all driver recommendations for the cabinet"
             classNames={{
-              base: 'max-h-[520px] overflow-scroll',
+              base: 'max-h-[520px]',
             }}
             selectionMode="single"
           >

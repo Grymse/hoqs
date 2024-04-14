@@ -123,7 +123,7 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
         isHeaderSticky
         aria-label="A table showing all drivers that fit the cabinet"
         classNames={{
-          base: 'max-h-[520px] overflow-scroll',
+          base: 'max-h-[520px]',
         }}
         selectionMode="single"
       >

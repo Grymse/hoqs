@@ -1,10 +1,11 @@
 {
   "name": "@hoqs-monorepo/source",
+  "homepage": "https://hoqs.org",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist/apps/main-site",
     "dev": "nx serve main-site",
     "build": "nx build main-site",
     "test": "nx test main-site",
