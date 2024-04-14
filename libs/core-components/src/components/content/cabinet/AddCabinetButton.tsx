@@ -12,8 +12,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import slugify from 'slugify';
 import { useNavigate } from 'react-router-dom';
-import { supabase, toPromise } from '@core/lib/supabase';
-import Text from '@core/components/ui/Text';
+import { supabase, toPromise } from 'libs/core-components/src/lib/supabase.ts';
+import Text from 'libs/core-components/src/components/ui/Text.tsx';
 
 export function AddCabinetButton() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();

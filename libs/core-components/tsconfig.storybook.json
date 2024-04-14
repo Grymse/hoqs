@@ -1,7 +1,8 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
+    "compilerOptions": {
     "jsx": "react-jsx",
+    "declaration": true,
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "outDir": ""
   },
@@ -27,6 +28,6 @@
     "src/**/*.stories.tsx",
     "src/**/*.stories.mdx",
     ".storybook/*.js",
-    ".storybook/*.ts"
-, ".storybook/preview.tsx"  ]
+    ".storybook/*.ts",
+  ]
 }

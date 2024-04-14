@@ -1,5 +1,5 @@
 import { Chip } from '@nextui-org/react';
-import { BadgeType } from '@core/types/types';
+import { BadgeType } from 'libs/core-components/src/types/types.ts';
 
 interface BadgeProps {
   badgeTitle?: string | undefined;

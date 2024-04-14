@@ -1,5 +1,5 @@
-import { COLORS } from '@core/lib/variables';
-import { ColorVariant } from '@core/types/types';
+import { COLORS } from 'libs/core-components/src/lib/variables.ts';
+import { ColorVariant } from 'libs/core-components/src/types/types.ts';
 import { Button } from '@nextui-org/react';
 import { Check } from 'lucide-react';
 

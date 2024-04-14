@@ -1,6 +1,6 @@
-import { Driver } from '@core/types/types';
-import { formatFrequency } from '@core/lib/translations';
-import { driverAttributes } from '@core/lib/driverAttributes';
+import { Driver } from 'libs/core-components/src/types/types.ts';
+import { formatFrequency } from 'libs/core-components/src/lib/translations.ts';
+import { driverAttributes } from 'libs/core-components/src/lib/driverAttributes.ts';
 
 interface Props {
   driver: Partial<Driver>;

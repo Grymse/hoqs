@@ -1,4 +1,4 @@
-import { ColorVariant } from '@core/types/types';
+import { ColorVariant } from 'libs/core-components/src/types/types.ts';
 import { LucideIcon } from 'lucide-react';
 import { cn } from './util';
 

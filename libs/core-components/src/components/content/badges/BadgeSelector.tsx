@@ -1,6 +1,6 @@
 import { SelectItem, Select } from '@nextui-org/react';
 import Badge from './Badge';
-import { BadgeType } from '@core/types/types';
+import { BadgeType } from 'libs/core-components/src/types/types.ts';
 
 type BadgeSelectorProps = {
   badges: string[];

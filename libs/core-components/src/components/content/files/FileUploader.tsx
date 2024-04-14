@@ -1,4 +1,4 @@
-import { AbstractStorageFile, StorageFile } from '@core/types/types';
+import { AbstractStorageFile, StorageFile } from 'libs/core-components/src/types/types.ts';
 import Uploader from '../Uploader';
 import FileList from './FileList';
 

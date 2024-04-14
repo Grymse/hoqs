@@ -1,10 +1,10 @@
-import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
-import PageContainer from '@core/components/ui/PageContainer';
-import { supabase } from '@core/lib/supabase';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
+import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
+import { supabase } from 'libs/core-components/src/lib/supabase.ts';
 import { useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Header from '@core/components/ui/Header';
-import Text from '@core/components/ui/Text';
+import Header from 'libs/core-components/src/components/ui/Header.tsx';
+import Text from 'libs/core-components/src/components/ui/Text.tsx';
 import {
   Button,
   TableBody,
@@ -14,12 +14,12 @@ import {
   TableRow,
   Table,
 } from '@nextui-org/react';
-import ProtectedFeature from '@core/components/auth/ProtectedFeature';
-import { Driver as DriverType } from '@core/types/types';
-import { DriverBadgeList } from '@core/components/content/driver/DriverBadge';
-import { formatFrequency } from '@core/lib/translations';
-import CabinetRecommendation from '@core/components/content/driver/CabinetRecommendation';
-import { driverAttributes } from '@core/lib/driverAttributes';
+import ProtectedFeature from 'libs/core-components/src/components/auth/ProtectedFeature.tsx';
+import { Driver as DriverType } from 'libs/core-components/src/types/types.ts';
+import { DriverBadgeList } from 'libs/core-components/src/components/content/driver/DriverBadge.tsx';
+import { formatFrequency } from 'libs/core-components/src/lib/translations.ts';
+import CabinetRecommendation from 'libs/core-components/src/components/content/driver/CabinetRecommendation.tsx';
+import { driverAttributes } from 'libs/core-components/src/lib/driverAttributes.ts';
 
 export function Driver() {
   const { id } = useParams();

@@ -1,18 +1,18 @@
-import PageContainer from '@core/components/ui/PageContainer';
+import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
 import { Button, Input, SelectItem, Textarea, Select } from '@nextui-org/react';
-import Header from '@core/components/ui/Header';
+import Header from 'libs/core-components/src/components/ui/Header.tsx';
 import { useRef, useState } from 'react';
-import { useSupabaseRequest } from '@core/components/helpers/SupabaseRequest';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase, toPromise } from '@core/lib/supabase';
-import { Driver } from '@core/types/types';
+import { supabase, toPromise } from 'libs/core-components/src/lib/supabase.ts';
+import { Driver } from 'libs/core-components/src/types/types.ts';
 import toast from 'react-hot-toast';
-import ProtectedPage from '@core/components/auth/ProtectedPage';
-import ButtonWithConfirm from '@core/components/modals/ButtonWithConfirm';
-import DriverImporter from '@core/components/content/driver/DriverImporter';
-import BadgeSelector from '@core/components/content/badges/BadgeSelector';
-import { DRIVER_BADGES, DRIVER_TYPES } from '../../lib/variables';
-import { driverAttributes } from '@core/lib/driverAttributes';
+import ProtectedPage from 'libs/core-components/src/components/auth/ProtectedPage.tsx';
+import ButtonWithConfirm from 'libs/core-components/src/components/modals/ButtonWithConfirm.tsx';
+import DriverImporter from 'libs/core-components/src/components/content/driver/DriverImporter.tsx';
+import BadgeSelector from 'libs/core-components/src/components/content/badges/BadgeSelector.tsx';
+import { DRIVER_BADGES, DRIVER_TYPES } from '../../lib/variables.ts';
+import { driverAttributes } from 'libs/core-components/src/lib/driverAttributes.ts';
 
 export function EditDriver() {
   const { id } = useParams();

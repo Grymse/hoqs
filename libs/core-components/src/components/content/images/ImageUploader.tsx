@@ -1,4 +1,4 @@
-import { AbstractStorageFile, StorageImage } from '@core/types/types';
+import { AbstractStorageFile, StorageImage } from 'libs/core-components/src/types/types.ts';
 import ImageCaroussel from './ImageCaroussel';
 import Uploader from '../Uploader';
 

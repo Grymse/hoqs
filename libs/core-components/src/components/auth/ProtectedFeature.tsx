@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import Text from '../ui/Text';
-import { Enums } from '@core/types/supabase';
-import { useAuth } from '@core/lib/auth';
+import { Enums } from 'libs/core-components/src/types/supabase.ts';
+import { useAuth } from 'libs/core-components/src/lib/auth.ts';
 
 type ProtectedFeatureProps = PropsWithChildren<{
   roles?: Enums<'role'>[];
