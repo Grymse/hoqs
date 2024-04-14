@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist/apps/main-site",
+    "deploy": "npm run build; gh-pages -d dist/apps/main-site",
     "dev": "nx serve main-site",
     "build": "nx build main-site",
     "test": "nx test main-site",
