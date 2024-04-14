@@ -1,8 +1,8 @@
 export default function FacebookIcon() {
   return (
     <svg
-      width="800px"
-      height="800px"
+      width="32px"
+      height="32px"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       className="fill-current m-1.5"

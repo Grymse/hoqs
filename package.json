@@ -14,12 +14,10 @@
   "dependencies": {
     "@nextui-org/react": "^2.2.9",
     "@supabase/supabase-js": "^2.39.3",
-    "@types/lodash.curry": "^4.1.9",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.3",
     "gh-pages": "^6.1.1",
     "jotai": "^2.6.4",
-    "lodash.curry": "^4.1.1",
     "lodash.isequal": "^4.5.0",
     "lucide-react": "^0.319.0",
     "react": "^18.2.0",
@@ -40,6 +38,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
+    "@nrwl/devkit": "^18.2.4",
     "@nx/eslint": "18.2.4",
     "@nx/eslint-plugin": "18.2.4",
     "@nx/js": "18.2.4",
