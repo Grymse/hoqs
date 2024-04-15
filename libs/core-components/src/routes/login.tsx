@@ -159,16 +159,16 @@ const emailProviders = [
   },
   {
     domainName: 'hotmail',
-    url: 'https://outlook.live.com',
+    url: 'outlook.office.com/mail',
     name: 'Outlook',
   },
   {
-    url: 'https://outlook.live.com',
+    url: 'outlook.office.com/mail',
     domainName: 'live',
     name: 'Outlook',
   },
   {
-    url: 'https://outlook.live.com',
+    url: 'outlook.office.com/mail',
     domainName: 'outlook',
     name: 'Outlook',
   },
@@ -183,7 +183,7 @@ const emailProviders = [
     name: 'AOL Mail',
   },
   {
-    url: 'https://mail.protonmail.com',
+    url: 'https://mail.proton.me',
     domainName: 'protonmail',
     name: 'ProtonMail',
   },
