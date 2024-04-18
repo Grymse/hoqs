@@ -17,6 +17,7 @@ import HoqsLogo from 'libs/core-components/src/components/brands/HoqsLogo.tsx';
 import { useNavigate } from 'react-router-dom';
 import { rankToRankNumber } from '../driver/DriverRecommendationRank';
 import DriverRecommendationRank from '../driver/DriverRecommendationRank';
+import { containsName } from 'libs/core-components/src/lib/search';
 
 interface Props {
   id: string;
@@ -58,14 +59,6 @@ export function DriverRecommendation({ id }: Props) {
     // @ts-expect-error - Injecting the type of the request makes it complain
     useSupabaseRequest<DriverRecommendationProps[]>(driverReqRef.current);
 
-  function containsName(driver: DriverRecommendationProps) {
-    const filter = filterValue.toLowerCase();
-    return (
-      driver.drivers.brand.toLowerCase().match(filter) !== null ||
-      driver.drivers.model.toLowerCase().match(filter) !== null
-    );
-  }
-
   return (
     <>
       <StatusComponent />
@@ -101,7 +94,9 @@ export function DriverRecommendation({ id }: Props) {
               loadingContent={<Spinner label="Loading..." />}
             >
               {driverRecommendations
-                .filter(containsName)
+                .filter((d) =>
+                  containsName([d.drivers.brand, d.drivers.model], filterValue)
+                )
                 .sort(compareRank)
                 .map((driver, i) => (
                   <TableRow
@@ -132,7 +127,10 @@ export function DriverRecommendation({ id }: Props) {
   );
 }
 
-function compareRank(a: DriverRecommendationProps, b: DriverRecommendationProps) {
+function compareRank(
+  a: DriverRecommendationProps,
+  b: DriverRecommendationProps
+) {
   return rankToRankNumber(b.rank) - rankToRankNumber(a.rank);
 }
 

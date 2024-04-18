@@ -9,7 +9,7 @@ import {
 } from '@nextui-org/react';
 import Header from 'libs/core-components/src/components/ui/Header.tsx';
 import { useRef, useState } from 'react';
-import ImageUploader from 'libs/core-components/src/components/content/images/ImageUploader.tsx';;
+import ImageUploader from 'libs/core-components/src/components/content/images/ImageUploader.tsx';
 import Text from 'libs/core-components/src/components/ui/Text.tsx';
 import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -40,7 +40,6 @@ import ContributorsEditor from 'libs/core-components/src/components/content/cabi
 import BadgeSelector from 'libs/core-components/src/components/content/badges/BadgeSelector.tsx';
 import Timeline from 'libs/core-components/src/components/content/timeline/Timeline.tsx';
 import EditDriverRecommendation from 'libs/core-components/src/components/content/cabinet/EditDriverRecommendation.tsx';
-
 export function EditCabinet() {
   const { id } = useParams();
   const navigate = useNavigate();

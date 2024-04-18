@@ -75,4 +75,10 @@ export interface TimelineEntry {
 
 export type Driver = Tables<'drivers'>;
 
-export type DriverRank = 'Optimal' | 'Excellent' | 'Good' | 'Okay' | 'Bad';
+export type DriverRank =
+  | 'Optimal'
+  | 'Excellent'
+  | 'Good'
+  | 'Okay'
+  | 'Bad'
+  | 'None';

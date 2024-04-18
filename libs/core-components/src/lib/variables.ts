@@ -1,4 +1,8 @@
-import { BadgeType, ColorVariant, ContributorRole } from 'libs/core-components/src/types/types.ts';
+import {
+  BadgeType,
+  ColorVariant,
+  ContributorRole,
+} from 'libs/core-components/src/types/types.ts';
 import { DriverRank } from '../types/types';
 import {
   Archive,
@@ -201,6 +205,7 @@ export const DRIVER_RANK = [
   'Good',
   'Okay',
   'Bad',
+  'None',
 ] satisfies DriverRank[];
 
 export const COLORS = [

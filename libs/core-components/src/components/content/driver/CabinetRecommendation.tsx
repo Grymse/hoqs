@@ -16,6 +16,7 @@ import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { rankToRankNumber } from './DriverRecommendationRank';
 import DriverRecommendationRank from './DriverRecommendationRank';
+import { containsName } from 'libs/core-components/src/lib/search';
 
 interface Props {
   driverId: string;
@@ -38,6 +39,7 @@ interface CabinetRecommendation {
 export function CabinetRecommendation({ driverId }: Props) {
   const navigate = useNavigate();
   const [filterValue, setFilterValue] = React.useState('');
+
   const cabinetReqRef = useRef(
     supabase
       .from('driver_recommendations')
@@ -56,14 +58,6 @@ export function CabinetRecommendation({ driverId }: Props) {
   const { StatusComponent, data: cabinetRecommendations, isLoading } =
     // @ts-expect-error - Injecting the type of the request makes it complain
     useSupabaseRequest<CabinetRecommendation[]>(cabinetReqRef.current, true);
-
-  function containsName(cabinet: CabinetRecommendation) {
-    const filter = filterValue.toLowerCase();
-    return (
-      cabinet.cabinets.brand.toLowerCase().match(filter) !== null ||
-      cabinet.cabinets.model.toLowerCase().match(filter) !== null
-    );
-  }
 
   return (
     <>
@@ -99,7 +93,12 @@ export function CabinetRecommendation({ driverId }: Props) {
               loadingContent={<Spinner label="Loading..." />}
             >
               {cabinetRecommendations
-                .filter(containsName)
+                .filter((c) =>
+                  containsName(
+                    [c.cabinets.brand, c.cabinets.model],
+                    filterValue
+                  )
+                )
                 .sort(compareRank)
                 .map((cabinet, i) => (
                   <TableRow

@@ -1,5 +1,8 @@
 import { Chip } from '@nextui-org/react';
-import { ColorVariant, DriverRank } from 'libs/core-components/src/types/types.ts';
+import {
+  ColorVariant,
+  DriverRank,
+} from 'libs/core-components/src/types/types.ts';
 
 interface Props {
   rank: DriverRank;
@@ -39,6 +42,7 @@ export function rankToRankNumber(rank: DriverRank): number {
     case 'Bad':
       return 1;
   }
+  return 0;
 }
 
 function getRankColor(rank: DriverRank): ColorVariant {
@@ -54,6 +58,7 @@ function getRankColor(rank: DriverRank): ColorVariant {
     case 'Bad':
       return 'danger';
   }
+  return 'default';
 }
 
 export default DriverRecommendationRank;

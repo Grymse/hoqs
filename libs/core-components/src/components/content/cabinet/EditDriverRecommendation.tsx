@@ -1,8 +1,9 @@
-import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
 import { supabase } from 'libs/core-components/src/lib/supabase.ts';
 import { DriverRank } from 'libs/core-components/src/types/types.ts';
+import { useEffect, useRef, useState } from 'react';
+import { useSupabaseRequest } from '../../helpers/SupabaseRequest';
+import { useNavigate } from 'react-router-dom';
 import {
-  Button,
   Input,
   Select,
   SelectItem,
@@ -13,12 +14,13 @@ import {
   TableHeader,
   TableRow,
 } from '@nextui-org/react';
-import React, { useEffect, useRef } from 'react';
-import { Search, Trash } from 'lucide-react';
-import HoqsLogo from 'libs/core-components/src/components/brands/HoqsLogo.tsx';
-import { useNavigate } from 'react-router-dom';
-import { rankToRankNumber } from '../driver/DriverRecommendationRank';
-import { DRIVER_RANK } from 'libs/core-components/src/lib/variables.ts';
+import { Search } from 'lucide-react';
+import { containsName } from 'libs/core-components/src/lib/search';
+import HoqsLogo from '../../brands/HoqsLogo';
+import DriverRecommendationRank, {
+  rankToRankNumber,
+} from '../driver/DriverRecommendationRank';
+import { DRIVER_RANK } from 'libs/core-components/src/lib/variables';
 
 interface Props {
   id: string;
@@ -28,7 +30,7 @@ interface DriverRecommendation {
   notes: string;
   rank: DriverRank;
   driver_id: string;
-  drivers: {
+  driver: {
     id: string;
     brand: string;
     model: string;
@@ -39,38 +41,66 @@ interface DriverRecommendation {
 }
 
 export function EditDriverRecommendation({ id }: Props) {
-  const driverReqRef = useRef(
+  const recommendedReqRef = useRef(
     supabase
       .from('driver_recommendations')
       .select(
         `
         notes,
         rank,
-        driver_id,
-        drivers (
-          id, brand, model, size_inches, p_max, x_max
-        )`
+        driver_id`
       )
       .eq('cabinet_id', id)
   );
 
-  const { StatusComponent, data: driverRecommendations } =
-    // @ts-expect-error - Injecting the type of the request makes it complain
-    useSupabaseRequest<DriverRecommendation[]>(driverReqRef.current);
+  const allDriversReqRef = useRef(
+    supabase
+      .from('drivers')
+      .select(`id, brand, model, size_inches, p_max, x_max`)
+  );
 
-  const [recommendations, setRecommendations] = React.useState<
+  const {
+    StatusComponent: StatusComponentRecommendations,
+    data: driverRecommendations,
+  } = useSupabaseRequest(recommendedReqRef.current);
+
+  const { StatusComponent: StatusComponentDrivers, data: drivers } =
+    useSupabaseRequest(allDriversReqRef.current);
+
+  const [recommendations, setRecommendations] = useState<
     DriverRecommendation[] | null
   >(null);
 
   useEffect(() => {
-    if (driverRecommendations) {
-      setRecommendations(driverRecommendations);
+    if (driverRecommendations && drivers) {
+      const mappedRecommendations = driverRecommendations.reduce(
+        (map, recommendation) => {
+          map.set(recommendation.driver_id, recommendation);
+          return map;
+        },
+        new Map<string, any>()
+      );
+
+      setRecommendations(
+        drivers.map((d) => ({
+          notes: '',
+          rank: 'None',
+          driver_id: d.id,
+          driver: d,
+          ...mappedRecommendations.get(d.id),
+        }))
+      );
     }
-  }, [driverRecommendations]);
+  }, [driverRecommendations, drivers]);
 
   return (
     <>
-      <StatusComponent />
+      {StatusComponentDrivers ? (
+        <StatusComponentDrivers />
+      ) : (
+        StatusComponentRecommendations && <StatusComponentRecommendations />
+      )}
+
       {recommendations && (
         <EditTable
           recommendations={recommendations}
@@ -90,101 +120,116 @@ interface EditTableProps {
 
 function EditTable({ recommendations, setRecommendations }: EditTableProps) {
   const navigate = useNavigate();
-  const [filterValue, setFilterValue] = React.useState('');
+  const [filterValue, setFilterValue] = useState('');
+  const [selectedDriverSizes, setSelectedDriverSizes] = useState<number[]>([]);
 
-  function containsName(driver: DriverRecommendation) {
-    const filter = filterValue.toLowerCase();
-    return (
-      driver.drivers.brand.toLowerCase().match(filter) !== null ||
-      driver.drivers.model.toLowerCase().match(filter) !== null
-    );
-  }
+  const driverSizes = Array.from(
+    new Set(recommendations.map((r) => r.driver.size_inches))
+  ).sort((a, b) => a - b);
 
-  function remove(index: number) {
-    const newRecommendations = recommendations.slice();
-    newRecommendations.splice(index, 1);
-    setRecommendations(newRecommendations);
-  }
+  console.log(selectedDriverSizes);
 
   return (
     <div className="flex flex-col gap-4">
-      <Input
-        isClearable
-        className="w-full sm:max-w-[44%]"
-        placeholder="Search by name..."
-        aria-label="Search by name"
-        startContent={<Search />}
-        value={filterValue}
-        size="sm"
-        onClear={() => setFilterValue('')}
-        onValueChange={setFilterValue}
-      />
+      <div className="flex justify-between">
+        <Input
+          isClearable
+          className="w-full sm:max-w-[44%]"
+          placeholder="Search by name..."
+          aria-label="Search by name"
+          startContent={<Search />}
+          value={filterValue}
+          onClear={() => setFilterValue('')}
+          onValueChange={setFilterValue}
+        />
+        <Select
+          aria-label="Select Speaker Size"
+          className="w-48"
+          placeholder="Select Speaker Size"
+          selectionMode="multiple"
+          onChange={(e) =>
+            setSelectedDriverSizes(
+              e.target.value === '' ? [] : e.target.value.split(',').map(Number)
+            )
+          }
+          value={selectedDriverSizes.map(String).join(',')}
+          renderValue={(value) => (
+            <span className="truncate">
+              {value.map((v) => `${v.key}"`).join(', ')}
+            </span>
+          )}
+        >
+          {driverSizes.map((size) => (
+            <SelectItem key={size} value={size} textValue={String(size)}>
+              {size}"
+            </SelectItem>
+          ))}
+        </Select>
+      </div>
       <Table
         isHeaderSticky
         aria-label="A table showing all drivers that fit the cabinet"
         classNames={{
           base: 'max-h-[520px]',
         }}
-        selectionMode="single"
       >
         <TableHeader>
           <TableColumn key="driver">Driver</TableColumn>
           <TableColumn key="specs">Specs</TableColumn>
           <TableColumn key="rank">Rank</TableColumn>
-          <TableColumn key="actions">Actions</TableColumn>
         </TableHeader>
         <TableBody>
           {recommendations
-            .filter(containsName)
+            .filter(
+              (d) =>
+                selectedDriverSizes.length === 0 ||
+                selectedDriverSizes.includes(d.driver.size_inches)
+            )
+            .filter((d) =>
+              containsName([d.driver.brand, d.driver.model], filterValue)
+            )
             .sort(compareRank)
             .map((driver, i) => (
-              <TableRow
-                key={i}
-                onClick={() => navigate(`/drivers/${driver.driver_id}`)}
-                className="cursor-pointer"
-              >
-                <TableCell className="flex gap-2 h-10 items-center">
-                  {driver.drivers.brand.toLowerCase() === 'hoqs' && (
+              <TableRow key={i}>
+                <TableCell
+                  className="flex gap-2 h-10 items-center cursor-pointer hover:bg-default-100"
+                  onClick={() => navigate(`/drivers/${driver.driver_id}`)}
+                >
+                  {driver.driver.brand.toLowerCase() === 'hoqs' && (
                     <HoqsLogo size={20} />
                   )}
-                  {driver.drivers.brand} {driver.drivers.model}
+                  {driver.driver.brand} {driver.driver.model}
                 </TableCell>
                 <TableCell>
-                  {driver.drivers.size_inches}" {driver.drivers.p_max}W{' '}
-                  {driver.drivers.x_max}mm xmax{' '}
+                  {driver.driver.size_inches}" {driver.driver.p_max}W{' '}
+                  {driver.driver.x_max}mm xmax{' '}
                 </TableCell>
                 <TableCell>
                   <Select
                     radius="full"
                     aria-label="Select Rank"
                     className="w-32"
-                    classNames={{ base: 'm-2' }}
+                    classNames={{ base: 'm-0' }}
                     size="sm"
                     placeholder="Select Rank"
                     selectionMode="single"
+                    variant="underlined"
                     isRequired
                     defaultSelectedKeys={[driver.rank]}
+                    renderValue={(value) => (
+                      <DriverRecommendationRank
+                        rank={
+                          (value[0].key as DriverRank | undefined) ?? 'None'
+                        }
+                      />
+                    )}
                   >
                     {DRIVER_RANK.map((rank) => (
-                      <SelectItem key={rank} value={rank}>
-                        {rank}
-                        {/* <DriverRecommendationRank rank={rank} /> */}
+                      <SelectItem key={rank} value={rank} textValue={rank}>
+                        <DriverRecommendationRank rank={rank} />
                       </SelectItem>
                     ))}
                   </Select>
-                </TableCell>
-                <TableCell className="flex gap-4">
-                  {/* <Button size="sm" isIconOnly>
-                    <Pencil />
-                  </Button> */}
-                  <Button
-                    size="sm"
-                    onPress={() => remove(i)}
-                    isIconOnly
-                    color="danger"
-                  >
-                    <Trash />
-                  </Button>
                 </TableCell>
               </TableRow>
             ))}

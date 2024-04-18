@@ -66,7 +66,7 @@ export async function signInWithEmail(
   }
 
   if (
-    !origin.startsWith('http://localhost:4200') &&
+    !origin.startsWith('http://localhost') &&
     !origin.startsWith('https://hoqs.org') &&
     !origin.startsWith('https://grymse.github.io')
   ) {
