@@ -17,7 +17,7 @@ import HoqsLogo from 'libs/core-components/src/components/brands/HoqsLogo.tsx';
 import { useNavigate } from 'react-router-dom';
 import { rankToRankNumber } from '../driver/DriverRecommendationRank';
 import DriverRecommendationRank from '../driver/DriverRecommendationRank';
-import { containsName } from 'libs/core-components/src/lib/search';
+import { containsName } from 'libs/core-components/src/lib/search.ts';
 
 interface Props {
   id: string;

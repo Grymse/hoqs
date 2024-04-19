@@ -16,7 +16,7 @@ import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { rankToRankNumber } from './DriverRecommendationRank';
 import DriverRecommendationRank from './DriverRecommendationRank';
-import { containsName } from 'libs/core-components/src/lib/search';
+import { containsName } from 'libs/core-components/src/lib/search.ts';
 
 interface Props {
   driverId: string;
