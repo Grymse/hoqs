@@ -98,8 +98,24 @@ interface EditFormProps {
   onDelete?: (cabinet: SpeakerCabinet) => void;
 }
 
-function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
+function EditForm({ initialCabinet, onSave: onSave, onDelete }: EditFormProps) {
   const [cabinet, setCabinet] = useState(initialCabinet);
+  const {
+    Component: EditDriverRecommendations,
+    pushChanges: updateRecommendations,
+  } = EditDriverRecommendation({ id: cabinet.id });
+
+  function save(cabinet: SpeakerCabinet) {
+    if (!updateRecommendations) return;
+    toast.promise<[null, null] | void>(updateRecommendations(), {
+      loading: 'Saving recommendation changes',
+      success: () => {
+        onSave(cabinet);
+        return 'Recommendation saved';
+      },
+      error: 'Error saving recommendation changes',
+    });
+  }
 
   function setImages(images: StorageImage[]) {
     setCabinet((cabinet) => {
@@ -153,8 +169,8 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
           type="text"
           aria-label="Write speaker brand"
           variant="bordered"
-          placeholder="Paraflex"
-          defaultValue="Paraflex"
+          placeholder="Brand"
+          defaultValue="Brand"
           label="Brand"
           value={cabinet.brand}
           onChange={(e) => setCabinet({ ...cabinet, brand: e.target.value })}
@@ -513,11 +529,11 @@ function EditForm({ initialCabinet, onSave, onDelete }: EditFormProps) {
       />
 
       <Header variant="sub-subtitle">Recommended drivers</Header>
-      <EditDriverRecommendation id={cabinet.id} />
+      <EditDriverRecommendations />
 
       {/* FOOTER */}
       <div className="flex justify-between flex-row-reverse">
-        <Button color="primary" onClick={() => onSave(cabinet)}>
+        <Button color="primary" onClick={() => save(cabinet)}>
           Save Cabinet
         </Button>
         {onDelete && (

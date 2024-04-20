@@ -13,11 +13,7 @@
     }
   },
   "files": [],
-  "include": [    "src/**/*.js",
-    "src/**/*.tsx",
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
+  "include": ["src/**/*.js", "src/**/*.tsx", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
       "path": "./tsconfig.lib.json"
