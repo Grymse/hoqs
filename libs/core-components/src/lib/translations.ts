@@ -103,3 +103,15 @@ export function formatDate(date: Date | string | number): string {
 
   return `${dateStrings[1]} ${dateStrings[0]}${extension}, ${dateStrings[2]}`;
 }
+
+export function toMap<
+  T extends {
+    [key in K]: string;
+  },
+  K extends string
+>(array: T[], key: K) {
+  return array.reduce((map, obj) => {
+    map.set(obj[key], obj);
+    return map;
+  }, new Map<string, T>());
+}

@@ -21,6 +21,7 @@ import DriverRecommendationRank, {
   rankToRankNumber,
 } from '../driver/DriverRecommendationRank';
 import { DRIVER_RANK } from 'libs/core-components/src/lib/variables.ts';
+import { toMap } from 'libs/core-components/src/lib/translations';
 
 interface Props {
   id: string;
@@ -76,13 +77,8 @@ export function EditDriverRecommendation({ id }: Props) {
 
   useEffect(() => {
     if (!driverRecommendations || !drivers) return;
-    const mappedRecommendations = driverRecommendations.reduce(
-      (map, recommendation) => {
-        map.set(recommendation.driver_id, recommendation);
-        return map;
-      },
-      new Map<string, any>()
-    );
+
+    const mappedRecommendations = toMap(driverRecommendations, 'driver_id');
 
     setRecommendations(
       drivers
@@ -100,13 +96,7 @@ export function EditDriverRecommendation({ id }: Props) {
   function pushChanges() {
     if (!recommendations || !driverRecommendations) return Promise.resolve();
 
-    const mappedRecommendations = driverRecommendations.reduce(
-      (map, recommendation) => {
-        map.set(recommendation.driver_id, recommendation);
-        return map;
-      },
-      new Map<string, any>()
-    );
+    const mappedRecommendations = toMap(driverRecommendations, 'driver_id');
 
     const filteredRecommendations = recommendations
       .filter(
