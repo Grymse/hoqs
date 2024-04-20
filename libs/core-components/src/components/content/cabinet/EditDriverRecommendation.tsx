@@ -15,12 +15,12 @@ import {
   TableRow,
 } from '@nextui-org/react';
 import { Search } from 'lucide-react';
-import { containsName } from 'libs/core-components/src/lib/search';
+import { containsName } from 'libs/core-components/src/lib/search.ts';
 import HoqsLogo from '../../brands/HoqsLogo';
 import DriverRecommendationRank, {
   rankToRankNumber,
 } from '../driver/DriverRecommendationRank';
-import { DRIVER_RANK } from 'libs/core-components/src/lib/variables';
+import { DRIVER_RANK } from 'libs/core-components/src/lib/variables.ts';
 
 interface Props {
   id: string;
