@@ -3,7 +3,7 @@ import CabinetCard from '../../components/ui/cabinet/CabinetCard.tsx';
 import { supabase } from '../../lib/supabase.ts';
 import { useSupabaseRequest } from '../../components/helpers/SupabaseRequest.tsx';
 import { useMemo, useState } from 'react';
-import AddCabinetButton from '../../components/content/cabinet/AddCabinetButton.tsx';
+import AddCabinetButton from '../../components/content/cabinet/buttons/AddCabinetButton.tsx';
 import { CabinetBadgeList } from '../../components/content/cabinet/CabinetBadge.tsx';
 import {
   Tab,

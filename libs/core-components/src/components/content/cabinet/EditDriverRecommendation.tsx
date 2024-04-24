@@ -1,7 +1,7 @@
-import { supabase, toPromise } from 'libs/core-components/src/lib/supabase.ts';
+import { supabase } from 'libs/core-components/src/lib/supabase.ts';
 import { DriverRank } from 'libs/core-components/src/types/types.ts';
-import { useEffect, useRef, useState } from 'react';
-import { useSupabaseRequest } from '../../helpers/SupabaseRequest';
+import { useEffect, useState } from 'react';
+import { useSupabaseRequestOnce } from '../../helpers/SupabaseRequest.tsx';
 import { useNavigate } from 'react-router-dom';
 import {
   Input,
@@ -21,17 +21,21 @@ import DriverRecommendationRank, {
   rankToRankNumber,
 } from '../driver/DriverRecommendationRank';
 import { DRIVER_RANK } from 'libs/core-components/src/lib/variables.ts';
-import { toMap } from 'libs/core-components/src/lib/translations';
+import { toMap } from 'libs/core-components/src/lib/translations.ts';
 
 interface Props {
   id: string;
+  setRecommendationChanges: (changes: DriverRecommendation[]) => void;
 }
 
-type DriverRecommendation = {
+export type DriverRecommendation = {
   id?: string;
   notes: string;
   rank: DriverRank;
   driver_id: string;
+};
+
+type DriverRecommendationWithDriver = DriverRecommendation & {
   driver: {
     id: string;
     brand: string;
@@ -42,43 +46,39 @@ type DriverRecommendation = {
   };
 };
 
-export function EditDriverRecommendation({ id }: Props) {
-  const recommendedReqRef = useRef(
-    supabase
-      .from('driver_recommendations')
-      .select(
-        `
-        id,
-        notes,
-        rank,
-        driver_id
-        `
-      )
-      .eq('cabinet_id', id)
-  );
-
-  const allDriversReqRef = useRef(
-    supabase
-      .from('drivers')
-      .select(`id, brand, model, size_inches, p_max, x_max`)
-  );
-
+export function EditDriverRecommendation({
+  id,
+  setRecommendationChanges,
+}: Props) {
   const {
     StatusComponent: StatusComponentRecommendations,
     data: driverRecommendations,
-  } = useSupabaseRequest(recommendedReqRef.current);
+  } = useSupabaseRequestOnce(
+    supabase
+      .from('driver_recommendations')
+      .select(`id, notes, rank, driver_id`)
+      .eq('cabinet_id', id)
+  );
 
   const { StatusComponent: StatusComponentDrivers, data: drivers } =
-    useSupabaseRequest(allDriversReqRef.current);
+    useSupabaseRequestOnce(
+      supabase
+        .from('drivers')
+        .select(`id, brand, model, size_inches, p_max, x_max`)
+    );
 
   const [recommendations, setRecommendations] = useState<
-    DriverRecommendation[] | null
+    DriverRecommendationWithDriver[] | null
   >(null);
+
+  const [originalRecommendationsMap, setOriginalRecommendationsMap] =
+    useState<Map<string, DriverRecommendation> | null>(null);
 
   useEffect(() => {
     if (!driverRecommendations || !drivers) return;
 
     const mappedRecommendations = toMap(driverRecommendations, 'driver_id');
+    setOriginalRecommendationsMap(mappedRecommendations);
 
     setRecommendations(
       drivers
@@ -93,77 +93,34 @@ export function EditDriverRecommendation({ id }: Props) {
     );
   }, [driverRecommendations, drivers]);
 
-  function pushChanges() {
-    if (!recommendations || !driverRecommendations) return Promise.resolve();
+  useEffect(() => {
+    if (!recommendations || !originalRecommendationsMap) return;
 
-    const mappedRecommendations = toMap(driverRecommendations, 'driver_id');
-
-    const filteredRecommendations = recommendations
-      .filter(
-        (r) =>
-          mappedRecommendations.get(r.driver_id)?.rank !== r.rank &&
-          !(r.rank === 'None' && !r.id)
-      )
-      .map((r) => ({
-        id: r.id ?? id + r.driver_id,
-        rank: r.rank,
-        driver_id: r.driver_id,
-        cabinet_id: id,
-        notes: r.notes,
-      }));
-
-    const toBeDeleted = filteredRecommendations.filter(
-      (r) => r.rank === 'None'
+    const newChanges = recommendations.filter(
+      (r) =>
+        originalRecommendationsMap.get(r.driver_id)?.rank !== r.rank &&
+        !(r.rank === 'None' && !r.id)
     );
 
-    const toBeUpdated = filteredRecommendations.filter(
-      (r) => r.rank !== 'None'
-    );
+    setRecommendationChanges(newChanges);
+  }, [recommendations]);
 
-    const updater = toPromise(
-      supabase.from('driver_recommendations').upsert(toBeUpdated)
-    );
+  if (!drivers) return <StatusComponentDrivers />;
+  if (!driverRecommendations) return <StatusComponentRecommendations />;
+  if (!recommendations) return null;
 
-    const deleter = toPromise(
-      supabase
-        .from('driver_recommendations')
-        .delete()
-        .in(
-          'id',
-          toBeDeleted.map((r) => r.id)
-        )
-    );
-
-    return Promise.all([updater, deleter]);
-  }
-
-  return {
-    pushChanges,
-    Component: () => (
-      <>
-        {StatusComponentDrivers ? (
-          <StatusComponentDrivers />
-        ) : (
-          StatusComponentRecommendations && <StatusComponentRecommendations />
-        )}
-
-        {recommendations && (
-          <>
-            <EditTable
-              recommendations={recommendations}
-              setRecommendations={setRecommendations}
-            />
-          </>
-        )}
-      </>
-    ),
-  };
+  return (
+    <EditTable
+      recommendations={recommendations}
+      setRecommendations={setRecommendations}
+    />
+  );
 }
 
 interface EditTableProps {
-  recommendations: DriverRecommendation[];
+  recommendations: DriverRecommendationWithDriver[];
   setRecommendations: React.Dispatch<
-    React.SetStateAction<DriverRecommendation[] | null>
+    React.SetStateAction<DriverRecommendationWithDriver[] | null>
   >;
 }
 
@@ -243,10 +200,7 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
             )
             .map((driver, i) => (
               <TableRow key={i}>
-                <TableCell
-                  className="flex gap-2 h-10 items-center cursor-pointer hover:bg-default-100"
-                  onClick={() => navigate(`/drivers/${driver.driver_id}`)}
-                >
+                <TableCell className="flex gap-2 h-10 items-center">
                   {driver.driver.brand.toLowerCase() === 'hoqs' && (
                     <HoqsLogo size={20} />
                   )}
@@ -275,7 +229,7 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
                           (rec) => rec.driver_id === driver.driver_id
                         );
                         r[index].rank = e.target.value as DriverRank;
-                        return r;
+                        return [...r];
                       })
                     }
                     renderValue={(value) => (

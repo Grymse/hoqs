@@ -54,7 +54,6 @@ export function ImageCaroussel({
         initialSlide={initialSlide}
         onSlideChange={(swiper) => {
           setSlideIndex(swiper.activeIndex);
-          console.log(swiper);
         }}
         className="w-full h-full rounded-lg"
         onClick={onOpen}

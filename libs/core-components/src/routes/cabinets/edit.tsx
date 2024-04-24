@@ -1,6 +1,5 @@
 import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
 import {
-  Button,
   Checkbox,
   Input,
   Select,
@@ -12,8 +11,8 @@ import { useRef, useState } from 'react';
 import ImageUploader from 'libs/core-components/src/components/content/images/ImageUploader.tsx';
 import Text from 'libs/core-components/src/components/ui/Text.tsx';
 import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
-import { useNavigate, useParams } from 'react-router-dom';
-import { supabase, toPromise } from 'libs/core-components/src/lib/supabase.ts';
+import { useParams } from 'react-router-dom';
+import { supabase } from 'libs/core-components/src/lib/supabase.ts';
 import {
   Contributor,
   SpeakerCabinet,
@@ -25,8 +24,6 @@ import {
   mmToInches,
   woodThicknessToInches,
 } from 'libs/core-components/src/lib/translations.ts';
-import toast from 'react-hot-toast';
-import ButtonWithConfirm from 'libs/core-components/src/components/modals/ButtonWithConfirm.tsx';
 import {
   CABINET_TYPES,
   DRIVER_SIZES,
@@ -39,83 +36,39 @@ import ProtectedPage from 'libs/core-components/src/components/auth/ProtectedPag
 import ContributorsEditor from 'libs/core-components/src/components/content/cabinet/ContributorEditor.tsx';
 import BadgeSelector from 'libs/core-components/src/components/content/badges/BadgeSelector.tsx';
 import Timeline from 'libs/core-components/src/components/content/timeline/Timeline.tsx';
-import EditDriverRecommendation from 'libs/core-components/src/components/content/cabinet/EditDriverRecommendation.tsx';
+import EditDriverRecommendation, {
+  DriverRecommendation,
+} from '../../components/content/cabinet/EditDriverRecommendation';
+import DeleteCabinetButton from '../../components/content/cabinet/buttons/DeleteCabinetButton';
+import SaveCabinetButton from '../../components/content/cabinet/buttons/SaveCabinetButton';
+
+export type SpeakerCabinetWithRecommedationChanges = SpeakerCabinet & {
+  recommendationChanges?: DriverRecommendation[];
+};
+
 export function EditCabinet() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const cabReq = useRef(supabase.from('cabinets').select('*').eq('id', id));
   const { StatusComponent, data } = useSupabaseRequest(cabReq.current);
-  const cabinet = data?.[0] as SpeakerCabinet;
-
-  function saveCabinet(cabinet: SpeakerCabinet) {
-    const uploader = toPromise(
-      supabase.from('cabinets').update(cabinet).eq('id', cabinet.id)
-    );
-    toast.promise(uploader, {
-      loading: 'Saving cabinet to database',
-      success: (c) => {
-        navigate(`/cabinets/${cabinet.id}`);
-        return `Successfully saved cabinet ${cabinet.brand} - ${cabinet.model}`;
-      },
-      error: (e) => `Error saving cabinet ${e.message}`,
-    });
-  }
-
-  function deleteCabinet(cabinet: SpeakerCabinet) {
-    const deleter = toPromise(
-      supabase.from('cabinets').delete().eq('id', cabinet.id)
-    );
-
-    toast.promise(deleter, {
-      loading: 'Deleting cabinet from database',
-      success: (c) => {
-        navigate('/cabinets');
-        return `Successfully deleted cabinet ${cabinet.brand} - ${cabinet.model}`;
-      },
-      error: (e) => `Error deleting cabinet ${e.message}`,
-    });
-  }
+  const cabinet = data?.[0] as SpeakerCabinetWithRecommedationChanges;
 
   return (
     <ProtectedPage>
       <PageContainer className="flex flex-col gap-4">
         <StatusComponent />
-        {cabinet && (
-          <EditForm
-            initialCabinet={cabinet}
-            onSave={saveCabinet}
-            onDelete={deleteCabinet}
-          />
-        )}
+        {cabinet && <EditForm initialCabinet={cabinet} />}
       </PageContainer>
     </ProtectedPage>
   );
 }
 
 interface EditFormProps {
-  initialCabinet: SpeakerCabinet;
-  onSave: (cabinet: SpeakerCabinet) => void;
-  onDelete?: (cabinet: SpeakerCabinet) => void;
+  initialCabinet: SpeakerCabinetWithRecommedationChanges;
 }
 
-function EditForm({ initialCabinet, onSave: onSave, onDelete }: EditFormProps) {
+function EditForm({ initialCabinet }: EditFormProps) {
   const [cabinet, setCabinet] = useState(initialCabinet);
-  const {
-    Component: EditDriverRecommendations,
-    pushChanges: updateRecommendations,
-  } = EditDriverRecommendation({ id: cabinet.id });
-
-  function save(cabinet: SpeakerCabinet) {
-    if (!updateRecommendations) return;
-    toast.promise<[null, null] | void>(updateRecommendations(), {
-      loading: 'Saving recommendation changes',
-      success: () => {
-        onSave(cabinet);
-        return 'Recommendation saved';
-      },
-      error: 'Error saving recommendation changes',
-    });
-  }
+  console.log(cabinet.recommendationChanges);
 
   function setImages(images: StorageImage[]) {
     setCabinet((cabinet) => {
@@ -138,6 +91,12 @@ function EditForm({ initialCabinet, onSave: onSave, onDelete }: EditFormProps) {
   function setContributors(contributors: Contributor[]) {
     setCabinet((cabinet) => {
       return { ...cabinet, contributors };
+    });
+  }
+
+  function setRecommendationChanges(recommendations: DriverRecommendation[]) {
+    setCabinet((cabinet) => {
+      return { ...cabinet, recommendationChanges: recommendations };
     });
   }
 
@@ -318,7 +277,6 @@ function EditForm({ initialCabinet, onSave: onSave, onDelete }: EditFormProps) {
               value={String(cabinet.max_spl[i])}
               onChange={(e) => {
                 cabinet.max_spl[i] = parseFloat(e.target.value);
-                console.log(cabinet.max_spl[i]);
                 setCabinet({ ...cabinet });
               }}
               endContent="SPL"
@@ -529,24 +487,15 @@ function EditForm({ initialCabinet, onSave: onSave, onDelete }: EditFormProps) {
       />
 
       <Header variant="sub-subtitle">Recommended drivers</Header>
-      <EditDriverRecommendations />
+      <EditDriverRecommendation
+        id={cabinet.id}
+        setRecommendationChanges={setRecommendationChanges}
+      />
 
       {/* FOOTER */}
       <div className="flex justify-between flex-row-reverse">
-        <Button color="primary" onClick={() => save(cabinet)}>
-          Save Cabinet
-        </Button>
-        {onDelete && (
-          <ButtonWithConfirm
-            title="Are you sure?"
-            description="Do you want to delete this precious cabinet?"
-            cancelText="Cancel"
-            color="danger"
-            onConfirm={() => onDelete(cabinet)}
-          >
-            Delete Cabinet
-          </ButtonWithConfirm>
-        )}
+        <SaveCabinetButton cabinet={cabinet} />
+        <DeleteCabinetButton cabinet={cabinet} />
       </div>
     </>
   );

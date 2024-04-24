@@ -1,5 +1,5 @@
 import { PostgrestError, PostgrestSingleResponse } from '@supabase/supabase-js';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Text from '../ui/Text';
 import Header from '../ui/Header';
 import { CircularProgress } from '@nextui-org/react';
@@ -10,7 +10,7 @@ interface SimplePromise<T> {
 
 export function useSupabaseRequest<T>(
   supabaseRequest: SimplePromise<PostgrestSingleResponse<T>>,
-  multiple = false
+  expectMultipleReturnEntries = false
 ) {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ export function useSupabaseRequest<T>(
         // @ts-expect-error data is not null
         if (out.data?.[0] === undefined) {
           setData(null);
-          if (!multiple) {
+          if (!expectMultipleReturnEntries) {
             setError({
               message: 'Could not find ressource',
               details:
@@ -54,6 +54,14 @@ export function useSupabaseRequest<T>(
       : () => null,
     isLoading,
   };
+}
+
+export function useSupabaseRequestOnce<T>(
+  supabaseRequest: SimplePromise<PostgrestSingleResponse<T>>,
+  expectMultipleReturnEntries = false
+) {
+  const req = useRef(supabaseRequest);
+  return useSupabaseRequest(req.current, expectMultipleReturnEntries);
 }
 
 interface Props {
