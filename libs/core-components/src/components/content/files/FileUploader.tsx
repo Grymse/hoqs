@@ -29,10 +29,10 @@ export function FileUploader({ files, setFiles, path, bucket }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <Uploader
-        bucket={bucket}
-        path={path}
+        supabaseBucket={bucket}
+        supabasePath={path}
         onFileUploaded={addFile}
-        suggestedFiles="PDF, DOCS, XLSX, etc. Max 20mb"
+        subtitle="PDF, DOCS, XLSX, etc. Max 20mb"
       />
       <FileList files={files} setFiles={setFiles} />
     </div>

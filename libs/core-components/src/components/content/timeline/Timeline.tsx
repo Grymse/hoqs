@@ -5,7 +5,7 @@ import { Button, Chip } from '@nextui-org/react';
 import { formatDate } from 'libs/core-components/src/lib/translations';
 import { TimelineEntry as TimelineEntryType } from 'libs/core-components/src/types/types';
 import EditTimelineEntryButton from './EditTimelineEntry';
-import { TIMELINE_ICOMS } from 'libs/core-components/src/lib/variables';
+import { TIMELINE_ICONS } from 'libs/core-components/src/lib/variables';
 
 interface Props {
   entries: TimelineEntryType[];
@@ -76,7 +76,7 @@ function TimelineEntry({ setEntry, entry, isLast }: TimelineEntryProps) {
     setEntry?.(null);
   }
 
-  const EntryIcon = entry.icon ? TIMELINE_ICOMS[entry.icon] : FileText;
+  const EntryIcon = entry.icon ? TIMELINE_ICONS[entry.icon] : FileText;
 
   return (
     <>

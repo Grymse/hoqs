@@ -165,7 +165,7 @@ export const FILE_BADGES = [
   { title: 'Old', color: 'default', variant: 'shadow', icon: Ship },
 ] satisfies BadgeType[];
 
-export const TIMELINE_ICOMS = {
+export const TIMELINE_ICONS = {
   sparkles: Sparkles,
   shield: ShieldCheck,
   audio: AudioLines,

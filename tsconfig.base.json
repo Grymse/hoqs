@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "libs/core-components/src/*": ["libs/core-components/src/*"],
-      "@hoqs/core": ["libs/core-components/src/index.ts"]
+      "@hoqs/core": ["libs/core-components/src/index.ts"],
+      "libs/core-components/src/*": ["libs/core-components/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

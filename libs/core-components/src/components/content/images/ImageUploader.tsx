@@ -25,10 +25,10 @@ export function ImageUploader({ images, setImages, path, bucket }: Props) {
   return (
     <div className="grid grid-cols-2 gap-4">
       <Uploader
-        bucket={bucket}
-        path={path}
+        supabaseBucket={bucket}
+        supabasePath={path}
         onFileUploaded={addImage}
-        suggestedFiles="PNG, JPG or SVG"
+        subtitle="PNG, JPG or SVG"
         allowedTypes={allowedFileTypes}
       />
       <ImageCaroussel images={images} setImages={setImages} />

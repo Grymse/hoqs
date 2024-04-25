@@ -5,16 +5,16 @@ import Dropzone from 'react-dropzone';
 import toast from 'react-hot-toast';
 
 interface Props {
-  bucket: string;
-  path: string;
-  suggestedFiles: string;
+  supabaseBucket: string;
+  supabasePath: string;
+  subtitle: string;
   allowedTypes?: string[];
   onFileUploaded: (file: AbstractStorageFile) => void;
 }
 export function Uploader({
-  path,
-  bucket,
-  suggestedFiles,
+  supabasePath,
+  supabaseBucket,
+  subtitle,
   allowedTypes,
   onFileUploaded,
 }: Props) {
@@ -45,17 +45,17 @@ export function Uploader({
   }
 
   async function uploadToSupabase(file: File) {
-    const uploadPath = path + '/' + file.name;
+    const uploadPath = supabasePath + '/' + file.name;
 
     const { data, error } = await supabase.storage
-      .from(bucket)
+      .from(supabaseBucket)
       .upload(uploadPath, file);
 
     // @ts-expect-error error.error is not defined in the Supabase error type
     if (error && error.error !== 'Duplicate') throw error;
 
     const url = supabase.storage
-      .from(bucket)
+      .from(supabaseBucket)
       .getPublicUrl(data?.path || uploadPath);
     onFileUploaded({
       title: removeFileExtension(file.name),
@@ -104,7 +104,7 @@ export function Uploader({
                 and drop
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                {suggestedFiles}
+                {subtitle}
               </p>
             </div>
             <input

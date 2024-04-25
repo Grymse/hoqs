@@ -14,7 +14,7 @@ import {
 import { ComponentProps, useEffect, useState } from 'react';
 import ColorSelector from '../ColorSelector';
 import IconSelector from '../IconSelector';
-import { TIMELINE_ICOMS } from 'libs/core-components/src/lib/variables';
+import { TIMELINE_ICONS } from 'libs/core-components/src/lib/variables';
 
 type Props = {
   entry: TimelineEntry;
@@ -116,8 +116,10 @@ export function EditTimelineEntryButton({
                   />
                 </div>
                 <IconSelector
-                  icons={TIMELINE_ICOMS}
-                  selectColor={entry.color}
+                  icons={TIMELINE_ICONS}
+                  selectColor={
+                    entry.color !== 'default' ? entry.color : 'primary'
+                  }
                   setIcon={(icon) => setEntry({ ...entry, icon })}
                   icon={entry.icon || 'flag'}
                 />
