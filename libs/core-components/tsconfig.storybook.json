@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "jsx": "react-jsx",
     "declaration": true,
@@ -23,11 +24,11 @@
     "src/**/*.test.js"
   ],
   "include": [
-    "src/**/*.stories.ts",
-    "src/**/*.stories.js",
-    "src/**/*.stories.jsx",
-    "src/**/*.stories.tsx",
-    "src/**/*.stories.mdx",
+    "src/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.tsx",
+    "src/**/*.mdx",
     ".storybook/*.js",
     ".storybook/*.ts"
   ]
