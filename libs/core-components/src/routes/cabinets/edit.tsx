@@ -1,4 +1,4 @@
-import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
+import PageContainer from 'libs/core-components/src/components/ui/PageContainer';
 import {
   Checkbox,
   Input,
@@ -6,36 +6,36 @@ import {
   SelectItem,
   Textarea,
 } from '@nextui-org/react';
-import Header from 'libs/core-components/src/components/ui/Header.tsx';
+import Header from 'libs/core-components/src/components/ui/Header';
 import { useRef, useState } from 'react';
-import ImageUploader from 'libs/core-components/src/components/content/images/ImageUploader.tsx';
-import Text from 'libs/core-components/src/components/ui/Text.tsx';
-import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
+import ImageUploader from 'libs/core-components/src/components/content/images/ImageUploader';
+import Text from 'libs/core-components/src/components/ui/Text';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest';
 import { useParams } from 'react-router-dom';
-import { supabase } from 'libs/core-components/src/lib/supabase.ts';
+import { supabase } from 'libs/core-components/src/lib/supabase';
 import {
   Contributor,
   SpeakerCabinet,
   StorageFile,
   StorageImage,
-} from 'libs/core-components/src/types/types.ts';
+} from 'libs/core-components/src/types/types';
 import {
   kgsToPounds,
   mmToInches,
   woodThicknessToInches,
-} from 'libs/core-components/src/lib/translations.ts';
+} from 'libs/core-components/src/lib/translations';
 import {
   CABINET_TYPES,
   DRIVER_SIZES,
   MAX_SPL_COUNT,
   WOOD_THICKNESS,
-} from 'libs/core-components/src/lib/variables.ts';
-import FileUploader from 'libs/core-components/src/components/content/files/FileUploader.tsx';
-import { CABINET_BADGES } from 'libs/core-components/src/lib/variables.ts';
-import ProtectedPage from 'libs/core-components/src/components/auth/ProtectedPage.tsx';
-import ContributorsEditor from 'libs/core-components/src/components/content/cabinet/ContributorEditor.tsx';
-import BadgeSelector from 'libs/core-components/src/components/content/badges/BadgeSelector.tsx';
-import Timeline from 'libs/core-components/src/components/content/timeline/Timeline.tsx';
+} from 'libs/core-components/src/lib/variables';
+import FileUploader from 'libs/core-components/src/components/content/files/FileUploader';
+import { CABINET_BADGES } from 'libs/core-components/src/lib/variables';
+import ProtectedPage from 'libs/core-components/src/components/auth/ProtectedPage';
+import ContributorsEditor from 'libs/core-components/src/components/content/cabinet/ContributorEditor';
+import BadgeSelector from 'libs/core-components/src/components/content/badges/BadgeSelector';
+import Timeline from 'libs/core-components/src/components/content/timeline/Timeline';
 import EditDriverRecommendation, {
   DriverRecommendation,
 } from '../../components/content/cabinet/EditDriverRecommendation';

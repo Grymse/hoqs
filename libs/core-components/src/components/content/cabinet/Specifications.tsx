@@ -2,9 +2,9 @@ import {
   formatFrequency,
   kgsToPounds,
   woodThicknessToInches,
-} from 'libs/core-components/src/lib/translations.ts';
-import { SpeakerCabinet } from 'libs/core-components/src/types/types.ts';
-import { mmToInches } from 'libs/core-components/src/lib/translations.ts';
+} from 'libs/core-components/src/lib/translations';
+import { SpeakerCabinet } from 'libs/core-components/src/types/types';
+import { mmToInches } from 'libs/core-components/src/lib/translations';
 import {
   Table,
   TableHeader,
@@ -15,7 +15,7 @@ import {
   Tooltip,
 } from '@nextui-org/react';
 import React from 'react';
-import { MAX_SPL_COUNT } from 'libs/core-components/src/lib/variables.ts';
+import { MAX_SPL_COUNT } from 'libs/core-components/src/lib/variables';
 import { HelpCircleIcon } from 'lucide-react';
 
 interface Props {

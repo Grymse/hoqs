@@ -1,5 +1,5 @@
-import Text from 'libs/core-components/src/components/ui/Text.tsx';
-import { Contributor as ContributorType } from 'libs/core-components/src/types/types.ts';
+import Text from 'libs/core-components/src/components/ui/Text';
+import { Contributor as ContributorType } from 'libs/core-components/src/types/types';
 import { ContributorIcon, contributorIconRoles } from './ContributorEditor';
 
 interface ContributorsProps {

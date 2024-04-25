@@ -1,18 +1,18 @@
-import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
+import PageContainer from 'libs/core-components/src/components/ui/PageContainer';
 import { Button, Input, SelectItem, Textarea, Select } from '@nextui-org/react';
-import Header from 'libs/core-components/src/components/ui/Header.tsx';
+import Header from 'libs/core-components/src/components/ui/Header';
 import { useRef, useState } from 'react';
-import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase, toPromise } from 'libs/core-components/src/lib/supabase.ts';
-import { Driver } from 'libs/core-components/src/types/types.ts';
+import { supabase, toPromise } from 'libs/core-components/src/lib/supabase';
+import { Driver } from 'libs/core-components/src/types/types';
 import toast from 'react-hot-toast';
-import ProtectedPage from 'libs/core-components/src/components/auth/ProtectedPage.tsx';
-import ButtonWithConfirm from 'libs/core-components/src/components/modals/ButtonWithConfirm.tsx';
-import DriverImporter from 'libs/core-components/src/components/content/driver/DriverImporter.tsx';
-import BadgeSelector from 'libs/core-components/src/components/content/badges/BadgeSelector.tsx';
-import { DRIVER_BADGES, DRIVER_TYPES } from '../../lib/variables.ts';
-import { driverAttributes } from 'libs/core-components/src/lib/driverAttributes.ts';
+import ProtectedPage from 'libs/core-components/src/components/auth/ProtectedPage';
+import ButtonWithConfirm from 'libs/core-components/src/components/modals/ButtonWithConfirm';
+import DriverImporter from 'libs/core-components/src/components/content/driver/DriverImporter';
+import BadgeSelector from 'libs/core-components/src/components/content/badges/BadgeSelector';
+import { DRIVER_BADGES, DRIVER_TYPES } from '../../lib/variables';
+import { driverAttributes } from 'libs/core-components/src/lib/driverAttributes';
 
 export function EditDriver() {
   const { id } = useParams();

@@ -1,4 +1,4 @@
-import { StorageFile } from 'libs/core-components/src/types/types.ts';
+import { StorageFile } from 'libs/core-components/src/types/types';
 import {
   Modal,
   ModalContent,
@@ -11,11 +11,14 @@ import {
   Textarea,
 } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import Text from 'libs/core-components/src/components/ui/Text.tsx';
-import { formatBytes, formatDateTime } from 'libs/core-components/src/lib/translations.ts';
+import Text from 'libs/core-components/src/components/ui/Text';
+import {
+  formatBytes,
+  formatDateTime,
+} from 'libs/core-components/src/lib/translations';
 import UploaderReplacerButton from '../UploadReplacerButton';
 import BadgeSelector from '../badges/BadgeSelector';
-import { FILE_BADGES } from 'libs/core-components/src/lib/variables.ts';
+import { FILE_BADGES } from 'libs/core-components/src/lib/variables';
 
 type FileEditFormProps = {
   initialFile: StorageFile;

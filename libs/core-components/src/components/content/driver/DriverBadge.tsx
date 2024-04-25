@@ -1,4 +1,4 @@
-import { DRIVER_BADGES } from 'libs/core-components/src/lib/variables.ts';
+import { DRIVER_BADGES } from 'libs/core-components/src/lib/variables';
 import Badge from '../badges/Badge';
 import BadgeList from '../badges/BadgeList';
 

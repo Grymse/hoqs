@@ -1,5 +1,5 @@
-import { supabase } from 'libs/core-components/src/lib/supabase.ts';
-import { AbstractStorageFile } from 'libs/core-components/src/types/types.ts';
+import { supabase } from 'libs/core-components/src/lib/supabase';
+import { AbstractStorageFile } from 'libs/core-components/src/types/types';
 import { Button } from '@nextui-org/react';
 import React, { useRef } from 'react';
 import Dropzone from 'react-dropzone';

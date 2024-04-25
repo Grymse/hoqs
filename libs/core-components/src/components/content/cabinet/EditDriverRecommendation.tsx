@@ -1,7 +1,7 @@
-import { supabase } from 'libs/core-components/src/lib/supabase.ts';
-import { DriverRank } from 'libs/core-components/src/types/types.ts';
+import { supabase } from 'libs/core-components/src/lib/supabase';
+import { DriverRank } from 'libs/core-components/src/types/types';
 import { useEffect, useState } from 'react';
-import { useSupabaseRequestOnce } from '../../helpers/SupabaseRequest.tsx';
+import { useSupabaseRequestOnce } from '../../helpers/SupabaseRequest';
 import { useNavigate } from 'react-router-dom';
 import {
   Input,
@@ -15,13 +15,13 @@ import {
   TableRow,
 } from '@nextui-org/react';
 import { Search } from 'lucide-react';
-import { containsName } from 'libs/core-components/src/lib/search.ts';
+import { containsName } from 'libs/core-components/src/lib/search';
 import HoqsLogo from '../../brands/HoqsLogo';
 import DriverRecommendationRank, {
   rankToRankNumber,
 } from '../driver/DriverRecommendationRank';
-import { DRIVER_RANK } from 'libs/core-components/src/lib/variables.ts';
-import { toMap } from 'libs/core-components/src/lib/translations.ts';
+import { DRIVER_RANK } from 'libs/core-components/src/lib/variables';
+import { toMap } from 'libs/core-components/src/lib/translations';
 
 interface Props {
   id: string;

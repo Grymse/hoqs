@@ -1,6 +1,6 @@
-import { supabase } from 'libs/core-components/src/lib/supabase.ts';
-import { removeFileExtension } from 'libs/core-components/src/lib/translations.ts';
-import { AbstractStorageFile } from 'libs/core-components/src/types/types.ts';
+import { supabase } from 'libs/core-components/src/lib/supabase';
+import { removeFileExtension } from 'libs/core-components/src/lib/translations';
+import { AbstractStorageFile } from 'libs/core-components/src/types/types';
 import Dropzone from 'react-dropzone';
 import toast from 'react-hot-toast';
 

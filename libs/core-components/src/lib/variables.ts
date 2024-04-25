@@ -2,7 +2,7 @@ import {
   BadgeType,
   ColorVariant,
   ContributorRole,
-} from 'libs/core-components/src/types/types.ts';
+} from 'libs/core-components/src/types/types';
 import { DriverRank } from '../types/types';
 import {
   Archive,

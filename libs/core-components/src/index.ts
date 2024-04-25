@@ -13,7 +13,7 @@ export * from './routes/drivers/driver';
 
 // imported by App.tsx
 export * from './components/Navbar';
-export * from './lib/auth.ts';
+export * from './lib/auth';
 export * from './lib/darkmode';
 export * from './lib/text';
 export * from './components/ui/BackgroundEffect';

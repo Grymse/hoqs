@@ -1,6 +1,6 @@
-import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
-import { supabase } from 'libs/core-components/src/lib/supabase.ts';
-import { DriverRank } from 'libs/core-components/src/types/types.ts';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest';
+import { supabase } from 'libs/core-components/src/lib/supabase';
+import { DriverRank } from 'libs/core-components/src/types/types';
 import {
   Input,
   Spinner,
@@ -16,7 +16,7 @@ import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { rankToRankNumber } from './DriverRecommendationRank';
 import DriverRecommendationRank from './DriverRecommendationRank';
-import { containsName } from 'libs/core-components/src/lib/search.ts';
+import { containsName } from 'libs/core-components/src/lib/search';
 
 interface Props {
   driverId: string;

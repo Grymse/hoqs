@@ -5,13 +5,18 @@ import { mergeConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  addons: [
-    '@storybook/addon-essentials', 
-    '@storybook/addon-themes'
-  ],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-themes'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
+  },
+  core: {
+    builder: {
+      name: '@storybook/builder-vite',
+      options: {
+        viteConfigPath: './.storybook/vite.config.js',
+      },
+    },
   },
 
   viteFinal: async (config) =>

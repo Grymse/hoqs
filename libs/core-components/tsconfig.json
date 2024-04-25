@@ -6,8 +6,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "baseUrl": ".",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
     "paths": {
       "libs/core-components/src/*": ["src/*"]
     }

@@ -1,4 +1,7 @@
-import { AbstractStorageFile, StorageImage } from 'libs/core-components/src/types/types.ts';
+import {
+  AbstractStorageFile,
+  StorageImage,
+} from 'libs/core-components/src/types/types';
 import ImageCaroussel from './ImageCaroussel';
 import Uploader from '../Uploader';
 
@@ -9,12 +12,7 @@ interface Props {
   path: string;
 }
 
-export function ImageUploader({
-  images,
-  setImages,
-  path,
-  bucket,
-}: Props) {
+export function ImageUploader({ images, setImages, path, bucket }: Props) {
   function addImage(file: AbstractStorageFile) {
     if (!images) {
       setImages([{ ...file }]);

@@ -11,10 +11,10 @@ import {
 } from '@nextui-org/react';
 import { useState } from 'react';
 import DarkModeToggle from './DarkModeToggle';
-import HoqsLogo from './brands/HoqsLogo.tsx';
+import HoqsLogo from './brands/HoqsLogo';
 import Header from './ui/Header';
 import Text from './ui/Text';
-import { signOut, useAuth } from '../lib/auth.ts';
+import { signOut, useAuth } from '../lib/auth';
 import FacebookIcon from './brands/FacebookIcon';
 import { FormattedMessage } from 'react-intl';
 

@@ -1,20 +1,20 @@
-import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest.tsx';
-import PageContainer from 'libs/core-components/src/components/ui/PageContainer.tsx';
-import { supabase } from 'libs/core-components/src/lib/supabase.ts';
+import { useSupabaseRequest } from 'libs/core-components/src/components/helpers/SupabaseRequest';
+import PageContainer from 'libs/core-components/src/components/ui/PageContainer';
+import { supabase } from 'libs/core-components/src/lib/supabase';
 import { useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import ImageCaroussel from 'libs/core-components/src/components/content/images/ImageCaroussel.tsx';
-import Header from 'libs/core-components/src/components/ui/Header.tsx';
-import Text from 'libs/core-components/src/components/ui/Text.tsx';
+import ImageCaroussel from 'libs/core-components/src/components/content/images/ImageCaroussel';
+import Header from 'libs/core-components/src/components/ui/Header';
+import Text from 'libs/core-components/src/components/ui/Text';
 import { Button } from '@nextui-org/react';
-import Specifications from 'libs/core-components/src/components/content/cabinet/Specifications.tsx';
-import FileList from 'libs/core-components/src/components/content/files/FileList.tsx';
-import { CabinetBadgeList } from 'libs/core-components/src/components/content/cabinet/CabinetBadge.tsx';
-import { SpeakerCabinet } from 'libs/core-components/src/types/types.ts';
-import ProtectedFeature from 'libs/core-components/src/components/auth/ProtectedFeature.tsx';
-import Contributors from 'libs/core-components/src/components/content/cabinet/Contributors.tsx';
-import Timeline from 'libs/core-components/src/components/content/timeline/Timeline.tsx';
-import DriverRecommendation from 'libs/core-components/src/components/content/cabinet/DriverRecommendation.tsx';
+import Specifications from 'libs/core-components/src/components/content/cabinet/Specifications';
+import FileList from 'libs/core-components/src/components/content/files/FileList';
+import { CabinetBadgeList } from 'libs/core-components/src/components/content/cabinet/CabinetBadge';
+import { SpeakerCabinet } from 'libs/core-components/src/types/types';
+import ProtectedFeature from 'libs/core-components/src/components/auth/ProtectedFeature';
+import Contributors from 'libs/core-components/src/components/content/cabinet/Contributors';
+import Timeline from 'libs/core-components/src/components/content/timeline/Timeline';
+import DriverRecommendation from 'libs/core-components/src/components/content/cabinet/DriverRecommendation';
 
 export function Cabinet() {
   const { id } = useParams();

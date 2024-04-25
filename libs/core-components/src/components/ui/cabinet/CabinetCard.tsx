@@ -1,8 +1,8 @@
 import { Card, CardFooter, CardHeader, Image } from '@nextui-org/react';
-import { StorageImage } from 'libs/core-components/src/types/types.ts';
+import { StorageImage } from 'libs/core-components/src/types/types';
 import { Link } from 'react-router-dom';
-import { CabinetBadgeList } from 'libs/core-components/src/components/content/cabinet/CabinetBadge.tsx';
-import { formatFrequency } from 'libs/core-components/src/lib/translations.ts';
+import { CabinetBadgeList } from 'libs/core-components/src/components/content/cabinet/CabinetBadge';
+import { formatFrequency } from 'libs/core-components/src/lib/translations';
 
 interface Cabinet {
   id: string;
