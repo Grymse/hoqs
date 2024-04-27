@@ -1,9 +1,15 @@
 import { supabase } from 'libs/core-components/src/lib/supabase';
 import { DriverRank } from 'libs/core-components/src/types/types';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, ComponentProps } from 'react';
 import { useSupabaseRequestOnce } from '../../helpers/SupabaseRequest';
 import {
+  Button,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Select,
   SelectItem,
   Table,
@@ -12,8 +18,15 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
+  Textarea,
+  Tooltip,
+  useDisclosure,
 } from '@nextui-org/react';
-import { Search } from 'lucide-react';
+import {
+  MessageSquarePlusIcon,
+  MessageSquareTextIcon,
+  Search,
+} from 'lucide-react';
 import { containsName } from 'libs/core-components/src/lib/search';
 import HoqsLogo from '../../brands/HoqsLogo';
 import DriverRecommendationRank from '../driver/DriverRecommendationRank';
@@ -21,6 +34,7 @@ import { DRIVER_RANK } from 'libs/core-components/src/lib/variables';
 import { toMap } from 'libs/core-components/src/lib/translations';
 import { compareRank, isHoqsBrand } from 'libs/core-components/src/lib/helpers';
 import { DriverSizeSelector } from '../driver/DriverSizesSelector';
+import { KeySubscriber } from '../../helpers/KeySubscriber';
 
 interface Props {
   id: string;
@@ -29,7 +43,7 @@ interface Props {
 
 export type DriverRecommendation = {
   id?: string;
-  notes: string;
+  notes: string | null;
   rank: DriverRank;
   driver_id: string;
 };
@@ -138,6 +152,19 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
     [recommendations]
   );
 
+  function updateRecommendation(
+    recommendation: DriverRecommendationWithDriver
+  ) {
+    setRecommendations((r) => {
+      if (!r) return null;
+      const index = r.findIndex(
+        (rec) => rec.driver_id === recommendation.driver_id
+      );
+      r[index] = recommendation;
+      return [...r];
+    });
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex justify-between">
@@ -168,6 +195,7 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
           <TableColumn key="driver">Driver</TableColumn>
           <TableColumn key="specs">Specs</TableColumn>
           <TableColumn key="rank">Rank</TableColumn>
+          <TableColumn key="rank">Note</TableColumn>
         </TableHeader>
         <TableBody>
           {recommendations
@@ -202,13 +230,9 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
                     isRequired
                     defaultSelectedKeys={[driver.rank]}
                     onChange={(e) =>
-                      setRecommendations((r) => {
-                        if (!r) return null;
-                        const index = r.findIndex(
-                          (rec) => rec.driver_id === driver.driver_id
-                        );
-                        r[index].rank = e.target.value as DriverRank;
-                        return [...r];
+                      updateRecommendation({
+                        ...driver,
+                        rank: e.target.value as DriverRank,
                       })
                     }
                     renderValue={(value) => (
@@ -226,11 +250,122 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
                     ))}
                   </Select>
                 </TableCell>
+                <TableCell>
+                  <SetNoteButton
+                    isIconOnly
+                    value={driver.notes}
+                    title={`Set Note of ${driver.driver.brand} ${driver.driver.model}`}
+                    setValue={(notes) => {
+                      console.log(notes);
+                      updateRecommendation({
+                        ...driver,
+                        notes,
+                      });
+                    }}
+                    variant="light"
+                    color={
+                      0 < (driver.notes?.length ?? 0) ? 'default' : 'primary'
+                    }
+                  >
+                    {0 < (driver.notes?.length ?? 0) ? (
+                      <MessageSquareTextIcon />
+                    ) : (
+                      <MessageSquarePlusIcon />
+                    )}
+                  </SetNoteButton>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
       </Table>
     </div>
+  );
+}
+
+type SetNoteButtonProps = Omit<
+  ComponentProps<typeof Button>,
+  'value' | 'setValue'
+> & {
+  value: string | null;
+  setValue: (value: string | null) => void;
+  title: string;
+};
+
+export function SetNoteButton({
+  value,
+  setValue,
+  title,
+  children,
+  ...props
+}: SetNoteButtonProps) {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [internalValue, setInternalValue] = useState(value);
+
+  return (
+    <>
+      <Tooltip
+        content={value}
+        classNames={{
+          base: 'max-w-md',
+        }}
+        closeDelay={0}
+      >
+        <Button onPress={onOpen} {...props}>
+          {children}
+        </Button>
+      </Tooltip>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <KeySubscriber
+                onEnter={() => {
+                  setValue(internalValue);
+                  onClose();
+                }}
+              />
+              <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
+              <ModalBody>
+                <Textarea
+                  label="Description"
+                  placeholder="Enter a note to elaborate on the ranking of a driver"
+                  value={internalValue ?? ''}
+                  onChange={(e) => setInternalValue(e.target.value)}
+                  variant="bordered"
+                  minRows={10}
+                  maxRows={20}
+                  autoFocus
+                />
+              </ModalBody>
+              <ModalFooter>
+                <Button color="default" variant="flat" onPress={onClose}>
+                  Cancel
+                </Button>
+                <Button
+                  color="danger"
+                  variant="flat"
+                  onPress={() => {
+                    setValue(null);
+                    onClose();
+                  }}
+                >
+                  Delete
+                </Button>
+                <Button
+                  color="primary"
+                  onPress={() => {
+                    setValue(internalValue);
+                    onClose();
+                  }}
+                >
+                  Continue
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
 

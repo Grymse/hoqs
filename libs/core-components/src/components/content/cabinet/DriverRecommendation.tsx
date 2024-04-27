@@ -10,9 +10,10 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
+  Tooltip,
 } from '@nextui-org/react';
 import React, { useRef } from 'react';
-import { Search } from 'lucide-react';
+import { MessageSquareTextIcon, Search } from 'lucide-react';
 import HoqsLogo from 'libs/core-components/src/components/brands/HoqsLogo';
 import { useNavigate } from 'react-router-dom';
 import DriverRecommendationRank from '../driver/DriverRecommendationRank';
@@ -86,6 +87,7 @@ export function DriverRecommendation({ id }: Props) {
               <TableColumn key="name">Driver</TableColumn>
               <TableColumn key="specs">Specs</TableColumn>
               <TableColumn key="height">Rank</TableColumn>
+              <TableColumn key="height">Notes</TableColumn>
             </TableHeader>
             <TableBody
               isLoading={isLoading}
@@ -114,6 +116,19 @@ export function DriverRecommendation({ id }: Props) {
                     </TableCell>
                     <TableCell>
                       <DriverRecommendationRank rank={driver.rank} />
+                    </TableCell>
+                    <TableCell>
+                      {driver.notes && driver.notes.length !== 0 && (
+                        <Tooltip
+                          content={driver.notes}
+                          closeDelay={0}
+                          classNames={{
+                            base: 'max-w-md',
+                          }}
+                        >
+                          <MessageSquareTextIcon />
+                        </Tooltip>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
