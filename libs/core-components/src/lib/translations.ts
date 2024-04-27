@@ -1,3 +1,5 @@
+import { DriverRank } from '../types/types';
+
 export function mmToInches(mm: number | null): string {
   if (!mm) return '0';
   const inches = (mm / 25.4).toFixed(2);
@@ -114,4 +116,20 @@ export function toMap<
     map.set(obj[key], obj);
     return map;
   }, new Map<string, T>());
+}
+
+export function rankToRankNumber(rank: DriverRank): number {
+  switch (rank) {
+    case 'Optimal':
+      return 5;
+    case 'Excellent':
+      return 4;
+    case 'Good':
+      return 3;
+    case 'Okay':
+      return 2;
+    case 'Bad':
+      return 1;
+  }
+  return 0;
 }

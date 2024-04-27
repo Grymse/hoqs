@@ -26,22 +26,6 @@ export function DriverRecommendationRank({ rank }: Props) {
   );
 }
 
-export function rankToRankNumber(rank: DriverRank): number {
-  switch (rank) {
-    case 'Optimal':
-      return 5;
-    case 'Excellent':
-      return 4;
-    case 'Good':
-      return 3;
-    case 'Okay':
-      return 2;
-    case 'Bad':
-      return 1;
-  }
-  return 0;
-}
-
 function getRankColor(rank: DriverRank): ColorVariant {
   switch (rank) {
     case 'Optimal':

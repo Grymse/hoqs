@@ -15,9 +15,9 @@ import React, { useRef } from 'react';
 import { Search } from 'lucide-react';
 import HoqsLogo from 'libs/core-components/src/components/brands/HoqsLogo';
 import { useNavigate } from 'react-router-dom';
-import { rankToRankNumber } from '../driver/DriverRecommendationRank';
 import DriverRecommendationRank from '../driver/DriverRecommendationRank';
 import { containsName } from 'libs/core-components/src/lib/search';
+import { compareRank, isHoqsBrand } from 'libs/core-components/src/lib/helpers';
 
 interface Props {
   id: string;
@@ -105,9 +105,7 @@ export function DriverRecommendation({ id }: Props) {
                     className="cursor-pointer"
                   >
                     <TableCell className="flex gap-2 h-10 items-center">
-                      {driver.drivers.brand.toLowerCase() === 'hoqs' && (
-                        <HoqsLogo size={20} />
-                      )}
+                      {isHoqsBrand(driver.drivers) && <HoqsLogo size={20} />}
                       {driver.drivers.brand} {driver.drivers.model}
                     </TableCell>
                     <TableCell>
@@ -125,13 +123,6 @@ export function DriverRecommendation({ id }: Props) {
       )}
     </>
   );
-}
-
-function compareRank(
-  a: DriverRecommendationProps,
-  b: DriverRecommendationProps
-) {
-  return rankToRankNumber(b.rank) - rankToRankNumber(a.rank);
 }
 
 export default DriverRecommendation;

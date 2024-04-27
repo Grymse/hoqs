@@ -1,8 +1,7 @@
 import { supabase } from 'libs/core-components/src/lib/supabase';
 import { DriverRank } from 'libs/core-components/src/types/types';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useSupabaseRequestOnce } from '../../helpers/SupabaseRequest';
-import { useNavigate } from 'react-router-dom';
 import {
   Input,
   Select,
@@ -17,11 +16,11 @@ import {
 import { Search } from 'lucide-react';
 import { containsName } from 'libs/core-components/src/lib/search';
 import HoqsLogo from '../../brands/HoqsLogo';
-import DriverRecommendationRank, {
-  rankToRankNumber,
-} from '../driver/DriverRecommendationRank';
+import DriverRecommendationRank from '../driver/DriverRecommendationRank';
 import { DRIVER_RANK } from 'libs/core-components/src/lib/variables';
 import { toMap } from 'libs/core-components/src/lib/translations';
+import { compareRank, isHoqsBrand } from 'libs/core-components/src/lib/helpers';
+import { DriverSizeSelector } from '../driver/DriverSizesSelector';
 
 interface Props {
   id: string;
@@ -125,7 +124,6 @@ interface EditTableProps {
 }
 
 function EditTable({ recommendations, setRecommendations }: EditTableProps) {
-  const navigate = useNavigate();
   const [filterValue, setFilterValue] = useState('');
   const [selectedDriverSizes, setSelectedDriverSizes] = useState<number[]>([]);
 
@@ -135,11 +133,8 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
     }
   }, [selectedDriverSizes, filterValue]);
 
-  const driverSizes = useMemo(
-    () =>
-      Array.from(
-        new Set(recommendations.map((r) => r.driver.size_inches))
-      ).sort((a, b) => a - b),
+  const drivers = useMemo(
+    () => recommendations.map((r) => r.driver),
     [recommendations]
   );
 
@@ -156,29 +151,11 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
           onClear={() => setFilterValue('')}
           onValueChange={setFilterValue}
         />
-        <Select
-          aria-label="Select Speaker Size"
-          className="w-48"
-          placeholder="Select Speaker Size"
-          selectionMode="multiple"
-          onChange={(e) =>
-            setSelectedDriverSizes(
-              e.target.value === '' ? [] : e.target.value.split(',').map(Number)
-            )
-          }
-          value={selectedDriverSizes.map(String).join(',')}
-          renderValue={(value) => (
-            <span className="truncate">
-              {value.map((v) => `${v.key}"`).join(', ')}
-            </span>
-          )}
-        >
-          {driverSizes.map((size) => (
-            <SelectItem key={size} value={size} textValue={String(size)}>
-              {size}"
-            </SelectItem>
-          ))}
-        </Select>
+        <DriverSizeSelector
+          drivers={drivers}
+          selectedDriverSizes={selectedDriverSizes}
+          setSelectedDriverSizes={setSelectedDriverSizes}
+        />
       </div>
       <Table
         isHeaderSticky
@@ -205,9 +182,7 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
             .map((driver, i) => (
               <TableRow key={i}>
                 <TableCell className="flex gap-2 h-10 items-center">
-                  {driver.driver.brand.toLowerCase() === 'hoqs' && (
-                    <HoqsLogo size={20} />
-                  )}
+                  {isHoqsBrand(driver.driver) && <HoqsLogo size={20} />}
                   {driver.driver.brand} {driver.driver.model}
                 </TableCell>
                 <TableCell>
@@ -257,10 +232,6 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
       </Table>
     </div>
   );
-}
-
-function compareRank(a: DriverRecommendation, b: DriverRecommendation) {
-  return rankToRankNumber(b.rank) - rankToRankNumber(a.rank);
 }
 
 export default EditDriverRecommendation;

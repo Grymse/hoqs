@@ -9,7 +9,6 @@ import {
   TableBody,
   TableRow,
   TableCell,
-  SelectItem,
   Input,
   SortDescriptor,
 } from '@nextui-org/react';
@@ -18,34 +17,27 @@ import ProtectedFeature from 'libs/core-components/src/components/auth/Protected
 import { CabinetBadgeList } from 'libs/core-components/src/components/content/cabinet/CabinetBadge';
 import AddDriverButton from 'libs/core-components/src/components/content/driver/AddDriver';
 import { Driver } from 'libs/core-components/src/types/types';
-import { Select } from '@nextui-org/react';
 import { Search } from 'lucide-react';
 import { containsName } from '../../lib/search';
+import { sortByDescriptor } from '../../lib/helpers';
+import { DriverSizeSelector } from '../../components/content/driver/DriverSizesSelector';
 
 export function Drivers() {
   const navigate = useNavigate();
   const [fetchSettings] = useState({
     active: true,
   });
+  const [selectedDriverSizes, setSelectedDriverSizes] = useState<number[]>([]);
 
   const cabFetch = useMemo(() => fetchDrivers(fetchSettings), [fetchSettings]);
 
   const { data: d, StatusComponent } = useSupabaseRequest(cabFetch);
   const [drivers, setDrivers] = useState<Driver[] | null>(null);
   const [filterValue, setFilterValue] = useState('');
-  const [selectedDriverSizes, setSelectedDriverSizes] = useState<number[]>([]);
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: 'model',
     direction: 'ascending',
   });
-
-  const driverSizes = useMemo(
-    () =>
-      Array.from(
-        new Set(drivers?.map((r) => r.size_inches).filter((d) => d !== null))
-      ).sort((a, b) => a - b),
-    [drivers]
-  );
 
   useEffect(() => {
     if (d) {
@@ -78,31 +70,11 @@ export function Drivers() {
             onClear={() => setFilterValue('')}
             onValueChange={setFilterValue}
           />
-          <Select
-            aria-label="Select Speaker Size"
-            className="w-48"
-            placeholder="Select Speaker Size"
-            selectionMode="multiple"
-            onChange={(e) =>
-              setSelectedDriverSizes(
-                e.target.value === ''
-                  ? []
-                  : e.target.value.split(',').map(Number)
-              )
-            }
-            value={selectedDriverSizes.map(String).join(',')}
-            renderValue={(value) => (
-              <span className="truncate">
-                {value.map((v) => `${v.key}"`).join(', ')}
-              </span>
-            )}
-          >
-            {driverSizes.map((size) => (
-              <SelectItem key={size} value={size} textValue={String(size)}>
-                {size}"
-              </SelectItem>
-            ))}
-          </Select>
+          <DriverSizeSelector
+            drivers={drivers}
+            selectedDriverSizes={selectedDriverSizes}
+            setSelectedDriverSizes={setSelectedDriverSizes}
+          />
           <AddDriverButton onNewDriver={addDriver} />
         </div>
       </ProtectedFeature>
@@ -170,59 +142,6 @@ export function Drivers() {
 
 interface FetchSettings {
   active: boolean;
-}
-
-type SortableObject = { [key: string]: any };
-
-function sortByDescriptor<T extends SortableObject>(
-  sortDescriptor: SortDescriptor
-) {
-  const column = sortDescriptor.column;
-  const direction = sortDescriptor.direction;
-
-  if (column === undefined) return () => 0;
-
-  return (a: T, b: T) => {
-    const valA = a[column];
-    const valB = b[column];
-
-    if (typeof valA === 'string' && typeof valB === 'string') {
-      return direction === 'ascending'
-        ? valA.localeCompare(valB)
-        : valB.localeCompare(valA);
-    }
-
-    if (typeof valA === 'number' && typeof valB === 'number') {
-      return direction === 'ascending' ? valA - valB : valB - valA;
-    }
-
-    return 0;
-  };
-}
-
-function sortByColumnOld(a: Driver, b: Driver, sortDescriptor: SortDescriptor) {
-  const column = sortDescriptor.column;
-  const direction = sortDescriptor.direction;
-
-  if (column === 'model') {
-    const aName = a.brand + ' ' + a.model;
-    const bName = b.brand + ' ' + b.model;
-    return direction === 'ascending'
-      ? aName.localeCompare(bName)
-      : bName.localeCompare(aName);
-  } else if (column === 'size_inches') {
-    return direction === 'ascending'
-      ? (a.size_inches ?? 0) - (b.size_inches ?? 0)
-      : (b.size_inches ?? 0) - (a.size_inches ?? 0);
-  } else if (column === 'p_w') {
-    if (a.p_w === null || b.p_w === null) return 0;
-    return direction === 'ascending' ? a.p_w - b.p_w : b.p_w - a.p_w;
-  } else if (column === 'spl') {
-    if (a.spl === null || b.spl === null) return 0;
-    return direction === 'ascending' ? a.spl - b.spl : b.spl - a.spl;
-  }
-
-  return 0;
 }
 
 function fetchDrivers(settings: FetchSettings) {
