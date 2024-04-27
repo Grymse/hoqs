@@ -1,6 +1,6 @@
 import { supabase } from 'libs/core-components/src/lib/supabase';
 import { DriverRank } from 'libs/core-components/src/types/types';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSupabaseRequestOnce } from '../../helpers/SupabaseRequest';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -135,9 +135,13 @@ function EditTable({ recommendations, setRecommendations }: EditTableProps) {
     }
   }, [selectedDriverSizes, filterValue]);
 
-  const driverSizes = Array.from(
-    new Set(recommendations.map((r) => r.driver.size_inches))
-  ).sort((a, b) => a - b);
+  const driverSizes = useMemo(
+    () =>
+      Array.from(
+        new Set(recommendations.map((r) => r.driver.size_inches))
+      ).sort((a, b) => a - b),
+    [recommendations]
+  );
 
   return (
     <div className="flex flex-col gap-4">

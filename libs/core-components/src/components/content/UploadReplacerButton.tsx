@@ -10,6 +10,7 @@ type Props<T> = {
   allowedTypes?: string[];
   setFile: (file: T) => void;
 } & React.ComponentProps<typeof Button>;
+
 export function UploaderReplacerButton<T extends AbstractStorageFile>({
   file,
   allowedTypes,
