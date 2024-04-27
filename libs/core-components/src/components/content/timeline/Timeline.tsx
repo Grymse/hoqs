@@ -85,32 +85,30 @@ function TimelineEntry({ setEntry, entry, isLast }: TimelineEntryProps) {
         {!isLast && <div className={`flex-1 w-0.5 rounded ${bgColor}`} />}
       </div>
       <div className="relative h-fit mb-6">
-        <div className="flex justify-between">
+        <div className="flex gap-4">
           <Text className="my-0" variant="thick">
             {entry.title}
           </Text>
-          <div className="flex gap-2 h-0">
-            {entry.badge && entry.badge.length !== 0 && (
-              <Chip size="sm" variant="flat" color={entry.color}>
-                {entry.badge}
-              </Chip>
-            )}
-            {setEntry && (
-              <>
-                <Button color="danger" isIconOnly onClick={deleteEntry}>
-                  <Trash />
-                </Button>
-                <EditTimelineEntryButton
-                  color="default"
-                  entry={entry}
-                  isIconOnly
-                  setEntry={setEntry}
-                >
-                  <Pencil />
-                </EditTimelineEntryButton>
-              </>
-            )}
-          </div>
+          {entry.badge && entry.badge.length !== 0 && (
+            <Chip size="sm" variant="flat" color={entry.color}>
+              {entry.badge}
+            </Chip>
+          )}
+          {setEntry && (
+            <div className="flex-1 w-full flex justify-end gap-4 h-0">
+              <Button color="danger" isIconOnly onClick={deleteEntry}>
+                <Trash />
+              </Button>
+              <EditTimelineEntryButton
+                color="default"
+                entry={entry}
+                isIconOnly
+                setEntry={setEntry}
+              >
+                <Pencil />
+              </EditTimelineEntryButton>
+            </div>
+          )}
         </div>
         <Text className="my-0" variant="small" color="muted">
           {formatDate(entry.date)}
