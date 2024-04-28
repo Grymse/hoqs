@@ -17,8 +17,11 @@ import { MessageSquareTextIcon, Search } from 'lucide-react';
 import HoqsLogo from 'libs/core-components/src/components/brands/HoqsLogo';
 import { useNavigate } from 'react-router-dom';
 import DriverRecommendationRank from '../driver/DriverRecommendationRank';
-import { containsName } from 'libs/core-components/src/lib/search';
-import { compareRank, isHoqsBrand } from 'libs/core-components/src/lib/helpers';
+import {
+  compareRank,
+  containsName,
+  isHoqsBrand,
+} from 'libs/core-components/src/lib/helpers';
 
 interface Props {
   id: string;

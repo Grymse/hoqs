@@ -27,14 +27,18 @@ import {
   MessageSquareTextIcon,
   Search,
 } from 'lucide-react';
-import { containsName } from 'libs/core-components/src/lib/search';
+
 import HoqsLogo from '../../brands/HoqsLogo';
 import DriverRecommendationRank from '../driver/DriverRecommendationRank';
 import { DRIVER_RANK } from 'libs/core-components/src/lib/variables';
 import { toMap } from 'libs/core-components/src/lib/translations';
-import { compareRank, isHoqsBrand } from 'libs/core-components/src/lib/helpers';
+import {
+  compareRank,
+  containsName,
+  isHoqsBrand,
+} from 'libs/core-components/src/lib/helpers';
 import { DriverSizeSelector } from '../driver/DriverSizesSelector';
-import { KeySubscriber } from '../../helpers/KeySubscriber';
+import { KeyboardSubscriber } from '../../helpers/KeyboardSubscriber';
 
 interface Props {
   id: string;
@@ -318,7 +322,7 @@ export function SetNoteButton({
         <ModalContent>
           {(onClose) => (
             <>
-              <KeySubscriber
+              <KeyboardSubscriber
                 onEnter={() => {
                   setValue(internalValue);
                   onClose();

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-type KeySubscriberProps = {
+type KeyboardSubscriberProps = {
   onEnter?: () => void;
   onEscape?: () => void;
   onKey?: (key: string) => void;
@@ -8,11 +8,11 @@ type KeySubscriberProps = {
 
 // This is a component that subscribes to key events and calls the appropriate
 // It is a component and not a hook because it sometimes needs values from nested components
-export function KeySubscriber({
+export function KeyboardSubscriber({
   onEnter,
   onEscape,
   onKey,
-}: KeySubscriberProps) {
+}: KeyboardSubscriberProps) {
   useEffect(() => {
     function onKeyInternal(e: KeyboardEvent) {
       if (e.key === 'Enter') {

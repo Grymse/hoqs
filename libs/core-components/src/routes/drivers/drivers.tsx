@@ -18,8 +18,7 @@ import { CabinetBadgeList } from 'libs/core-components/src/components/content/ca
 import AddDriverButton from 'libs/core-components/src/components/content/driver/AddDriver';
 import { Driver } from 'libs/core-components/src/types/types';
 import { Search } from 'lucide-react';
-import { containsName } from '../../lib/search';
-import { sortByDescriptor } from '../../lib/helpers';
+import { containsName, sortByDescriptor } from '../../lib/helpers';
 import { DriverSizeSelector } from '../../components/content/driver/DriverSizesSelector';
 
 export function Drivers() {

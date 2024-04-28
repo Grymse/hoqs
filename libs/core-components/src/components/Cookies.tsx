@@ -17,7 +17,7 @@ export function openCookieModal() {
 
 const onOpenListenerObject = {
   listener: () => {
-    console.log('No listener set');
+    console.error('No listener set');
   },
 };
 

@@ -15,8 +15,11 @@ import React, { useRef } from 'react';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import DriverRecommendationRank from './DriverRecommendationRank';
-import { containsName } from 'libs/core-components/src/lib/search';
-import { compareRank } from 'libs/core-components/src/lib/helpers';
+
+import {
+  compareRank,
+  containsName,
+} from 'libs/core-components/src/lib/helpers';
 
 interface Props {
   driverId: string;
