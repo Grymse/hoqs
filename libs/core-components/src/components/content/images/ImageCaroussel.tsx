@@ -16,8 +16,6 @@ import ImageDescription from './ImageDescription';
 import ImageEditForm from './ImageEditForm';
 import { sendAnalyticsEvent } from '../../Analytics';
 
-// import required modules
-
 interface Props {
   images: StorageImage[] | null;
   isFullscreen?: boolean;
@@ -66,7 +64,9 @@ export function ImageCaroussel({
         onSlideChange={(swiper) => {
           setSlideIndex(swiper.activeIndex);
         }}
-        className="w-full h-full rounded-lg"
+        className={`w-full h-full rounded-lg ${
+          isFullscreen ? '' : 'max-h-[30rem]'
+        }`}
         onClick={onOpen}
       >
         {images?.map((image, i) => (
@@ -76,11 +76,13 @@ export function ImageCaroussel({
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              height: '100%',
+              minHeight: '100%',
             }}
           >
             <img
               src={image.url}
-              className="object-contain h-fit"
+              className="w-full object-contain h-full max-w-full max-h-full"
               alt={'image of ' + image.title}
             />
           </SwiperSlide>
