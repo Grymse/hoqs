@@ -18,5 +18,5 @@ export * from './lib/darkmode';
 export * from './lib/text';
 export * from './components/ui/BackgroundEffect';
 export * from './components/Footer';
-export * from './components/Cookies';
+export * from './components/Analytics';
 export * from './lib/text';

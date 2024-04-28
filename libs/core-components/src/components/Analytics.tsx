@@ -10,25 +10,39 @@ import {
   Button,
   useDisclosure,
 } from '@nextui-org/react';
+import { UaEventOptions } from 'react-ga4/types/ga4';
 
 export function openCookieModal() {
-  onOpenListenerObject.listener();
+  linkingObject.listener();
 }
 
-const onOpenListenerObject = {
+export function sendAnalyticsEvent(optionsOrName: UaEventOptions | string) {
+  linkingObject.event(optionsOrName);
+}
+
+const linkingObject = {
   listener: () => {
     console.error('No listener set');
   },
+  event: (optionsOrName: UaEventOptions | string) => {
+    console.error('No send function set');
+  },
 };
 
-export function Cookies() {
+export function Analytics() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const location = useLocation();
   const [accepted, setAccepted] = useState(false);
+  const [prevPage, setPrevPage] = useState<null | string>(null);
 
   useEffect(() => {
-    onOpenListenerObject.listener = () => {
+    linkingObject.listener = () => {
       onOpen();
+    };
+
+    linkingObject.event = (optionsOrName: UaEventOptions | string) => {
+      if (!accepted) return;
+      ReactGA.event(optionsOrName);
     };
 
     initTracking();
@@ -46,12 +60,14 @@ export function Cookies() {
   }, []);
 
   useEffect(() => {
-    if (!accepted) return;
+    const page = location.pathname + location.search;
+    if (prevPage === page || !accepted) return;
+    setPrevPage(page);
     ReactGA.send({
       hitType: 'pageview',
       page: location.pathname + location.search,
     });
-  }, [location, accepted]);
+  }, [location, accepted, prevPage]);
 
   function accept() {
     if (window.location.hostname === 'localhost') {

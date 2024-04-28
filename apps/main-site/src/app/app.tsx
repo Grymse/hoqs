@@ -5,12 +5,13 @@ import { IntlProvider } from 'react-intl';
 import {
   DarkModeProvider,
   AuthProvider,
-  Cookies,
+  Analytics,
   Navbar,
   Footer,
   BackgroundEffect,
   messages,
 } from '@hoqs/core';
+
 import Routes from './Routes';
 
 export default function App() {
@@ -22,7 +23,7 @@ export default function App() {
             <UIProvider>
               <div className="min-w-screen min-h-screen flex relative items-center flex-col">
                 <Toaster toastOptions={toastOptions} />
-                <Cookies />
+                <Analytics />
                 <Navbar />
                 <Routes />
                 <Footer />

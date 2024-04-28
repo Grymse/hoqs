@@ -1,7 +1,7 @@
 import Text from './ui/Text';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { openCookieModal } from './Cookies';
+import { openCookieModal } from './Analytics';
 
 export function Footer() {
   return (

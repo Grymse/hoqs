@@ -20,6 +20,7 @@ export function ImageFullscreen({
     // @ts-expect-error className is not in the EventTarget type
     if (e.target.className.startsWith('swiper-slide')) onOpenChange(false);
   }
+
   return (
     <Modal
       size="full"

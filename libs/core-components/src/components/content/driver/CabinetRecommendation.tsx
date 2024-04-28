@@ -58,7 +58,7 @@ export function CabinetRecommendation({ driverId }: Props) {
       .eq('driver_id', driverId)
   );
 
-  const { StatusComponent, data: cabinetRecommendations, isLoading } =
+  const { data: cabinetRecommendations, isLoading } =
     // @ts-expect-error - Injecting the type of the request makes it complain
     useSupabaseRequest<CabinetRecommendation[]>(cabinetReqRef.current, true);
 

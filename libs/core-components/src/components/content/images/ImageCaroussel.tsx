@@ -10,10 +10,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { useDisclosure } from '@nextui-org/react';
 import ImageFullscreen from './ImageFullscreen';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ButtonWithConfirm from 'libs/core-components/src/components/modals/ButtonWithConfirm';
 import ImageDescription from './ImageDescription';
 import ImageEditForm from './ImageEditForm';
+import { sendAnalyticsEvent } from '../../Analytics';
 
 // import required modules
 
@@ -41,6 +42,16 @@ export function ImageCaroussel({
   function setImage(index: number, image: StorageImage) {
     setImages?.(images?.map((img, i) => (i === index ? image : img)) || []);
   }
+
+  useEffect(() => {
+    if (isFullscreen) {
+      sendAnalyticsEvent({
+        category: 'Image',
+        action: 'Fullscreen',
+        label: currentImage?.title,
+      });
+    }
+  }, []);
 
   return (
     <>

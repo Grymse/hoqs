@@ -90,7 +90,7 @@ export function DriverRecommendation({ id }: Props) {
               <TableColumn key="name">Driver</TableColumn>
               <TableColumn key="specs">Specs</TableColumn>
               <TableColumn key="height">Rank</TableColumn>
-              <TableColumn key="height">Notes</TableColumn>
+              <TableColumn key="notes">Notes</TableColumn>
             </TableHeader>
             <TableBody
               isLoading={isLoading}

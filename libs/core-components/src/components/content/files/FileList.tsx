@@ -14,6 +14,7 @@ import ButtonWithConfirm from 'libs/core-components/src/components/modals/Button
 import FileEditForm from './FileEditForm';
 import BadgeList from '../badges/BadgeList';
 import { FILE_BADGES } from 'libs/core-components/src/lib/variables';
+import { sendAnalyticsEvent } from '../../Analytics';
 
 interface Props {
   files: StorageFile[] | null;
@@ -48,6 +49,11 @@ export function FileList({ files, setFiles }: Props) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    sendAnalyticsEvent({
+      category: 'File',
+      action: 'Download',
+      label: file.title,
+    });
   }
 
   return (
