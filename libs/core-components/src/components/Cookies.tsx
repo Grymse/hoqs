@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ReactGA from 'react-ga';
+import ReactGA from 'react-ga4';
 import { useLocation } from 'react-router-dom';
 import {
   Modal,
@@ -47,11 +47,16 @@ export function Cookies() {
 
   useEffect(() => {
     if (!accepted) return;
-
-    ReactGA.pageview(location.pathname + location.search);
+    ReactGA.send({
+      hitType: 'pageview',
+      page: location.pathname + location.search,
+    });
   }, [location, accepted]);
 
   function accept() {
+    if (window.location.hostname === 'localhost') {
+      setAccepted(false);
+    }
     setAccepted(true);
     setCookie('cookie-accepted', 'true');
   }
@@ -113,9 +118,7 @@ export function Cookies() {
 export const initTracking = () => {
   ReactGA.set({ anonymizeIp: true });
 
-  ReactGA.initialize('G-X85CL65GX1', {
-    debug: process.env.NODE_ENV === 'development',
-  });
+  ReactGA.initialize('G-X85CL65GX1');
 };
 
 function setCookie(cname: string, cvalue: string, exdays = 365) {
