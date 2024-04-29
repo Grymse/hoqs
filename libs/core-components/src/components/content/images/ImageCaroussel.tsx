@@ -21,6 +21,7 @@ interface Props {
   isFullscreen?: boolean;
   initialSlide?: number;
   setImages?: (images: StorageImage[]) => void;
+  className?: string;
 }
 
 export function ImageCaroussel({
@@ -28,6 +29,7 @@ export function ImageCaroussel({
   isFullscreen = false,
   initialSlide = 0,
   setImages,
+  className,
 }: Props) {
   const { onOpen, isOpen, onOpenChange } = useDisclosure();
   const [slideIndex, setSlideIndex] = useState(initialSlide);
@@ -66,7 +68,7 @@ export function ImageCaroussel({
         }}
         className={`w-full h-full rounded-lg ${
           isFullscreen ? '' : 'max-h-[30rem]'
-        }`}
+        } ${className ?? ''}`}
         onClick={onOpen}
       >
         {images?.map((image, i) => (
@@ -77,7 +79,6 @@ export function ImageCaroussel({
               justifyContent: 'center',
               alignItems: 'center',
               height: '100%',
-              minHeight: '100%',
             }}
           >
             <img

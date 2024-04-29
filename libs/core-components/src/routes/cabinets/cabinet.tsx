@@ -32,7 +32,7 @@ export function Cabinet() {
       )}
       {cabinet && (
         <div>
-          <ImageCaroussel images={cabinet.images} />
+          <ImageCaroussel images={cabinet.images} className="mb-8" />
           <div className="flex justify-between">
             <Header>{cabinet.brand + ' ' + cabinet.model}</Header>
             <ProtectedFeature>
