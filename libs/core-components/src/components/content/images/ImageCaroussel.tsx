@@ -3,13 +3,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import { StorageImage } from 'libs/core-components/src/types/types';
 import { Pencil, Trash2 } from 'lucide-react';
+import { Keyboard } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { useDisclosure } from '@nextui-org/react';
-import ImageFullscreen from './ImageFullscreen';
+import ImageFullscreenButton from './ImageFullscreenButton';
 import { useEffect, useState } from 'react';
 import ButtonWithConfirm from 'libs/core-components/src/components/modals/ButtonWithConfirm';
 import ImageDescription from './ImageDescription';
@@ -35,6 +36,23 @@ export function ImageCaroussel({
   const [slideIndex, setSlideIndex] = useState(initialSlide);
   const currentImage = images?.[slideIndex];
 
+  /* useEffect(() => {
+    // If fullscreen add event listener to a arrows to navigate
+    if (isFullscreen && images) {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'ArrowRight') {
+          setSlideIndex((index) =>
+            index + 1 < images.length ? index + 1 : index
+          );
+        } else if (e.key === 'ArrowLeft') {
+          setSlideIndex((index) => (index - 1 >= 0 ? index - 1 : index));
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isFullscreen]); */
+
   function deleteImage(index: number) {
     setImages?.(images?.filter((_, i) => i !== index) || []);
   }
@@ -57,9 +75,12 @@ export function ImageCaroussel({
     <>
       {isFullscreen && <ImageDescription image={currentImage} />}
       <Swiper
-        modules={[Navigation, Pagination]}
+        modules={[Navigation, Pagination, Keyboard]}
         pagination={{
           clickable: true,
+        }}
+        keyboard={{
+          enabled: isFullscreen,
         }}
         navigation={true}
         initialSlide={initialSlide}
@@ -112,7 +133,7 @@ export function ImageCaroussel({
         )}
       </Swiper>
       {images && !isFullscreen && (
-        <ImageFullscreen
+        <ImageFullscreenButton
           images={images}
           isOpen={isOpen}
           onOpenChange={onOpenChange}

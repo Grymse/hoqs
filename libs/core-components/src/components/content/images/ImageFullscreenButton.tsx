@@ -3,19 +3,19 @@ import { Modal, ModalContent, Button } from '@nextui-org/react';
 import React from 'react';
 import ImageCaroussel from './ImageCaroussel';
 
-interface ImageFullscreenProps {
+interface ImageFullscreenButtonProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   images: StorageImage[];
   initialSlide?: number;
 }
 
-export function ImageFullscreen({
+export function ImageFullscreenButton({
   isOpen,
   onOpenChange,
   images,
   initialSlide = 0,
-}: ImageFullscreenProps) {
+}: ImageFullscreenButtonProps) {
   function onClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     // @ts-expect-error className is not in the EventTarget type
     if (e.target.className.startsWith('swiper-slide')) onOpenChange(false);
@@ -71,4 +71,4 @@ export function ImageFullscreen({
   );
 }
 
-export default ImageFullscreen;
+export default ImageFullscreenButton;
