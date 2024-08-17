@@ -10,6 +10,7 @@ export * from './routes/index';
 export * from './routes/drivers/edit';
 export * from './routes/drivers/drivers';
 export * from './routes/drivers/driver';
+export * from './routes/wiki/page';
 
 // imported by App.tsx
 export * from './components/Navbar';

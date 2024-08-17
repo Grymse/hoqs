@@ -28,7 +28,7 @@ interface Props {
 export function ImageCaroussel({
   images,
   isFullscreen = false,
-  initialSlide = 0, // TODO: Set back to 0
+  initialSlide = 0,
   setImages,
   className,
 }: Props) {
