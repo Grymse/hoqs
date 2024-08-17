@@ -28,7 +28,7 @@ interface Props {
 export function ImageCaroussel({
   images,
   isFullscreen = false,
-  initialSlide = 0,
+  initialSlide = 0, // TODO: Set back to 0
   setImages,
   className,
 }: Props) {
@@ -93,20 +93,18 @@ export function ImageCaroussel({
         onClick={onOpen}
       >
         {images?.map((image, i) => (
-          <SwiperSlide
-            key={i + image.url}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-            }}
-          >
-            <img
-              src={image.url}
-              className="w-full object-contain h-full max-w-full max-h-full"
-              alt={'image of ' + image.title}
-            />
+          <SwiperSlide key={i + image.url} className="w-full h-full">
+            <div
+              className={`relative h-full w-full max-h-full max-w-full ${
+                isFullscreen ? '' : 'h-[30rem]'
+              } ${className ?? ''}`}
+            >
+              <img
+                src={image.url}
+                className="object-contain h-full w-full max-w-full max-h-full"
+                alt={'image of ' + image.title}
+              />
+            </div>
           </SwiperSlide>
         ))}
         {setImages && currentImage && (
