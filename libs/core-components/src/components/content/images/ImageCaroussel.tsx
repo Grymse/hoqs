@@ -95,8 +95,8 @@ export function ImageCaroussel({
         {images?.map((image, i) => (
           <SwiperSlide key={i + image.url} className="w-full h-full">
             <div
-              className={`relative h-full w-full max-h-full max-w-full ${
-                isFullscreen ? '' : 'h-[30rem]'
+              className={`flex justify-center items-center w-full max-h-full max-w-full ${
+                isFullscreen ? 'h-full' : 'h-[30rem]'
               } ${className ?? ''}`}
             >
               <img
