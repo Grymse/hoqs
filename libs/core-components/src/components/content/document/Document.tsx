@@ -6,7 +6,7 @@ import { Blockquote } from './components/Blockquote';
 import { Tcol, Thead, Trow, Table } from './components/Table';
 import { List, OrderedList } from './components/List';
 import Link from './components/Link';
-import { Kbd } from '@nextui-org/react';
+import { Code, Kbd } from '@nextui-org/react';
 import { Divider } from '@nextui-org/divider';
 import ImageCaroussel from '../images/ImageCaroussel';
 
@@ -51,6 +51,14 @@ export default function Document({ content }: Props) {
               },
             ]}
           />
+        ),
+        code: (x) => (
+          <Code className="px-2 py-1 text-primary-700">{x.children}</Code>
+        ),
+        pre: ({ children }) => (
+          <pre className="[&>code]:w-full [&>code]:px-4 [&>code]:py-2">
+            {children}
+          </pre>
         ),
       }}
     >
