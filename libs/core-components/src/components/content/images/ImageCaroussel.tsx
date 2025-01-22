@@ -25,7 +25,7 @@ interface Props {
   className?: string;
 }
 
-export function ImageCaroussel({
+function ImageCaroussel({
   images,
   isFullscreen = false,
   initialSlide = 0,
@@ -141,5 +141,6 @@ export function ImageCaroussel({
     </>
   );
 }
+ImageCaroussel.displayName = 'ImageCaroussel';
 
 export default ImageCaroussel;

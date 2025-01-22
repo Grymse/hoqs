@@ -1,7 +1,6 @@
-import { supabase } from 'libs/core-components/src/lib/supabase';
-import { removeFileExtension } from 'libs/core-components/src/lib/translations';
 import { AbstractStorageFile } from 'libs/core-components/src/types/types';
 import Dropzone from 'react-dropzone';
+import { useFileUploader } from '../../lib/upload';
 import toast from 'react-hot-toast';
 
 interface Props {
@@ -9,69 +8,28 @@ interface Props {
   supabasePath: string;
   subtitle: string;
   allowedTypes?: string[];
-  onFileUploaded: (file: AbstractStorageFile) => void;
+  onFilesUploaded: (file: AbstractStorageFile[]) => void;
 }
 export function Uploader({
   supabasePath,
   supabaseBucket,
   subtitle,
   allowedTypes,
-  onFileUploaded,
+  onFilesUploaded,
 }: Props) {
+  const uploadFile = useFileUploader({
+    allowedTypes,
+    supabasePath,
+    supabaseBucket,
+  });
+
   function uploadFiles(files: File[]) {
     if (5 < files.length) {
       toast.error('You can only upload 5 files at a time');
     }
-    files
-      .filter(assertFileType)
-      .filter((_, i) => i < 5)
-      .forEach((file) => {
-        toast.promise(uploadToSupabase(file), {
-          loading: `Uploading ${file.name}`,
-          success: `Successfully uploaded ${file.name}`,
-          error: (err) => `Failed to upload ${file.name} - ${err.message}`,
-        });
-      });
-  }
-
-  function assertFileType(file: File) {
-    if (allowedTypes === undefined) return true;
-
-    if (!allowedTypes.includes(file.type)) {
-      toast.error(`File type ${file.type} is not allowed`);
-      return false;
-    }
-    return true;
-  }
-
-  async function uploadToSupabase(file: File) {
-    const uploadPath = supabasePath + '/' + file.name;
-
-    const { data, error } = await supabase.storage
-      .from(supabaseBucket)
-      .upload(uploadPath, file);
-
-    // @ts-expect-error error.error is not defined in the Supabase error type
-    if (error && error.error !== 'Duplicate') throw error;
-
-    const url = supabase.storage
-      .from(supabaseBucket)
-      .getPublicUrl(data?.path || uploadPath);
-    onFileUploaded({
-      title: removeFileExtension(file.name),
-      size: file.size,
-      mimetype: file.type,
-      url: url.data.publicUrl,
-      updatedAt: new Date().toISOString(),
-      createdAt: new Date().toISOString(),
-    });
-
-    // If the file already exists, we throw an error to let the user know that the file was not uploaded,
-    // but we still return the file, so that the user can use the existing file.
-    if (error)
-      throw new Error(
-        'File already exists. Opted to use existing file in cloud storage. If the current file is deprecated or wrong, please rename the file to be uploaded and try again.'
-      );
+    Promise.all(files.filter((_, i) => i < 5).map(uploadFile)).then(
+      onFilesUploaded
+    );
   }
 
   return (

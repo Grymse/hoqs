@@ -1,11 +1,11 @@
-const content = `markdown
-# Markdown Test File
+const content = `# Markdown Test File
 
 ## Headers
 # H1
 ## H2
 ### H3
 #### H4
+
 
 ---
 
@@ -40,6 +40,7 @@ const content = `markdown
 
 ## Links
 [OpenAI](https://www.openai.com)
+[myLink](google.com "myLink")
 
 ### Link with Title
 [Markdown Guide](https://www.markdownguide.org "Visit Markdown Guide")

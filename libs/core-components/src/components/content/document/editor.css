@@ -1,0 +1,76 @@
+.markdown-editor p {
+    @apply text-default-foreground my-3 leading-7 font-light
+}
+
+.markdown-editor p strong {
+    @apply text-default-foreground my-3 leading-7 font-medium
+}
+
+.markdown-editor p em {
+    @apply text-default-foreground my-3 leading-7 font-light italic
+}
+
+.markdown-editor p del {
+    @apply text-default-foreground my-3 leading-7 font-light line-through
+}
+
+
+.markdown-editor h1 {
+    @apply text-default-foreground tracking-tight font-bold text-4xl mb-3;
+}
+
+.markdown-editor h2 {
+    @apply text-default-foreground tracking-tight font-semibold text-2xl mt-6 mb-2;
+}
+
+.markdown-editor h3 {
+    @apply text-default-foreground font-light text-2xl mt-6 mb-2;
+}
+
+.markdown-editor h4 {
+    @apply text-default-foreground my-3 leading-7 font-semibold;
+}
+
+.markdown-editor hr {
+    @apply shrink-0 bg-divider border-none w-full h-divider;
+}
+
+.markdown-editor ul {
+    @apply list-disc flex flex-col gap-2 ml-4 mt-2
+}
+
+.markdown-editor ol {
+    @apply list-decimal flex flex-col gap-2 ml-4 mt-2
+}
+
+.markdown-editor ol ol {
+    @apply list-disc flex flex-col gap-2 ml-4 mt-2
+}
+
+.markdown-editor li strong {
+    @apply dark:text-cyan-600 text-pink-500
+}
+
+.markdown-editor li {
+    @apply m-0
+}
+
+.markdown-editor {
+    @apply bg-content1 rounded-lg border-medium border-default-200 data-[hover=true]:border-default-400
+}
+
+.markdown-editor a {
+    @apply relative cursor-pointer inline-flex items-center tap-highlight-transparent outline-none data-[focus-visible=true]:z-10 data-[focus-visible=true]:outline-2 data-[focus-visible=true]:outline-focus data-[focus-visible=true]:outline-offset-2 text-medium text-primary no-underline hover:opacity-80 active:opacity-disabled transition-opacity
+}
+
+.markdown-editor blockquote {
+    @apply border px-4 my-6 py-3 rounded-xl border-default-200 dark:border-default-100 bg-default-200/20
+}
+
+.markdown-editor blockquote span {
+    @apply m-0 text-default-foreground my-3 leading-7 font-light
+}
+
+.markdown-editor code {
+    @apply h-fit font-mono font-normal inline-block whitespace-nowrap bg-default/40 text-small rounded-small px-2 py-1 text-primary-700
+}

@@ -47,6 +47,8 @@ export type SpeakerCabinet = MergeWithOverwrite<
   }
 >;
 
+export type DocumentType = Tables<'documents'>;
+
 export type MergeWithOverwrite<T, U> = Omit<T, keyof U> & U;
 
 export type ColorVariant =

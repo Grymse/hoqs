@@ -15,6 +15,7 @@ import ProtectedFeature from 'libs/core-components/src/components/auth/Protected
 import Contributors from 'libs/core-components/src/components/content/cabinet/Contributors';
 import Timeline from 'libs/core-components/src/components/content/timeline/Timeline';
 import DriverRecommendation from 'libs/core-components/src/components/content/cabinet/DriverRecommendation';
+import UnpublishedBanner from '../../components/helpers/UnpublishedBanner';
 
 export function Cabinet() {
   const { id } = useParams();
@@ -25,11 +26,7 @@ export function Cabinet() {
   return (
     <PageContainer>
       <StatusComponent />
-      {cabinet?.active === false && (
-        <div className="w-full flex justify-center bg-red-500">
-          <Text className="my-0">NOT PUBLISHED</Text>
-        </div>
-      )}
+      <UnpublishedBanner show={cabinet?.active === false} />
       {cabinet && (
         <div>
           <ImageCaroussel images={cabinet.images} className="mb-8" />

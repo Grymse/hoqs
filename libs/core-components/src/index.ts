@@ -11,6 +11,8 @@ export * from './routes/drivers/edit';
 export * from './routes/drivers/drivers';
 export * from './routes/drivers/driver';
 export * from './routes/wiki/page';
+export * from './routes/wiki/index';
+export * from './routes/wiki/edit';
 
 // imported by App.tsx
 export * from './components/Navbar';

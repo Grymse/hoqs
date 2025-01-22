@@ -41,6 +41,7 @@ import EditDriverRecommendation, {
 } from '../../components/content/cabinet/EditDriverRecommendation';
 import DeleteCabinetButton from '../../components/content/cabinet/buttons/DeleteCabinetButton';
 import SaveCabinetButton from '../../components/content/cabinet/buttons/SaveCabinetButton';
+import UnpublishedBanner from '../../components/helpers/UnpublishedBanner';
 
 export type SpeakerCabinetWithRecommedationChanges = SpeakerCabinet & {
   recommendationChanges?: DriverRecommendation[];
@@ -102,11 +103,7 @@ function EditForm({ initialCabinet }: EditFormProps) {
 
   return (
     <>
-      {!initialCabinet.active && (
-        <div className="w-full flex justify-center bg-red-500">
-          <Text className="my-0">NOT PUBLISHED</Text>
-        </div>
-      )}
+      <UnpublishedBanner show={!initialCabinet.active} />
       <div className="flex justify-between">
         <Header variant="subtitle">
           {cabinet.brand} - {cabinet.model}
@@ -114,12 +111,12 @@ function EditForm({ initialCabinet }: EditFormProps) {
 
         <Checkbox
           defaultSelected={cabinet.active}
-          aria-label="Is the cabinet active and displayed?"
+          aria-label="Is the cabinet published?"
           onChange={(e) => {
             setCabinet({ ...cabinet, active: e.target.checked });
           }}
         >
-          Active
+          Published
         </Checkbox>
       </div>
       <Header variant="sub-subtitle">Details</Header>
